@@ -1,0 +1,82 @@
+\section{逻辑}
+
+断言 (Statement) 是一类有明确真值 (T/F) 的语句, 我们定义如下运算:
+
+\begin{definition}
+    对于断言 \(A\) 定义其否定 (negation) 为 \(\neg A\), 满足如下真值表.
+    \begin{center}
+        \begin{tabular}{|c|c|}
+            \hline
+            \(A\) & \(\neg A\) \\
+            \hline
+            T & F \\
+            \hline
+            F & T \\
+            \hline
+        \end{tabular}
+    \end{center}
+
+    对于断言 \(A, B\) 定义其合取 (conjuction) 为 \(A \wedge B\), 其析取 (disjuction) 为 \(A \vee B\), 满足如下真值表.
+
+    \begin{center}
+        \begin{tabular}{|c|c|c|c|c|}
+            \hline
+            \(A\) & \(B\) & \(A \wedge B\) & \(A \vee B\) \\
+            \hline
+            T & T & T & T \\
+            \hline
+            T & F & F & T \\
+            \hline
+            F & T & F & T \\
+            \hline
+            F & F & F & F \\
+            \hline
+        \end{tabular}
+    \end{center}
+\end{definition}
+
+\begin{definition}
+    如果 \(E(x)\) 在 \(x\) 是某些对象时为断言, 则称 \(E(x)\) 为一个性质 (property).
+\end{definition}
+
+我们承认类 (class) 的概念如下, 若对象 \(x\) 属于类 \(A\), 则记为 \(x \in A\), 否则记为 \(x \notin A\).
+我们用 \(\{x \in X; E(x)\}\) 表示 \(X\) 中所有满足性质 \(E\) 的对象组成的类.
+
+\begin{definition}
+    我们用 \(\exists\) 代表存在某个对象, 用 \(\forall\) 代表所有对象都满足某个性质.
+
+    我们也用 \(\exists !\) 代表存在唯一一个对象.
+
+    我们用 \(a := b\) 标记 \(a\) 由 \(b\) 定义, \(a = b\) 代表 \(a, b\) 仅仅是相同对象的两个表示.
+\end{definition}
+
+我们有如下自明的公式.
+
+\begin{theorem}
+    \begin{align}
+        \neg \neg A &:= \neg (\neg A) = A \\
+        \neg (A \wedge B) &= \neg A \vee \neg B \\
+        \neg (A \vee B) &= \neg A \wedge \neg B \\
+        \neg (\forall x \in X : E(x)) &= \exists x \in X : \neg E(x) \\
+        \neg (\exists x \in X : E(x)) &= \forall x \in X : \neg E(x) \\
+        \neg (\forall x \in X : (\exists y \in Y : E(x, y))) &= \exists x \in X : (\forall y \in Y : \neg E(x, y)) \\
+        \neg (\exists x \in X : (\forall y \in Y : E(x, y))) &= \forall x \in X : (\exists y \in Y : \neg E(x, y))
+    \end{align}
+\end{theorem}
+
+\begin{definition}
+    对于断言 \(A, B\), 我们记断言 \(A\) 能推出 \(B\) 为 \(A \Rightarrow B\), 代表
+    \begin{equation}
+        A \Rightarrow B := (\neg A) \vee B
+    \end{equation}
+
+    而断言 \(A, B\) 等价 (\(A \Leftrightarrow B\)) 意味着 \((A \Rightarrow B) \wedge (B \Rightarrow A)\).
+\end{definition}
+
+\begin{theorem}
+    我们可以验证下述断言:
+    \begin{align}
+        (A \Rightarrow B) &\Leftrightarrow (\neg B \Rightarrow \neg A) \\
+        (A \Rightarrow B) \wedge (B \Rightarrow C) &\Rightarrow (A \Rightarrow C)
+    \end{align}
+\end{theorem}

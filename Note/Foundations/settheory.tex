@@ -1,0 +1,681 @@
+\section{集合论}
+
+集合是数学的基础, 我们在此浅浅的介绍集合论.
+
+\subsection{Zermelo-Fraenkel 公理}
+
+我们先列举这些公理, 之后再解释它们的意义.
+
+\begin{enumerate}
+    \item \textbf{外延公理 (Axiom of Extensionality):} 如果 \(A, B\) 的所有元素都相同, 则 \(A = B\).
+    \item \textbf{配对公理 (Axiom of Pairing):} 对于任意 \(a, b\), 存在集合 \(\{a,b\}\) 仅仅包含 \(a,b\).
+    \item \textbf{分离公理 (Axiom Schema of Separations):} 对于任意集合 \(A\) 和性质 \(P\), 存在集合 \(\{x \in A; P(x)\}\) 仅仅包含 \(A\) 中满足性质 \(P\) 的元素.
+    \item \textbf{并集公理 (Axiom of Union):} 对于任意集合 \(A\), 存在集合 \(\bigcup A\) 为 \(A\) 中元素之并.
+    \item \textbf{幂集公理 (Axiom of Power Set):} 对于任意集合 \(A\), 存在集合 \(\mathcal{P}(A)\) 为 \(A\) 的所有子集之集合.
+    \item \textbf{无穷公理 (Axiom of Infinity):} 存在归纳集, 也就是说 \(\exists x : [(\varnothing \in x) \wedge \forall y \in x : (y \cup \{y\} \in x)]\).
+    \item \textbf{替换公理 (Axiom Schema of Replacement):} 对于映射 \(F\), 集合 \(X\), 存在集合 \(F(X) := \{F(x) : x \in X\}\).
+    \item \textbf{正则公理 (Axiom of Regularity):} 对于任何集合 \(A\) 均存在关于从属关系 \(\in\) 极小元.
+    \item \textbf{选择公理 (Axiom of Choice):} 任何一族非空集都有选择映射.
+\end{enumerate}
+
+其中, 除最后一条以外称 Zermelo-Fraenkel 公理 (ZF), 最后一条称选择公理 (C), 我们将使用 (ZFC) 构建的公理体系.
+
+当然, 在集合论建立的时候, 其公理 (错误) 为:
+
+\textbf{朴素公理:} 对于任意性质 \(P\) 均有 \(Y = \{x : P(x)\}\) 为集合.
+
+随后提出的 Russell 悖论给出了性质 \(X:X \notin X\), 并指出 \(\{X : X \notin X\} \notin \{X : X \notin X\}\)
+是一个矛盾的命题, 数学家不得不探索更严格的建立集合论的道路.
+
+\subsubsection{类}
+
+此处我们引入类的概念作为朴素集合观点的延伸, 并且在此基础上解释公理.
+
+上一章业已给出了一些逻辑运算, 我们称用 (可以含变元) \(=, \in, \wedge,\vee,\exists\) 等等逻辑
+运算符连接的称之为公式 (formula), 记作 \(\phi(u_1, u_2, \dots, u_n)\), 其中 \(u_i\) 为变元, 无自由变元的公式称为命题.
+
+\begin{definition}
+    对于公式 \(\phi(u, u_1, u_2, \dots, u_n)\), 我们给出类 \(C\) 如 \(C := \{x : \phi(x, p_1, p_2, \dots, p_n)\}\).
+
+    \[
+        x \in C \Leftrightarrow \phi(x, p_2, \dots, p_n)
+    \]
+
+    并称类 \(C\) 由 \(p_2, \dots, p_n\) 给定 (definable), 若无这样的 \(p\) 则称 \(C\) 是给定的 (definbale).
+\end{definition}
+
+\begin{definition}
+    我们给出类 \(V = \{x : x = x\}\), 称之为宇宙类 (universal class).
+\end{definition}
+
+我们都可以定义关于类的运算如下.
+
+\begin{definition}
+    对于类 \(A, B\), 我们定义
+    \begin{align}
+        A \cap B &:= \{x : x \in A \wedge x \in B\} \\
+        A \cup B &:= \{x : x \in A \vee x \in B\} \\
+        A \setminus B &:= \{x : x \in A \wedge x \notin B\}
+    \end{align}
+
+    对于类 \(A\), 我们定义
+
+    \begin{equation}
+        \bigcup A := \{x : \exists y \in A : x \in y\}
+    \end{equation}
+\end{definition}
+
+\begin{definition}
+    我们定义 \(A \subseteq B\) 为 \(x \in A \Rightarrow x \in B\), 称 \(A\) 是 \(B\) 的子类 (subclass).
+\end{definition}
+
+每个集合 \(S\) 均可自然的被解释为一个类 \(\{x : x \in S\}\), 并交等从属关系自然可以延伸到集合上.
+
+\subsubsection{外延公理 (Extensionality)}
+
+如果 \(A, B\) 的所有元素都相同, 则 \(A = B\), 用逻辑语言表为
+\[
+    \forall x : (x \in A \Leftrightarrow x \in B) \Rightarrow A = B
+\]
+而 \(A = B \Rightarrow \forall x : (x \in A \Leftrightarrow x \in B)\) 是自明的, 也即 
+
+\[
+    \forall x : (x \in A \Leftrightarrow x \in B) \Leftrightarrow A = B
+\]
+
+\subsubsection{配对公理 (Pairing)}
+
+对于任意 \(a, b\), 存在集合 \(\{a,b\}\) 仅仅包含 \(a,b\), 用逻辑语言表为
+
+\[
+    \forall a \forall b \exists c \forall x (x \in c \Leftrightarrow x = a \vee x = b)
+\]
+
+由外延公理 \(c\) 唯一, 故记作 \(\{a,b\}\), 特别的 \(\{a,a\} = \{a\}\).
+
+\begin{example}
+    我们可以借配对公理定义元素对 \((a,b) = \{\{a\}, \{a,b\}\}\), 满足
+
+    \[
+        (a,b) = (c,d) \Leftrightarrow a = c \wedge b = d
+    \]
+
+    元组 \((a,b,c) = ((a,b),c), (a,b,c,d) = ((a,b,c),d) \dots\)
+
+    也满足 \((a,b,c) = (d,e,f) \Leftrightarrow a = d \wedge b = e \wedge c = f \dots\).
+\end{example}
+
+\subsubsection{分离公理}
+
+对于任意集合 \(A\) 和性质 \(P\), 存在集合 \(\{x \in A; P(x)\}\) 仅仅包含 \(A\) 中满足性质 \(P\) 的元素,
+用逻辑语言表为:
+
+\[
+    \forall A \forall P \exists Y \forall u (u \in Y \Leftrightarrow u \in X \wedge P(u))
+\]
+
+依外延公理可确保 \(Y\) 唯一.
+
+\begin{definition}
+    我们定义 \(A \setminus B := \{x \in A : x \notin B\}\).
+
+    定义 \(A \cap B := \{x \in A : x \in B\}\).
+\end{definition}
+
+\begin{definition}
+    空集 (empty set) 定义为 \(\varnothing := \{x \in X : x \neq x\}\), 此中要求至少存在一个集合 (可由无穷公理给定).
+\end{definition}
+
+\subsubsection{并集公理}
+
+对于任意集合 \(A\), 存在集合 \(\bigcup A\) 为 \(A\) 中元素之并, 用逻辑语言表为:
+
+\[
+    \forall X \exists Y \forall u (u \in Y \Leftrightarrow \exists z (z \in X \wedge u \in z))
+\]
+
+引入缩写 \((\exists z \in X) \phi(z) := \exists z (z \in X \wedge \phi(z))\) 与
+\((\forall z \in X) \phi(z) := \forall z (z \in X \Rightarrow \phi(z))\), 则上述公理可表为
+
+\[
+    \forall X \exists Y \forall u (u \in Y \Leftrightarrow (\exists z \in X) u \in z)
+\]
+
+外延公理确保 \(Y\) 之唯一性, 我们定义 \(X \cup Y := \bigcup \{X, Y\}, X \cup Y \cup Z := (X \cup Y) \cup Z = \bigcup \{X,Y,Z\}\)
+等等. 也定义 \(\{x, y, z\} := \{x\} \cup \{y\} \cup \{z\}\) 等等.
+
+\begin{definition}
+    对称差 (symmetric difference) 定义为 \(X \triangle Y := (X \setminus Y) \cup (Y \setminus X)\).
+\end{definition}
+
+\subsubsection{幂集公理}
+
+对于任意集合 \(A\), 存在集合 \(\mathcal{P}(A)\) 为 \(A\) 的所有子集之集合, 用集合论语言表示为.
+
+\[
+    \forall X \exists Y \forall u (u \in Y \Leftrightarrow u \subseteq X)
+\]
+
+而子集的定义继承自类, 也即
+
+\[
+    X \subseteq Y := \forall z (z \in U \Rightarrow z \in X)
+\]
+
+\begin{definition}
+    我们称 \(X \subset Y\) 为真子集 (proper subset), 若 \(X \subseteq Y \wedge X \neq Y\).
+\end{definition}
+
+幂集公理给了我们集合论的很大自由, 比如我们可以定义积.
+
+\begin{definition}
+    对于集合 \(X,Y\) 定义其积为 \(X \times Y := \{(x,y) : x \in X \wedge y \in Y\}\).
+
+    而 \(X \times Y\) 为一集合, 源于幂集公理与分离公理, 也即
+
+    \[
+        X \times Y = \{u \in \mathcal{P} \mathcal{P} (A \cup B) : \exists x \in X \exists y \in Y (u = (x,y))\}
+    \]
+
+    同理以定义多个集合的积, 我们用 \(X^n\) 指代 \(n\) 个 \(X\) 的积.
+\end{definition}
+
+\begin{definition}
+    \(X\) 上 \(n\) 元关系意在指 \(R \subseteq X^n\), 我们用记号 \(R(x_1,x_2,\dots,x_n)\)
+    指代 \((x_1,x_2,\dots,x_n) \in R\), 特别的, 对于二元关系, 我们用记号 \(xRy\) 指代 \((x,y) \in R\).
+
+    可以定义定义域和值域 (构成集合) 如下:
+
+    \begin{align}
+        \mathrm{dom}(R) &:= \{x : \exists y (xRy)\} \\
+        \mathrm{ran}(R) &:= \{y : \exists x (xRy)\} \\
+        \mathrm{field}(R) &:= \mathrm{dom}(R) \cup \mathrm{ran}(R)
+    \end{align}
+\end{definition}
+
+\begin{definition}
+    映射 (function) \(f\) 是一个二元关系, 且满足 \(x f y \wedge x f z \Rightarrow y = z\).
+    我们记 \(f(x) := y \Leftrightarrow x f y\), 称 \(f\) 在 \(x\) 处的值为 \(y\).
+
+    \(f\) 是 \(X\) 向 \(Y\) 之映射, 记作 \(f : X \to Y\), 若 \(\mathrm{dom}(f) = X\), \(\mathrm{ran}(f) \subseteq Y\).
+
+    而全体 \(X\) 向 \(Y\) 之映射记作 \(Y^X \subseteq \mathcal{P} (X \times Y)\), 构成一个集合.
+
+    对于 \(f \in Y^X\), 我们称其满若 \(\mathrm{ran} (f) = Y\), 单若 \(f(x) = f(y) \Rightarrow x = y\).
+
+    \(f \in Y^X\) 也记作 \(f : X \to Y\), 并且用 \(\mapsto\) 表达值的对应, 比如 \(f : x \mapsto \{x\}\), 意味着 \(f\) 是类 \(\{u:\exists x(u=(x, \{x\}))\}\) 的一个子集.
+\end{definition}
+
+\begin{definition}
+    我们定义映射的一些操作如下:
+    \begin{enumerate}
+        \item \textbf{复合 (composition):} 对于 \(f : X \to Y, g : Y \to Z\), 定义 \(g \circ f : X \to Z\)
+            为 \((g \circ f) (x) := g(f(x))\).
+        \item \textbf{限制 (restriction):} 对于 \(f : X \to Y, A \subseteq X\), 定义 \(f \upharpoonright A : A \to Y\) 为 \(f \upharpoonright A (x) := f(x)\).
+        \item \textbf{逆 (inverse):} 对于 \(f : X \to Y\), 若 \(f\) 既单又满, 则有 \(f^{-1} : Y \to X\), 定义为 \(f^{-1}(y) := x\) 当且仅当 \(f(x) = y\).
+    \end{enumerate}
+
+    可以验证上述操作都是集合论允许的.
+\end{definition}
+
+\begin{definition}
+    一个映射自然诱导出幂集上的映射, 也即对于 \(f : X \to Y\), 仍然用 \(f\) 表示 \(\mathcal{P} X \to \mathcal{P} Y\) 的映射
+    
+    \begin{equation}
+        f(A) := \{f(x) : x \in A\} = \mathrm{ran}(f \upharpoonright A)
+    \end{equation}
+
+    和映射 \(f^{-1} : \mathcal{P} Y \to \mathcal{P} X\).
+
+    \begin{equation}
+        f^{-1}(B) := \{x \in X : f(x) \in B\}
+    \end{equation}
+\end{definition}
+
+\begin{definition}
+    若一个二元关系满足以下性质, 则称之为等价关系 (equivalence relation):
+
+    \begin{enumerate}
+        \item 自反性 (reflexivity): \(x R x\).
+        \item 对称性 (symmetry): \(x R y \Rightarrow y R x\).
+        \item 传递性 (transitivity): \(x R y \wedge y R z \Rightarrow x R z\).
+    \end{enumerate}
+
+    等价关系给出了集合的一个划分, 也即对于定义于 \(X\) 上的等价关系 \(R\), \(x \in X\) 的等价类 (equivalence class) 定义为
+
+    \begin{equation}
+        [x]_R := \{y \in X : x R y\}
+    \end{equation}
+
+    对 \(X\) 给出了拆分 \(A = \{S \in \mathcal{P} X : \exists x (S = [x]_R)\}\),
+    而 \(X = \bigcup A\) 且 \(\forall S, T \in A : S \cap T = \varnothing \Leftrightarrow S \neq T\).
+
+    同理, 对于一个划分 \(A\), 我们可以定义相应的等价关系 \(R\) 为 \(x R y \Leftrightarrow \exists S \in A (x \in S \wedge y \in S)\).
+\end{definition}
+
+\subsubsection{无穷公理}
+
+存在归纳集, 也就是说 \(\exists x : [(\varnothing \in x) \wedge \forall y \in x : (y \cup \{y\} \in x)]\).
+现在还并不具备处理其的手段, 故按下不表.
+
+\subsubsection{替换公理}
+
+对于映射 \(F\) (此处我们将映射的定义延拓至类), 集合 \(X\), 存在集合 \(F(X) := \{F(x) : x \in X\}\), 用逻辑语言表为
+
+\[
+    \forall x \forall y \forall z (\phi(x,y,p) \wedge \phi(x,z,p) \Rightarrow y = z) \Rightarrow \exists Y \forall y (y \in Y \Leftrightarrow \exists x \in X \phi(x,y,p))
+\]
+
+利用分离公理, 我们可以导出 \(p_1, p_2, \dots, p_n\) 为参数的替换公理, 或者说对于映射 \(F\),
+若 \(\mathrm{dom} (f)\) 是集合, 则 \(F(\mathrm{dom}(f))\) 也是集合 (\(\forall X \exists f (F \upharpoonright X = f)\)). 
+
+\subsubsection{正则公理}
+
+对于任何集合 \(A\) 均存在关于从属关系 \(\in\) 极小元, 用逻辑语言表为
+
+\[
+    \forall x \exists y(y \in x \wedge \forall z (\neg(z \in y)))
+\]
+
+一个基于正则公理的推论是, 不存在 \(x \in x\), 否则 \(\{x\}\) 无极小元, 同样也不存在以 \(\in\)
+为关系的无穷降链.
+
+\subsubsection{选择公理}
+
+基于同样的理由, 选择公理也按下不表.
+
+\subsection{序数}
+
+序数几乎是集合论上唯一的结构, 有必要对其进行研究.
+
+\subsubsection{偏序}
+
+\begin{definition}
+    一个 \(P\) 上二元关系 \(\le\) 称偏序关系 (partial ordering) 若满足:
+
+    \begin{enumerate}
+        \item 自反性 (reflexivity): \(x \le x\).
+        \item 反对称性 (antisymmetry): \(x \le y \wedge y \le x \Rightarrow x = y\).
+        \item 传递性 (transitivity): \(x \le y \wedge y \le z \Rightarrow x le z\).
+    \end{enumerate}
+
+    称线序则要求 \(\forall x \forall y (x \le y \vee y \le x)\).
+
+    若偏序由 \(\le\) 给定, 我们也用 \(\ge, <, >\), 其意义是自明的.
+\end{definition}
+
+\begin{definition}
+    对于偏序集 (partially ordered set) \((P, \le)\), 对于 \(X \subseteq P\) 定义:
+    \begin{enumerate}
+        \item 极大元 (maximal element): \(x \in X\) 为极大元, 若 \(\forall y \in X (x \le y \Rightarrow x = y)\).
+        \item 极小元 (minimal element): \(x \in X\) 为极小元, 若 \(\forall y \in X (y \le x \Rightarrow x = y)\).
+        \item 最大元 (greatest element): \(x \in X\) 为最大元, 若 \(\forall y \in X (y \le x)\).
+        \item 最小元 (least element): \(x \in X\) 为最小元, 若 \(\forall y \in X (x \le y)\).
+        \item 上界 (upper bound): \(x \in X\) 为上界, 若 \(\forall y \in X (y \le x)\).
+        \item 下界 (lower bound): \(x \in X\) 为下界, 若 \(\forall y \in X (x \le y)\).
+        \item 上确界 (supremum): \(x \in P\) 为上确界, 若 \(x\) 为上界且对于任意上界 \(y\) 有 \(x \le y\).
+        \item 下确界 (infimum): \(x \in P\) 为下确界, 若 \(x\) 为下界且对于任意下界 \(y\) 有 \(y \le x\).
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    若偏序集 \((P, \le)\) 中任意两个元素均有上确界和下确界, 命之为格 (lattice), 格的理论将在后面几章叙述.
+\end{definition}
+
+\begin{definition}
+    偏序是集合上的结构, 我们研究保持偏序结构的映射, 也即对于偏序集 \((P, \le)\) 和 \((Q, \le)\),
+    若单射 \(f : P \to Q\) 满足 \(x \le y \Rightarrow f(x) \le f(y)\), 则称 \(f\) 为保序映射 (order-preserving map)
+    线序间的保序映射也称增 (increasing).
+\end{definition}
+
+\begin{definition}
+    对于偏序集 \((P, \le_P)\) 和 \((Q, \le_Q)\), 若存在保序双射 \(f : P \to Q\), 且其逆映射亦保序, 则称同构 (isomorphism), 记作 \(P \cong Q\).
+\end{definition}
+
+\subsubsection{良序}
+
+\begin{definition}
+    一个线序称为良序 (well-ordering), 若其任意非空子集均有最小元.
+\end{definition}
+
+\begin{lemma}
+    \label{lemma:well-ordering increasing map lemma}
+    对于良序 \((W, \le)\) 以及增映射 \(f : W \to W\), 则 \(\forall x (x \le f(x))\).
+
+    \begin{proof}
+        构造 \(W\) 子集 \(S = \{x \in W : x > f(x)\}\), \(S\) 有最小元 \(x\),
+        而 \(x > f(x)\) 意味着 \(f(x) > f(f(x))\), 而 \(f(x) < x\) 与 \(x\) 最小矛盾.
+    \end{proof}
+\end{lemma}
+
+\begin{corollary}
+    良序集自同构 (automorphism) 必为恒等映射.
+\end{corollary}
+
+\begin{corollary}
+    两个良序集间的同构存在则唯一.
+\end{corollary}
+
+\begin{definition}
+    良序集的前段 (initial segment) 定义为 \(S \subseteq W\) 且 \(x \ge y \Rightarrow (x \in S \Rightarrow y \in S)\).
+\end{definition}
+
+\begin{lemma}
+    \label{lemma:well-ordering segment is well-ordering lemma}
+    前段是良序集, 序继承自原良序集, 并可写成 \(\{x \in W : x < u\}\) 的形式, 称为 \(u\) 的前段 \(W(u)\).
+
+    \begin{proof}
+        对于 \(S\) 子集, 取其在 \(W\) 中最小元 \(x\) 即可. 而 \(S\) 可以被写成 \(W \setminus S\) 最小元的前段.
+    \end{proof}
+\end{lemma}
+
+\begin{lemma}
+    \label{lemma:well-ordering segment unequal lemma}
+    真前段必不同构于原良序集.
+
+    \begin{proof}
+        同构于前段违反 \ref{lemma:well-ordering increasing map lemma}.
+    \end{proof}
+\end{lemma}
+
+\begin{theorem}
+    \label{theorem:well-ordering segment equal theorem}
+    任意两个良序集 \(W, W^\prime\) 一下三者成立其一:
+    \begin{enumerate}
+        \item \(W \cong W^\prime\).
+        \item \(W\) 同构于 \(W^\prime\) 的真前段.
+        \item \(W^\prime\) 同构于 \(W\) 的真前段.
+    \end{enumerate}
+
+    \begin{proof}
+        构造 \(f = \{(x,y) \in W \times W^\prime : W(x) \cong W^\prime(y)\}\),
+        根据 \ref{lemma:well-ordering segment unequal lemma} 有 \(\{(x,y) \in f \wedge (x,z) \in f \Rightarrow y = z\}\) 与
+        \(\{(y,x) \in f \wedge (z,x) \in f \Rightarrow y=z\}\), 
+        故 \(f\) 为 \(\mathrm{dom} (f)\) 与 \(\mathrm{ran} (f)\) 间的双射.
+
+        注意到若 \(\mathrm{dom} (f) \neq W\), 且 \(\mathrm{ran} (f) \neq W^\prime\),
+        则取最小元 \(x \in W \setminus \mathrm{dom} (f)\) 与 \(y \in W^\prime \setminus \mathrm{ran} (f)\),
+        \(f\) 是 \(W(x)\) 与 \(W^\prime(y)\) 间同构故 \((x,y) \in f\), 与 \(x \in \mathrm{dom} (f)\) 矛盾.
+
+        故 \((\mathrm{dom} (f) = W) \wedge (\mathrm{ran} (f) = W^\prime)\), \((\mathrm{dom} (f) = W) \wedge \neg(\mathrm{ran} (f) = W^\prime)\), 
+        \(\neg(\mathrm{dom} (f) = W) \wedge (\mathrm{ran} (f) = W^\prime)\) 三者成立其一, 也即上述命题成立.
+    \end{proof}
+\end{theorem}
+
+\begin{definition}
+    同构的良序集称为有同样的序形 (order type), 序数是表示序形的集合.
+\end{definition}
+
+\subsubsection{序数}
+
+\begin{definition}
+    一个传递集 (transitive set) 定义为 \(\bigcup x \subseteq x\) 的集合 \(x\), 也即 \(x\) 的元素也都是 \(x\) 的子集.
+\end{definition}
+
+\begin{definition}
+    \label{definition:ordinal}
+    一个序数 (ordinal numbers) 是一个传递的良序集, 偏序 \(<\) 由 \(\in\) 给出.
+\end{definition}
+
+我们用 \(\mathbf{On}\) 表示全体序数构成的类.
+
+\begin{lemma}
+    \label{lemma:ordinal numbers properties}
+    序数满足如下性质:
+
+    \begin{enumerate}
+        \item \(\varnothing \in \mathbf{On}\) 
+        \item \(\alpha \in \mathbf{On} \wedge \beta \in \alpha \Rightarrow \beta \in \mathbf{On}\)
+        \item \(\alpha \in \mathbf{On} \wedge \beta \in \mathbf{On} \Rightarrow (\alpha \subset \beta \Rightarrow \alpha \in \beta)\)
+        \item \(\alpha \in \mathbf{On} \wedge \beta \in \mathbf{On} \Rightarrow \alpha \subseteq \beta \vee \beta \subseteq \alpha\)
+    \end{enumerate}
+
+    \begin{proof}
+        第一条是自明的. 第二条源于 \ref{lemma:well-ordering segment is well-ordering lemma} 和
+        \(\forall x \in \tau \in \beta \Rightarrow x \in \beta\). 第三条可以取 \(\beta \setminus \alpha\) 的最小元 \(\gamma\),
+        注意到 \(\gamma \in x \in \alpha \Rightarrow \gamma \in \alpha\), 故 \(\alpha = \beta(\gamma) = \gamma\) 而后面一个等号无非源自 \(\gamma \subseteq \beta\) 与 \(\gamma\) 的极小性.
+        第四条只需注意到 \(\alpha \cap \beta \notin \alpha \cap \beta\) 即可.
+    \end{proof}
+\end{lemma}
+
+由 \ref{lemma:ordinal numbers properties} 立得以下推论:
+
+\begin{corollary}
+    \label{corollary:ordinal numbers properties}
+    首先, 我们将偏序推广到类 \(\mathbf{On}\) 上, 也即 \(\alpha \le \beta \Leftrightarrow \alpha \subseteq \beta\),
+
+    \begin{enumerate}
+        \item 对于任意序数 \(\alpha\), 有 \(\alpha = \{\beta : \beta < \alpha\}\).
+        \item 类 \(C \subseteq \mathbf{On}\), 则有 \(\mathrm{inf} C := \bigcap C\) 为序数.
+        \item 集合 \(S \subseteq \mathbf{On}\), 则有 \(\mathrm{sup} S := \bigcup S\) 为序数.
+    \end{enumerate}
+\end{corollary}
+
+\begin{lemma}
+    任何良序集 \(W\) 都同构于某个序数.
+
+    \begin{proof}
+        定义类 \(F = \{u : \exists x \exists y(u=(x,y) \wedge x \in W \wedge W(x) \cong y \wedge y \in \mathbf{On})\}\), 
+        考察 \(F \upharpoonright W\) 即可, 由替换公理知 \(\mathrm{ran} (f)\) 是序数.
+    \end{proof}
+\end{lemma}
+
+\begin{definition}
+    对于序数 \(\alpha\), 定义 \(\alpha + 1 := \alpha \cup \{\alpha\}\), 称为 \(\alpha\) 的后继 (successor), 后继也是序数.
+\end{definition}
+
+\begin{corollary}
+    \label{corollary:ordinal numbers are successors or limits}
+    若一个非空序数不是后继, 则其为极限序数 (limit ordinal), 即 \(\alpha = \bigcup \alpha\).
+
+    \begin{proof}
+        若否, 有 \(\bigcup \alpha + 1 \in \alpha\) 故 \(\bigcup \alpha \in \bigcup \alpha\).
+    \end{proof}
+\end{corollary}
+
+有了后继序数, 我们可以着手定义自然数.
+
+\begin{definition}
+    \label{definition:natural numbers}
+    自然数 (natural numbers) 如此的定义:
+    \begin{enumerate}
+        \item \(0 := \varnothing\).
+        \item \(n + 1 := n \cup \{n\}\).
+    \end{enumerate}
+\end{definition}
+
+\subsection{归纳}
+
+归纳的思想可以追溯到 Peano 公理.
+
+\begin{example}
+    \textbf{Peano 公理:} 自然数满足以下性质:
+    \begin{enumerate}
+        \item \(0\) 是自然数.
+        \item 对于任意自然数 \(n\), 存在唯一自然数 \(n+1\) 使得 \(n+1\) 是 \(n\) 的后继.
+        \item \(0\) 不是任何自然数的后继.
+        \item 不同自然数的后继不同.
+        \item \textbf{数学归纳法:} 若性质 \(P\) 满足 \(P(0) \wedge \forall n (P(n) \Rightarrow P(n+1))\), 则 \(P(n)\) 对于任意自然数 \(n\) 成立. 
+    \end{enumerate}
+\end{example}
+
+在所述集合论中, 我们想要找到自然数集作为 Peano 公理的对应, 此时我们需要引入无穷公理.
+
+\begin{definition}
+    \label{definition:omega}
+    \(\omega\) 定义为归纳集中的最小元, 对于给定的归纳集 \(X\), 可以给出 \(\omega = \bigcap \{x : x \subseteq X \wedge \varnothing \in y \wedge \forall y \in x (y \cup \{y\}) \in x\}\).
+
+    \begin{proof}
+        集合的交可以用 \(\setminus, \bigcup\) 表示, 故成为一个集合.
+
+        易证 \(\omega\) 归纳, 任取归纳集 \(Y\), 注意到 \(X \cap Y\) 也是归纳集, 故 \(\omega \subseteq Y\).
+    \end{proof}
+\end{definition}
+
+\begin{corollary}
+    极限序数都是归纳集, 故 \(\omega\) 是最小的极限序数.
+\end{corollary}
+
+\begin{theorem}
+    \label{theorem:mathematical induction}
+    \textbf{数学归纳法:} 称 \(\omega\) 为自然数集, \(\omega\) 中的元素称自然数, 若性质 \(P\) 对 \(0\) 成立, 且若对自然数 \(n\) 成立则对 \(n+1\) 成立, 则对任意自然数 \(n \in \omega\) 成立.
+    
+    \begin{proof}
+        取不是自然数的最小元, 其是后继序数 \(n+1\), 而 \(n\) 是自然数.
+
+        同理, 取不满足 \(P\)的最小元, 其是后继序数 \(n+1\), 而 \(n\) 满足 \(P\).
+    \end{proof}
+\end{theorem}
+
+\begin{theorem}
+    \label{theorem:transfinite induction}
+    \textbf{超限归纳法:} 若性质 \(P\) 满足如下性质:
+    \begin{enumerate}
+        \item \(P(0)\) 成立.
+        \item 若 \(\alpha\) 是极限序数 \((\forall \beta < \alpha (P(\beta)) \Rightarrow P(\alpha))\).
+        \item 若 \(\alpha = \beta + 1\) 是后继序数 \(P(\beta) \Rightarrow P(\alpha)\).
+    \end{enumerate}
+
+    则对于任意序数 \(\alpha\), \(P(\alpha)\) 总成立.
+
+    \begin{proof}
+        若对于序数 \(\gamma\) 不成立, 有最小序数 \(\alpha\) 不成立, 而无论其是否是后继序数都矛盾了.
+    \end{proof}
+\end{theorem}
+
+依赖于超限归纳法, 我们可以定义序数运算, 运算结果仍是序数.
+
+\begin{definition}
+    给定 \(\alpha\), 分别对于空集, 后继序数, 极限序数定义 \(\alpha + 0 := \alpha\), \(\alpha + (\beta + 1) := (\alpha + \beta) + 1\), \(\alpha + \gamma := \bigcup_{\beta < \gamma} (\alpha + \beta)\) 为序数的和.
+\end{definition}
+
+\begin{definition}
+    给定 \(\alpha\), 分别对于空集, 后继序数, 极限序数定义 \(\alpha \cdot 0 := 0\), \(\alpha \cdot (\beta + 1) := (\alpha \cdot \beta) + \alpha\), \(\alpha \cdot \gamma := \bigcup_{\beta < \gamma} (\alpha \cdot \beta)\) 为序数的积.
+\end{definition}
+
+\begin{definition}
+    给定 \(\alpha\), 分别对于空集, 后继序数, 极限序数定义 \(\alpha^0 := 1\), \(\alpha^{\beta + 1} := \alpha^\beta \cdot \alpha\), \(\alpha^\gamma := \bigcup_{\beta < \gamma} (\alpha^\beta)\) 为序数的幂.
+\end{definition}
+
+\begin{lemma}
+    对于序数 \(\alpha, \beta, \gamma\), 有
+    \begin{enumerate}
+        \item \((\alpha + \beta) + \gamma = \alpha + (\beta + \gamma)\).
+        \item \((\alpha \cdot \beta) \cdot \gamma = \alpha \cdot (\beta \cdot \gamma)\).
+    \end{enumerate}
+
+    \begin{proof}
+        对 \(\gamma\) 进行超限归纳即可.
+    \end{proof}
+\end{lemma}
+
+\begin{definition}
+    对于线序集 \(A, B\), 定义线序集的积 \(A \times B\) 为 \(A \times B\) 上的线序 \((a,b) < (c,d)\) 当且仅当 \(b < d \vee (b = d \wedge a < c)\).
+
+    定义线序集的和 \(A + B\) 为 \(A \times \{0\} \cup B \times \{1\}\) 上的线序, 其中 \((a,0) < (b,1)\) 对于任意 \(a \in A, b \in B\) 成立.
+\end{definition}
+
+\begin{definition}
+    对于序数 \(\alpha, \beta\), 序数和同构于线序和 \(\alpha + \beta\), 序数积同构于线序积 \(\alpha \cdot \beta\).
+
+    \begin{proof}
+        对 \(\beta\) 归纳.
+    \end{proof}
+\end{definition}
+
+\begin{lemma}
+    加法乘法满足如下性质:
+
+    \begin{enumerate}
+        \item \(\beta < \gamma \Rightarrow \alpha + \beta < \alpha + \gamma\).
+        \item \(\alpha < \beta \Rightarrow \exists ! \gamma (\beta = \alpha + \gamma)\).
+        \item \(\beta < \gamma \Rightarrow \alpha \cdot \beta < \alpha \cdot \gamma\).
+        \item \(\alpha > 0 \Rightarrow \forall \gamma \exists \beta \exists \rho (\gamma = \beta \cdot \alpha + \rho \wedge \rho < \alpha)\).
+        \item \(\beta < \gamma \wedge \alpha > 1 \Rightarrow \alpha^\beta < \alpha^\gamma\).
+    \end{enumerate}
+
+    \begin{proof}
+        一三五对 \(\gamma\) 归纳, 二则是 \(\{\chi : \alpha \le \chi < \beta\}\) 上的良序, 唯一性由第一条确保.
+        四则取 \(\beta\) 为最大的 \(\alpha \cdot \beta \le \gamma\) 的序数.
+    \end{proof}
+\end{lemma}
+
+\begin{theorem*}
+    [Cantor's Normal Form Theorem] 任意序数 \(\alpha > 0\) 可以被唯一的写作
+    \(\alpha = \omega^{\beta_1} \cdot \gamma_1 + \omega^{\beta_2} \cdot \gamma_2 + \dots + \omega^{\beta_n} \cdot \gamma_n\),
+    其中 \(\alpha \ge \beta_1 > \beta_2 > \dots > \beta_n\) 为序数, \(\gamma_1, \gamma_2, \dots, \gamma_n\) 为自然数.
+
+    \begin{proof}
+        注意到 \(1 = \omega^0\), 取极大 \(\beta_1\) 使得 \(\omega^{\beta_1} \le \alpha\), 有 \(\alpha = \omega^{\beta_1} \cdot \gamma_1 + \rho\),
+        对 \(\rho\) 施以归纳即可, \(n\) 有限基于正则公理.
+    \end{proof}
+\end{theorem*}
+
+\begin{example*}
+    [Hydra 数] 对于一个有根树, 每次选取一个叶节点 \(p\) 以及一个自然数 \(n\).
+    删去 \(p\) 寻求 \(p\) 的父节点, 若其不是根节点, 则将其父节点复制 \(n\) 份,
+    连接到 \(p\) 的祖父节点处, 则不论如何操作, 最终都会到达只有根节点的树.
+
+    \begin{proof}
+        对每颗树 \(T\), 其根节点连结子树 \(T_1, T_2, \dots, T_n\), 定义 \(f(T) := \omega^{f(T_1)} + \omega^{f(T_2)} + \dots + \omega^{f(T_n)}\),
+        则每步操作使 \(f\) 减小, 故有限步内必然到达 \(0\).
+    \end{proof}
+\end{example*}
+
+\begin{definition}
+    良基关系是 \(P\) 上一二元关系 \(E\), 使得 \(\forall X ((X \subseteq P \wedge X \neq \varnothing) \Rightarrow \exists a (a \in X \wedge \forall x \in X \neg(x E a)))\).
+\end{definition}
+
+\begin{example}
+    良序 \(<\) 是良基关系.
+\end{example}
+
+\begin{theorem}
+    对于良基关系 \(E\), 有唯一 \(\rho : P \to \mathbf{On}\), 使得 \(\forall x \in P (\rho(x) = \mathrm{sup} \{\rho(y) + 1 : y E x\})\) (任意非空子集有极小元).
+
+    \begin{proof}
+        归纳定义一族集合 \(P_\theta\)
+
+        \begin{enumerate}
+            \item \(P_0 := \varnothing\).
+            \item \(P_{\theta + 1} := \{x \in P : \forall y (y E x \Rightarrow y \in P_\theta)\}\).
+            \item \(P_\theta := \bigcup_{\beta < \theta} P_\beta\).
+        \end{enumerate}
+
+        若有 \(P_\theta = P_{\theta + 1}\), 此时
+        必然有 \(P_\theta = P\), 若否 \(P \setminus P_\theta\) 有极小元 \(x\), 有 \(x \in P_{\theta + 1} \setminus P_{\theta}\), 矛盾.
+        定义 \(\rho(x) := \sup \{\alpha : x \notin P_{\alpha}\}\), 上述条件的验证是显然的.
+
+        唯一性只需考虑 \(\{x \in P : \rho_1 (x) \neq \rho_2 (x)\}\) 的极小元即可.
+    \end{proof}
+\end{theorem}
+
+\begin{definition}
+    给出一个良基关系 \(E\), 定义一个元素的秩 (rank) 为 \(\rho(x)\), \(E\) 的高 (height) 为 \(\mathrm{ran} \rho\).
+\end{definition}
+
+\subsection{Zorn 引理}
+
+这章我们来重温选择公理.
+
+\textbf{选择公理:} \(S\) 是一族集合且 \(\varnothing \notin S\), 则存在函数 \(f : S \to \bigcup S\), 使得 \(f(x) \in x\) 对于任意 \(x \in S\) 成立.
+
+\begin{lemma}
+    \label{lemma:On is not a set}
+    \(\mathbf{On}\) 不是集合.
+
+    \begin{proof}
+        若是集合, 则 \(\mathbf{On} \in \mathbf{On}\), 矛盾.
+    \end{proof}
+\end{lemma}
+
+\begin{theorem*}
+    [Zermelo 良序定理 (Zermelo's well-ordering theorem)] \label{theorem:well-ordering theorem}
+    任意集合都能被赋予良序.
+
+    \begin{proof}
+        
+    \end{proof}
+\end{theorem*}
+
+\subsection{von Neumann-Bernays-Gödel 公理}
