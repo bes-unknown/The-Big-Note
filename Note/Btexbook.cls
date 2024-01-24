@@ -326,11 +326,41 @@
     \def\@currentlabel{习题 \themath}
   }{\par \vspace{1ex}}
 
+  % hypnosis
+  \newenvironment{hypnosis}{
+    \vspace{1ex}
+    \refstepcounter{math}
+    \bfseries 假设 \themath \normalfont
+    \def\@currentlabel{假设 \themath}
+  }{\vspace{1ex} \par}
+  \newenvironment{hypnosis*}[1][]{
+    \vspace{1ex}
+    \refstepcounter{math}
+    \bfseries 假设 \themath \quad (#1) \normalfont
+    \def\@currentlabel{假设 \themath}
+  }{\par \vspace{1ex}}
+
+  % axioms
+  \newenvironment{axiom}{
+    \vspace{1ex}
+    \refstepcounter{math}
+    \bfseries 公理 \themath \normalfont
+    \def\@currentlabel{公理 \themath}
+  }{\vspace{1ex} \par}
+  \newenvironment{axiom*}[1][]{
+    \vspace{1ex}
+    \refstepcounter{math}
+    \bfseries 公理 \themath \quad (#1) \normalfont
+    \def\@currentlabel{公理 \themath}
+  }{\par \vspace{1ex}}
+
   % proof
   \newenvironment{proof}{
     \vspace{1ex}
     \bfseries 证明 \normalfont
   }{\hfill $\square$ \par \vspace{1ex}}
+
+
 
 % Header and Footer
 
