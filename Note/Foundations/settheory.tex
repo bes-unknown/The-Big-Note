@@ -47,27 +47,29 @@ von Neumann-Bernays-Gödel 公理系统的核心是类 (class) 与元素 (elemen
     \]
 \end{corollary}
 
-\begin{axiom*}[Axiom of Equality]
+\begin{axiom}[Axiom of Equality]
+    \setlabel {Axiom of Equality}
     \label {axiom:NBG Axiom of Equality}
     \[
         \forall X \forall Y (X = Y \Rightarrow \forall Z (X \in Z \Leftrightarrow Y \in Z))
     \]
-\end{axiom*}
+\end{axiom}
 
-\begin{definition*}[集合]
+\begin{definition}[集合]
     一个类 \(X\) 称集合 (set), 当且仅当 \(\exists Y (X \in Y)\), 本节中我们用小写字母 \(x, y, z, \dots\) 表示集合, 用大写字母 \(X, Y, Z, \dots\) 表示类.
-\end{definition*}
+\end{definition}
 
-\begin{definition*}[真类]
+\begin{definition}[真类]
     一个类 \(X\) 称真类 (proper class), 当且仅当 \(X\) 不是集合, 常用粗体字母 \(\mathbf{X}, \mathbf{Y}, \mathbf{Z}, \dots\) 表示真类.
-\end{definition*}
+\end{definition}
 
-\begin{axiom*}[Axiom of Pair]
+\begin{axiom}[Axiom of Pair]
+    \setlabel {Axiom of Pair}
     \label {axiom:NBG Axiom of Pair}
     \[
         \forall x \forall y \exists z \forall u (u \in z \Leftrightarrow (u = x \lor u = y))
     \]
-\end{axiom*}
+\end{axiom}
 
 上述公理展开可得 \(\forall x \forall y ((\exists X \exists Y (x \in X \land y \in Y)) \Rightarrow \exists z \exists Z (z \in Z \land \forall u (u \in Z \Leftrightarrow (u = x \lor u = y))))\),
 记集合 \(z = \{x,y\}\), 特别的, 当 \(x = y\) 时, 我们记 \(z = \{x\}\).
@@ -85,10 +87,10 @@ von Neumann-Bernays-Gödel 公理系统的核心是类 (class) 与元素 (elemen
     \end{enumerate}
 \end{corollary}
 
-\begin{definition*}[Kuratowski, 有序对]
+\begin{definition}[有序对]
     \label {definition:Kuratowski ordered pair}
     有序对 (ordered pair) \((x,y)\) 定义为 \(\{\{x\},\{x,y\}\}\).
-\end{definition*}
+\end{definition}
 
 \begin{lemma}
     有序对的有序体现在其性质 \((x,y) = (u,v) \Leftrightarrow (x = u \land y = v)\).
@@ -105,35 +107,37 @@ von Neumann-Bernays-Gödel 公理系统的核心是类 (class) 与元素 (elemen
     \end{proof}
 \end{lemma}
 
-\begin{definition*}[有序三元对]
+\begin{definition}[有序三元对]
     \label {definition:ordered triple}
     有序三元对 (ordered triple) \((x,y,z)\) 定义为 \(((x,y),z)\).
-\end{definition*}
+\end{definition}
 
-\begin{definition*}[二元关系]
+\begin{definition}[二元关系]
     \label {definition:binary relation}
     类 \(R\) 称二元关系 (binary relation), 当且仅当 \(R\) 是有序对的集合, 记作 \(\mathbf{isbinrel} (R)\).
 
     \[
         \mathbf{isbinrel} (R) \Leftrightarrow \forall z (z \in R \Rightarrow \exists x \exists y (z = (x,y)))
     \]
-\end{definition*}
+\end{definition}
 
 在不久的将来, 我们将用二元关系定义映射.
 
-\begin{axiom*}[Axiom of Membership]
+\begin{axiom}[Axiom of Membership]
+    \setlabel {Axiom of Membership}
     \label {axiom:NBG Axiom of Membership}
     \[
         \exists \mathfrak{E} \forall z (z \in \mathfrak{E} \Leftrightarrow \exists x \exists y (z = (x,y) \land x \in y))
     \]
-\end{axiom*}
+\end{axiom}
 
-\begin{axiom*}[Axiom of Domain]
+\begin{axiom}[Axiom of Domain]
+    \setlabel {Axiom of Domain}
     \label {axiom:NBG Axiom of Domain}
     \[
         \forall X \exists D \forall x (x \in D \Leftrightarrow \exists y ((x,y) \in X))
     \]
-\end{axiom*}
+\end{axiom}
 
 \begin{definition}
     \label {definition:domain}
@@ -152,12 +156,13 @@ von Neumann-Bernays-Gödel 公理系统的核心是类 (class) 与元素 (elemen
     \]
 \end{corollary}
 
-\begin{axiom*}[Axiom of Difference]
+\begin{axiom}[Axiom of Difference]
+    \setlabel {Axiom of Difference}
     \label {axiom:NBG Axiom of Difference}
     \[
         \forall X \forall Y \exists D \forall x (x \in D \Leftrightarrow (x \in X \land x \notin Y))
     \]
-\end{axiom*}
+\end{axiom}
 
 \begin{definition}
     \label {definition:difference of two classes}
@@ -194,12 +199,13 @@ von Neumann-Bernays-Gödel 公理系统的核心是类 (class) 与元素 (elemen
     \end{proof}
 \end{corollary}
 
-\begin{axiom*}[Axiom of Product]
+\begin{axiom}[Axiom of Product]
+    \setlabel {Axiom of Product}
     \label {axiom:NBG Axiom of Product}
     \[
         \forall X \forall Y \exists P \forall z (z \in P \Leftrightarrow \exists x \exists y (z = (x,y) \land x \in X \land y \in Y))
     \]
-\end{axiom*}
+\end{axiom}
 
 \begin{definition}
     \label {definition:product of two classes}
@@ -211,19 +217,21 @@ von Neumann-Bernays-Gödel 公理系统的核心是类 (class) 与元素 (elemen
     此时 \(\mathbf{isbinrel} (R) \Leftrightarrow R \subseteq \ddot {\mathfrak{U}}\).
 \end{definition}
 
-\begin{axiom*}[Axiom of Inversion]
+\begin{axiom}[Axiom of Inversion]
+    \setlabel {Axiom of Inversion}
     \label {axiom:NBG Axiom of Inversion}
     \[
         \forall X \exists I \forall z (z \in I \Leftrightarrow \exists x \exists y (z = (x,y) \land (y,x) \in X))
     \]
-\end{axiom*}
+\end{axiom}
 
-\begin{axiom*}[Axiom of Cycle]
+\begin{axiom}[Axiom of Cycle]
+    \setlabel {Axiom of Cycle}
     \label {axiom:NBG Axiom of Cycle}
     \[
         \forall X \exists C \forall t (t \in C \Leftrightarrow \exists x \exists y \exists z (t = (z,x,y) \land (x,y,z) \in X))
     \]
-\end{axiom*}
+\end{axiom}
 
 \begin{definition}
     由上述公理定义的 \(I\) 记作 \(X^{-1}\), 称为 \(X\) 的逆 (inverse), \(C\) 记作 \(X^{\circlearrowright}\), \(X^{\circlearrowleft} := {(X^{\circlearrowright})}^{\circlearrowright}\).
@@ -304,61 +312,68 @@ von Neumann-Bernays-Gödel 公理系统的核心是类 (class) 与元素 (elemen
 
 接下来从类转向集合, 定义集合的操作与要求.
 
-\begin{axiom*}[Axiom of Replacement]
+\begin{axiom}[Axiom of Replacement]
+    \setlabel {Axiom of Replacement}
     \label {axiom:NBG Axiom of Replacement}
     \[
         \forall x \forall F (\mathbf{isfunc} (F) \Rightarrow \exists y (y = F[x]))
     \]
-\end{axiom*}
+\end{axiom}
 
-\begin{axiom*}[Axiom of Union]
+\begin{axiom}[Axiom of Union]
+    \setlabel {Axiom of Union}
     \label {axiom:NBG Axiom of Union}
     \[
         \forall x \exists y (y = \bigcup x)
     \]
-\end{axiom*}
+\end{axiom}
 
-\begin{axiom*}[Axiom of Power Set]
+\begin{axiom}[Axiom of Power Set]
+    \setlabel {Axiom of Power Set}
     \label {axiom:NBG Axiom of Power Set}
     \[
         \forall x \exists y (y = \mathcal{P} (x))
     \]
-\end{axiom*}
+\end{axiom}
 
-\begin{axiom*}[Axiom of Infinity]
+\begin{axiom}[Axiom of Infinity]
+    \setlabel {Axiom of Infinity}
     \label {axiom:NBG Axiom of Infinity} (存在归纳集)
     \[
         \exists x (\varnothing \in x \land \forall y (y \in x \Rightarrow y \cup \{y\} \in x))
     \]
-\end{axiom*}
+\end{axiom}
 
-\begin{axiom*}[Axiom of Foundation]
+\begin{axiom}[Axiom of Foundation]
+    \setlabel {Axiom of Foundation}
     \label {axiom:NBG Axiom of Foundation}
     \[
         \forall x (x \neq \varnothing \Rightarrow \exists y (y \in x \land y \cap x = \varnothing))
     \]
-\end{axiom*}
+\end{axiom}
 
-\begin{axiom*}[Axiom of Global Choice]
+\begin{axiom}[Axiom of Global Choice]
+    \setlabel {Axiom of Global Choice}
     \label {axiom:NBG Axiom of Global Choice}
     \[
         \exists f (\mathbf{isfunc} (f) \land \forall x (x \neq \varnothing \Rightarrow \exists y (y \in x \land (x,y) \in f)))
     \]
-\end{axiom*}
+\end{axiom}
 
 上述 \ref{axiom:NBG Axiom of Global Choice} 有个弱化版本如下:
 
-\begin{axiom*}[Axiom of Choice]
+\begin{axiom}[Axiom of Choice]
+    \setlabel {Axiom of Choice}
     \label {axiom:NBG Axiom of Choice}
     \[
         \forall x \exists f (\mathbf{isfunc} (f) \land \forall y (y \in x \Rightarrow \exists z ((y,z) \in f)))
     \]
-\end{axiom*}
+\end{axiom}
 
 NBG 公理由以下 14 条公理组成:
 
 \begin{enumerate}
-    \item \ref{axiom:NBG Axiom of Equality} 
+    \item \ref{axiom:NBG Axiom of Equality}
     \[
         \forall X \forall Y (X = Y \Rightarrow \forall Z (X \in Z \Leftrightarrow Y \in Z))
     \]
@@ -452,12 +467,13 @@ NBG 公理由以下 14 条公理组成:
 \ref{axiom:NBG Axiom of Difference}, \ref{axiom:NBG Axiom of Product}, \ref{axiom:NBG Axiom of Inversion},
 \ref{axiom:NBG Axiom of Cycle} 替换为以下公理, 我们得到了 BGC 公理, 其与 NBG 等价:
 
-\begin{axiom*}[Axiom of Comprehension]
+\begin{axiom}[Axiom of Comprehension]
+    \setlabel {Axiom of Comprehension}
     \label {axiom:BG Axiom of Comprehension}
     \[
         \forall X_1 \forall X_2 \dots \forall X_n \exists Y (Y = \{x : \phi (x,X_1,X_2, \dots,X_n)\})
     \]
-\end{axiom*}
+\end{axiom}
 
 \begin{corollary}
     集合的子类是集合.
@@ -525,40 +541,45 @@ NBG 公理由以下 14 条公理组成:
 
 此意义上, 集合自然是类 \(\{x:x \in S\}\), ZF 公理包含 (本节大写字母亦表示集合):
 
-\begin{axiom*}[Axiom of Extensionality]
+\begin{axiom}[Axiom of Extensionality]
+    \setlabel {ZFC Axiom of Extensionality}
     \label {axiom:ZF Axiom of Extensionality}
     \[
         \forall X \forall Y (\forall z (z \in X \Leftrightarrow z \in Y) \Rightarrow X = Y)
     \]
-\end{axiom*}
+\end{axiom}
 
-\begin{axiom*}[Axiom of Pair]
+\begin{axiom}[Axiom of Pair]
+    \setlabel {ZFC Axiom of Pair}
     \label {axiom:ZF Axiom of Pair}
     \[
         \forall X \forall Y \exists Z \forall U (U \in Z \Leftrightarrow (U = X \lor U = Y))
     \]
-\end{axiom*}
+\end{axiom}
 
-\begin{axiom*}[Axiom of Union]
+\begin{axiom}[Axiom of Union]
+    \setlabel {ZFC Axiom of Union}
     \label {axiom:ZF Axiom of Union}
     \[
         \forall X \exists Y \forall z (z \in Y \Leftrightarrow \exists u \in X (z \in u))
     \]
-\end{axiom*}
+\end{axiom}
 
-\begin{axiom*}[Axiom of Power Set]
+\begin{axiom}[Axiom of Power Set]
+    \setlabel {ZFC Axiom of Power Set}
     \label {axiom:ZF Axiom of Power Set}
     \[
         \forall X \exists Y \forall z (z \in Y \Leftrightarrow z \subseteq X)
     \]
-\end{axiom*}
+\end{axiom}
 
-\begin{axiom*}[Axiom Schema of Separations]
+\begin{axiom}[Axiom Schema of Separations]
+    \setlabel {ZFC Axiom Schema of Separations}
     \label {axiom:ZF Axiom Schema of Separations}
     \[
         \forall X \exists Y \forall z (z \in Y \Leftrightarrow (z \in X \land \phi (z)))
     \]
-\end{axiom*}
+\end{axiom}
 
 寻此几条公理, 我们仍然可以仿照 NBG 公理进行一些定义, 不过我们要给一个集合作为基础:
 
@@ -589,26 +610,29 @@ NBG 公理由以下 14 条公理组成:
     \(X\) 在 \(f\) 下的像 (image) 定义为 \(f[X] := \{y : \exists x \in X ((x,y) \in f)\}\).
 \end{definition}
 
-\begin{axiom*}[Axiom of Infinity]
+\begin{axiom}[Axiom of Infinity]
+    \setlabel {ZFC Axiom of Infinity}
     \label {axiom:ZF Axiom of Infinity}
     \[
         \exists x (\varnothing \in x \land \forall y (y \in x \Rightarrow y \cup \{y\} \in x))
     \]
-\end{axiom*}
+\end{axiom}
 
-\begin{axiom*}[Axiom Schema of Replacement]
+\begin{axiom}[Axiom Schema of Replacement]
+    \setlabel {ZFC Axiom Schema of Replacement}
     \label {axiom:ZF Axiom Schema of Replacement}
     \[
         \forall f \forall x (\mathbf{isfunc} (f) \Rightarrow \exists y (y = f[x]))
     \]
-\end{axiom*}
+\end{axiom}
 
-\begin{axiom*}[Axiom of Regularity]
+\begin{axiom}[Axiom of Regularity]
+    \setlabel {ZFC Axiom of Regularity}
     \label {axiom:ZF Axiom of Regularity}
     \[
         \forall x (x \neq \varnothing \Rightarrow \exists y (y \in x \land y \cap x = \varnothing))
     \]
-\end{axiom*}
+\end{axiom}
 
 ZF 公理代指以下 8 条公理:
 
@@ -649,12 +673,13 @@ ZF 公理代指以下 8 条公理:
 
 囊括以下选择公理的体系称为 ZFC 公理:
 
-\begin{axiom*}[Axiom of Choice]
+\begin{axiom}[Axiom of Choice]
+    \setlabel {ZFC Axiom of Choice}
     \label {axiom:ZF Axiom of Choice}
     \[
         \forall x \exists f (\mathbf{isfunc} (f) \land \forall y (y \in x \Rightarrow \exists z ((y,z) \in f)))
     \]
-\end{axiom*}
+\end{axiom}
 
 可以发现, NBG 公理中对类操作的 \ref{axiom:NBG Axiom of Equality}, \ref{axiom:NBG Axiom of Membership},
 \ref{axiom:NBG Axiom of Domain}, \ref{axiom:NBG Axiom of Difference}, \ref{axiom:NBG Axiom of Product},
@@ -797,14 +822,14 @@ ZF 公理代指以下 8 条公理:
         构造 \(f = \{(x,y) \in W \times W^\prime : W(x) \cong W^\prime(y)\}\),
         根据 \ref{lemma:well-ordering segment unequal lemma} 有 \(\{(x,y) \in f \land (x,z) \in f \Rightarrow y = z\}\) 与
         \(\{(y,x) \in f \land (z,x) \in f \Rightarrow y=z\}\), 
-        故 \(f\) 为 \(\mathrm{dom} (f)\) 与 \(\mathrm{ran} (f)\) 间的双射.
+        故 \(f\) 为 \(\mathbf{dom} (f)\) 与 \(\mathbf{ran} (f)\) 间的双射.
 
-        注意到若 \(\mathrm{dom} (f) \neq W\), 且 \(\mathrm{ran} (f) \neq W^\prime\),
-        则取最小元 \(x \in W \setminus \mathrm{dom} (f)\) 与 \(y \in W^\prime \setminus \mathrm{ran} (f)\),
-        \(f\) 是 \(W(x)\) 与 \(W^\prime(y)\) 间同构故 \((x,y) \in f\), 与 \(x \in \mathrm{dom} (f)\) 矛盾.
+        注意到若 \(\mathbf{dom} (f) \neq W\), 且 \(\mathbf{ran} (f) \neq W^\prime\),
+        则取最小元 \(x \in W \setminus \mathbf{dom} (f)\) 与 \(y \in W^\prime \setminus \mathbf{ran} (f)\),
+        \(f\) 是 \(W(x)\) 与 \(W^\prime(y)\) 间同构故 \((x,y) \in f\), 与 \(x \in \mathbf{dom} (f)\) 矛盾.
 
-        故 \((\mathrm{dom} (f) = W) \land (\mathrm{ran} (f) = W^\prime)\), \((\mathrm{dom} (f) = W) \land \neg(\mathrm{ran} (f) = W^\prime)\), 
-        \(\neg(\mathrm{dom} (f) = W) \land (\mathrm{ran} (f) = W^\prime)\) 三者成立其一, 也即上述命题成立.
+        故 \((\mathbf{dom} (f) = W) \land (\mathbf{ran} (f) = W^\prime)\), \((\mathbf{dom} (f) = W) \land \neg(\mathbf{ran} (f) = W^\prime)\), 
+        \(\neg(\mathbf{dom} (f) = W) \land (\mathbf{ran} (f) = W^\prime)\) 三者成立其一, 也即上述命题成立.
     \end{proof}
 \end{theorem}
 
@@ -862,7 +887,7 @@ ZF 公理代指以下 8 条公理:
 
     \begin{proof}
         定义类 \(F = \{u : \exists x \exists y(u=(x,y) \land x \in W \land W(x) \cong y \land y \in \mathbf{On})\}\), 
-        考察 \(F \upharpoonright W\) 即可, 由 \ref{axiom:NBG Axiom of Replacement} 知 \(\mathrm{ran} (f)\) 是序数.
+        考察 \(F \upharpoonright W\) 即可, 由 \ref{axiom:NBG Axiom of Replacement} 知 \(\mathbf{ran} (f)\) 是序数.
     \end{proof}
 \end{lemma}
 
@@ -922,7 +947,7 @@ ZF 公理代指以下 8 条公理:
     极限序数都是归纳集, 故 \(\omega\) 是最小的极限序数.
 \end{corollary}
 
-\begin{theorem*}[数学归纳法]
+\begin{theorem}[数学归纳法]
     \label{theorem:mathematical induction}
     称 \(\omega\) 为自然数集, \(\omega\) 中的元素称自然数, 若性质 \(P\) 对 \(0\) 成立, 且若对自然数 \(n\) 成立则对 \(n+1\) 成立, 则对任意自然数 \(n \in \omega\) 成立.
     
@@ -931,9 +956,9 @@ ZF 公理代指以下 8 条公理:
 
         同理, 取不满足 \(P\)的最小元, 其是后继序数 \(n+1\), 而 \(n\) 满足 \(P\).
     \end{proof}
-\end{theorem*}
+\end{theorem}
 
-\begin{theorem*}[超限归纳法]
+\begin{theorem}[超限归纳法]
     \label{theorem:transfinite induction}
     若性质 \(P\) 满足如下性质:
     \begin{enumerate}
@@ -947,7 +972,7 @@ ZF 公理代指以下 8 条公理:
     \begin{proof}
         若对于序数 \(\gamma\) 不成立, 有最小序数 \(\alpha\) 不成立, 而无论其是否是后继序数都矛盾了.
     \end{proof}
-\end{theorem*}
+\end{theorem}
 
 依赖于超限归纳法, 我们可以定义序数运算, 运算结果仍是序数.
 
@@ -1006,7 +1031,7 @@ ZF 公理代指以下 8 条公理:
     \end{proof}
 \end{lemma}
 
-\begin{theorem*}
+\begin{theorem}
     [Cantor] 任意序数 \(\alpha > 0\) 可以被唯一的写作
     \(\alpha = \omega^{\beta_1} \cdot \gamma_1 + \omega^{\beta_2} \cdot \gamma_2 + \dots + \omega^{\beta_n} \cdot \gamma_n\),
     其中 \(\alpha \ge \beta_1 > \beta_2 > \dots > \beta_n\) 为序数, \(\gamma_1, \gamma_2, \dots, \gamma_n\) 为自然数.
@@ -1015,9 +1040,9 @@ ZF 公理代指以下 8 条公理:
         注意到 \(1 = \omega^0\), 取极大 \(\beta_1\) 使得 \(\omega^{\beta_1} \le \alpha\), 有 \(\alpha = \omega^{\beta_1} \cdot \gamma_1 + \rho\),
         对 \(\rho\) 施以归纳即可, \(n\) 有限基于 \ref{axiom:NBG Axiom of Foundation}.
     \end{proof}
-\end{theorem*}
+\end{theorem}
 
-\begin{example*}
+\begin{example}
     [Hydra 数] 对于一个有根树, 每次选取一个叶节点 \(p\) 以及一个自然数 \(n\).
     删去 \(p\) 寻求 \(p\) 的父节点, 若其不是根节点, 则将其父节点复制 \(n\) 份,
     连接到 \(p\) 的祖父节点处, 则不论如何操作, 最终都会到达只有根节点的树.
@@ -1026,7 +1051,7 @@ ZF 公理代指以下 8 条公理:
         对每颗树 \(T\), 其根节点连结子树 \(T_1, T_2, \dots, T_n\), 定义 \(f(T) := \omega^{f(T_1)} + \omega^{f(T_2)} + \dots + \omega^{f(T_n)}\),
         则每步操作使 \(f\) 减小, 故有限步内必然到达 \(0\).
     \end{proof}
-\end{example*}
+\end{example}
 
 \begin{definition}
     良基关系是 \(P\) 上一二元关系 \(E (<)\), 使得 \(\forall X ((X \subseteq P \land X \neq \varnothing) \Rightarrow \exists a (a \in X \land \forall x \in X (\neg(x E a))))\).
@@ -1057,7 +1082,7 @@ ZF 公理代指以下 8 条公理:
 \end{theorem}
 
 \begin{definition}
-    给出一个良基关系 \(E\), 定义一个元素的秩 (rank) 为 \(\rho(x)\), \(E\) 的高 (height) 为 \(\mathrm{ran} \rho\).
+    给出一个良基关系 \(E\), 定义一个元素的秩 (rank) 为 \(\rho(x)\), \(E\) 的高 (height) 为 \(\mathbf{ran} \rho\).
 \end{definition}
 
 
@@ -1074,7 +1099,7 @@ ZF 公理代指以下 8 条公理:
     \end{proof}
 \end{lemma}
 
-\begin{theorem*}
+\begin{theorem}
     [Zermelo 良序定理 (Zermelo's well-ordering theorem)] \label{theorem:well-ordering theorem}
     任意集合都能被赋予良序, 此命题与 \ref{axiom:NBG Axiom of Choice} 等价.
 
@@ -1086,11 +1111,11 @@ ZF 公理代指以下 8 条公理:
         \end{enumerate}
 
         \(\mathbf{Ac} (\mathcal{P}x) \Rightarrow \mathbf{Wo} (x)\) : 对于 \(\mathcal{P} (x)\) 上的选择函数 \(c : \mathcal{P}x \setminus {\varnothing} \to c\),
-        根据超限归纳法开始定义 \(F_\alpha : \alpha \to x\) 如下, 若构造止于某一步, 则必然 \(\mathrm{ran} F_\alpha = x\), 若否, 构造必然可一直持续.
+        根据超限归纳法开始定义 \(F_\alpha : \alpha \to x\) 如下, 若构造止于某一步, 则必然 \(\mathbf{ran} F_\alpha = x\), 若否, 构造必然可一直持续.
 
         \begin{enumerate}
             \item \(F_0 := \varnothing\).
-            \item \(F_{\alpha + 1} := F_\alpha \cup \{(c (\alpha,x \setminus \mathrm{ran} F_\alpha))\}\).
+            \item \(F_{\alpha + 1} := F_\alpha \cup \{(c (\alpha,x \setminus \mathbf{ran} F_\alpha))\}\).
             \item \(F_\alpha := \bigcup_{\beta < \alpha} F_\beta\).
         \end{enumerate}
 
@@ -1100,9 +1125,9 @@ ZF 公理代指以下 8 条公理:
 
         等价性只需考虑到 \(x \subseteq \mathcal{P} \bigcup x\).
     \end{proof}
-\end{theorem*}
+\end{theorem}
 
-\begin{theorem*}
+\begin{theorem}
     [Zorn 引理 (Zorn's lemma)] \label{theorem:zorn's lemma}
     若 \(P\) 是一个非空偏序集, 且任意非空线序子集都有上界, 则 \(P\) 有极大元.
 
@@ -1123,7 +1148,7 @@ ZF 公理代指以下 8 条公理:
         定义偏序 \((S_1, c_1) \le (S_2, c_2) \Leftrightarrow S_1 \subseteq S_2 \land c_2 \upharpoonright S_1 = c_1\),
         选取极大元便给出了选择函数.
     \end{proof}
-\end{theorem*}
+\end{theorem}
 
 \subsection{基数}
 
@@ -1177,13 +1202,13 @@ ZF 公理代指以下 8 条公理:
     任意集合都等势于某个基数, 我们用 \(\abs{X}\) 表示 \(X\) 的基数.
 \end{corollary}
 
-\begin{theorem*}
+\begin{theorem}
     [Cantor] \label{theorem:Cantor's Px > x} \(\abs{\mathcal{P} x} > \abs{x}\).
 
     \begin{proof}
         任意 \(f : x \to \mathcal{P} x\) 非满, 因为 \(\{e \in x : e \notin f(e)\}\) 不在其值域中.
     \end{proof}
-\end{theorem*}
+\end{theorem}
 
 定义基数的运算如下:
 
@@ -1210,10 +1235,10 @@ ZF 公理代指以下 8 条公理:
     \end{proof}
 \end{definition}
 
-\begin{hypnosis}
+\begin{hypothesis}
     连续统假设 (continuum hypothesis) 指出 \(\aleph_{\alpha + 1} = 2^{\aleph_\alpha}\),
     它是独立于 ZFC 的.
-\end{hypnosis}
+\end{hypothesis}
 
 现在我们证明有关基数运算的结论.
 
@@ -1263,10 +1288,10 @@ ZF 公理代指以下 8 条公理:
 
 给定一个 Grothendieck 宇宙, 考察它的元素, 相当于给定了一个足够自由的空间, 从而避免一些类的操作.
 
-\begin{hypnosis*}
-    [Grothendieck] \label{hypnosis:Grothendieck universe}
+\begin{hypothesis}
+    [Grothendieck] \label{hypothesis:Grothendieck universe}
     对于任意集合, 存在一个 Grothendieck 宇宙包含它.
-\end{hypnosis*}
+\end{hypothesis}
 
 接下来我们给出 Grothendieck 宇宙的构造, 先讨论集合的层垒谱系 (Cumulative hierarchy).
 
@@ -1311,14 +1336,14 @@ ZF 公理代指以下 8 条公理:
 
 关于层垒谱系可以另做证明, 考察不在层垒谱系中的集合构成的类的 \(\in\) 极小元, 从而得到矛盾.
 
-\begin{theorem*}[\(\in\) 归纳]
+\begin{theorem}[\(\in\) 归纳]
     \label {theorem:in's induction}
     给定类 \(C\), 若对于任意 \(x \in C\), \(\forall y \in x (y \in C)\), 则 \(C = \mathfrak{U}\).
 
     \begin{proof}
         取 \(\mathfrak{U} \setminus C\) 的 \(\in\) 极小元 \(x\), 有 \(\forall y \in x (y \in C)\), 矛盾.
     \end{proof}
-\end{theorem*}
+\end{theorem}
 
 \begin{definition}
     \label {definition:cofinal set}
@@ -1375,14 +1400,14 @@ ZF 公理代指以下 8 条公理:
     一个不可数基数 \(\kappa\) 是不可达的 (inaccessible cardinal) 当且仅当 \(\kappa\) 是正则的且 \(\forall \alpha < \kappa (2^\alpha < \kappa)\).
 \end{definition}
 
-在 NBG 公理中, 无法证明不可达基数的存在性, Grothendieck 的 \ref{hypnosis:Grothendieck universe} 依旧是一个奢侈的假设.
+在 NBG 公理中, 无法证明不可达基数的存在性, Grothendieck 的 \ref{hypothesis:Grothendieck universe} 依旧是一个奢侈的假设.
 
 \begin{theorem}
     Grothendieck 宇宙是层垒谱系中不可达基数 \(\kappa\) 对应的 \(V_\kappa\).
 \end{theorem}
 
 Grothendieck 宇宙 \(U\) 就像一个虚拟机, 在集合论框架下虚拟的运行了一个集合论, 对应的类便是 \(\mathcal{P} U\) 中的元素, 集合就是 \(U\) 中的元素,
-运用 Grothendieck 宇宙可以有效避免一些集合论的困难, 但是其究竟是否有必要, 仍然是数学哲学与群体心理学的交界.
+运用 Grothendieck 宇宙可以有效避免一些集合论的困难, 但是其究竟是否有必要, 仍然是数学哲学与群体心理学的交界的议题.
 
 \subsection{Gödel 编码, 力迫法, 构造性}
 
@@ -1414,7 +1439,7 @@ Grothendieck 宇宙 \(U\) 就像一个虚拟机, 在集合论框架下虚拟的�
                     \]
                 \end{proof}
         \item \label {definition:NBG basic class of domain}
-                定义域 \(\mathfrak{D} = \{(x,y) : \forall t (t \in y \Leftrightarrow \exists z ((t,z) \in x))\}\) 是基类.
+                求定义域 \(\mathfrak{D} = \{(x,y) : \forall t (t \in y \Leftrightarrow \exists z ((t,z) \in x))\}\) 是基类.
 
                 \begin{proof}
                     \[
@@ -1424,7 +1449,17 @@ Grothendieck 宇宙 \(U\) 就像一个虚拟机, 在集合论框架下虚拟的�
     \end{enumerate}
 \end{definition}
 
-\begin{definition*}[Lévy 层级]
+\begin{lemma}
+    给出二元关系 \(R\), 映射 \(F, G\), 有类 \(F_R G := \{x \in \mathbf{dom}[F] \cap \mathbf{dom}[G] : (F(x),G(x)) \in R\}\).
+
+    \begin{proof}
+        
+    \end{proof}
+\end{lemma}
+
+\subsubsection{Gödel 类存在定理}
+
+\begin{definition}[Lévy 层级]
     \label {definition:Lévy hierarchy}
     一个逻辑公式 \(\phi\) 量词有界 (bounded quantifier) 当且仅当其量词均为 \(\forall X \in Y\) 或 \(\exists X \in Y\).
 
@@ -1435,7 +1470,26 @@ Grothendieck 宇宙 \(U\) 就像一个虚拟机, 在集合论框架下虚拟的�
         \item \(\Pi_{n + 1}\) 公式是形如 \(\forall X_1 \forall X_2 \dots \forall X_m \phi\), 其中 \(\phi\) 是 \(\Sigma_n\) 公式.
         \item \(\Delta_{n}\) 是一类即是 \(\Sigma_n\) 又是 \(\Pi_n\) 的公式.
     \end{enumerate}
-\end{definition*}
+\end{definition}
+
+\begin{definition}
+    一个公式称 \(\mathfrak{U}\) 有界当且仅当量词均为 \(\exists x \in \mathfrak{U}\) 或 \(\forall x \in \mathfrak{U}\).
+\end{definition}
+
+\begin{definition}
+    归纳定义 \(n\) 元组 \((x_1, x_2, \dots, x_n) := ((x_1, x_2, \dots, x_{n-1}),x_n)\)
+\end{definition}
+
+\begin{lemma}
+    对于任意自然数 \(i,j \le n\), 有基类 \(\{(x_1, x_2, \dots ,x_n) : x_i \in x_j\}\).
+
+    \begin{proof}
+        递归的定义记号 \(\mathbf{dom}^0 := \mathfrak{I}\), \(\mathbf{dom}^{n+1} := \mathbf{dom} \circ \mathbf{dom}^n\),
+        根据 \ref{definition:NBG basic class of domain} 和 \ref{definition:NBG basic class of id function} 知每个 \(\mathbf{dom}^n\) 为基类.
+
+        于是映射 \((x_1, x_2, \dots, x_n) \mapsto x_i\) 为基类 \(\mathbf{ran} (\mathbf{dom}^{n-i})\).
+    \end{proof}
+\end{lemma}
 
 \subsubsection{Gödel 编码}
 
