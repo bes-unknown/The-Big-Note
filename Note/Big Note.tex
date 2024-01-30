@@ -1,7 +1,14 @@
 \documentclass{BigNote}
 
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{calc}
+
 \title{大笔记}
 \author{我}
+
+\addbibresource{BigNote.bib}
+\usepackage{imakeidx}
+\makeindex[columns=3, title=名词索引]
 
 \begin{document}
     \maketitle
@@ -16,7 +23,21 @@
     \chapter{基础知识}
     \input{Foundations/logistic}
     \input{Foundations/settheory.tex}
+    \input{Foundations/numbers.tex}
+    \input{Foundations/category.tex}
+    \input{Foundations/monoidalcategory.tex}
+    \input{Foundations/pointsettopology.tex}
 
-	% \printbibliography[heading=bibintoc]
+    \chapter{代数基础}
+    \chapter{分析基础}
+    \chapter{代数拓扑}
+    \input{Algebraic Topology/fundamentalgroup.tex}
+    \chapter{代数数论}
+
+
+
+    % \printindex
+    \printbibliography[heading=bibintoc]
+
 
 \end{document}

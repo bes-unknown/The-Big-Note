@@ -1,0 +1,343 @@
+\section{实数理论}
+
+本节在集合论的基础上进行一些基础的构造, 主要在于实数的存在性与唯一性.
+
+\subsection{有理数}
+
+\begin{definition}
+    记 \(\mathbb{N} := \omega\), 称自然数集, \(x \in \mathbb{N}\) 为自然数 (natural number).
+\end{definition}
+
+在自然数上定义加法与乘法, 继承自序数的运算 (基数的运算).
+同样, 也继承自序数 (基数) 的序关系.
+
+\begin{definition}
+    在 \(\mathbb{N}^2\) 上定义等价关系 \(R := \{((a,b),(c,d)) : a + d = b + c\}\),
+    其划分的等价类称整数 (integer). 记 \(\mathbb{Z}\) 为整数集.
+\end{definition}
+
+\begin{definition}
+    一个 \(S\) 上二元运算 \(R\) 是 \(S^{S \times S}\) 的一个元素, 可写作 \(s R t := R(s,t)\).
+\end{definition}
+
+\begin{definition}
+    定义加法减法与乘法运算 \((a,b) + (c,d) := (a + c, b + d)\), \((a,b) - (c,d) := (a + d, b + c)\),
+    \((a,b) \cdot (c,d) := (ac + bd, ad + bc)\), 其中 \((a,b),(c,d)\) 与等号右侧均为等价类的一个代表元.
+
+    \begin{proof}
+        归纳易于证明等价类的代表元不影响运算结果.
+    \end{proof}
+\end{definition}
+
+\begin{definition}
+    定义整数上的序结构 \(<\) 为 \((a,b) < (c,d) \iff a + d < b + c\), 大于零的整数称正整数 \(\mathbb{Z}_{> 0}\), 大于等于零的整数称亦是自然数, 小于零的整数称负数.
+
+    \begin{proof}
+        归纳易于证明等价类的代表元不影响结果.
+    \end{proof}
+\end{definition}
+
+\begin{lemma}
+    有保持加法乘法运算与序结构的单射 \(\mathbb{N} \to \mathbb{Z}\), 由于我们只关心结构, 亦认作 \(\mathbb{N} \subseteq \mathbb{Z}\).
+
+    \begin{proof}
+        \(n \mapsto (n,0)\) 即可.
+    \end{proof}
+\end{lemma}
+
+\begin{definition}
+    定义 \(\mathbb{Z} \times \mathbb{Z}_{> 0}\) 上的等价关系 \(R := \{((a,b),(c,d)) : ad = bc\}\), 其划分的等价类称有理数 (rational number). 记有理数集为 \(\mathbb{Q}\),
+    第一项为分子, 第二项为分母.
+\end{definition}
+
+\begin{definition}
+    定义有理数上的加法减法与乘法运算 \((a,b) + (c,d) := (ad + bc, bd)\), \((a,b) - (c,d) := (ad - bc, bd)\), \((a,b) \cdot (c,d) := (ac, bd)\), 其中 \((a,b),(c,d)\) 与等号右侧均为等价类的一个代表元.
+
+    \begin{proof}
+        归纳易于证明等价类的代表元不影响运算结果.
+    \end{proof}
+\end{definition}
+
+\begin{definition}
+    定义有理数上的除法运算如下 \(c > 0 \implies (a,b) / (c,d) := (ad, bc)\), \(c < 0 \implies (a,b) / (c,d) := (-ad, -bc)\), 其中 \((a,b),(c,d)\) 与等号右侧均为等价类的一个代表元.
+\end{definition}
+
+\begin{definition}
+    定义有理数上的序结构 \(<\) 为 \((a,b) < (c,d) \iff ad < bc\), 亦称正负.
+
+    \begin{proof}
+        归纳易于证明等价类的代表元不影响结果.
+    \end{proof}
+\end{definition}
+
+\begin{lemma}
+    有保持加法减法乘法运算与序结构的单射 \(\mathbb{Z} \to \mathbb{Q}\), 由于我们只关心结构, 亦认作 \(\mathbb{Z} \subseteq \mathbb{Q}\).
+
+    \begin{proof}
+        \(n \mapsto (n,1)\) 即可.
+    \end{proof}
+\end{lemma}
+
+\begin{definition}
+    定义 \(-a := 0 - a = -1 \cdot a\).
+\end{definition}
+
+\begin{lemma}
+    代数运算有如下性质:
+    \begin{enumerate}
+        \item \(a + b = b + a\)
+        \item \((a + b) + c = a + (b + c)\)
+        \item \(a + 0 = a\)
+        \item \((-a) + a = 0\)
+        \item \(a \cdot b = b \cdot a\)
+        \item \(a \cdot (b \cdot c) = (a \cdot b) \cdot c\)
+        \item \(a \cdot 1 = a\)
+        \item \(a \cdot (b + c) = a \cdot b + a \cdot c\)
+        \item \((a + b) \cdot c = a \cdot c + b \cdot c\)
+        \item \(a \cdot 0 = 0\)
+        \item \(a - b = a + (-b)\)
+        \item \(a / b = a \cdot (1 / b)\)
+        \item \(a + b - b = a\)
+        \item \((a \cdot b) / b = a\)
+    \end{enumerate}
+    故称减法为加法的逆运算, 除法为乘法的逆运算.
+
+    \begin{proof}
+        对分子分母归纳.
+    \end{proof}
+\end{lemma}
+
+\begin{lemma}
+    加减乘除与序关系在有理数上满足如下性质:
+    \begin{enumerate}
+        \item \(a < b \implies a + c < b + c\)
+        \item \(a < b \land c > 0 \implies ac < bc\)
+        \item \(a < b \land c < 0 \implies ac > bc\)
+        \item \(a < b \land c > 0 \implies a/c > b/c\)
+        \item \(a < b \land c < 0 \implies a/c < b/c\)
+    \end{enumerate}
+
+    \begin{proof}
+        对分子分母归纳.
+    \end{proof}
+\end{lemma}
+
+\subsection{实数}
+
+\subsubsection{实数公理}
+
+实数谓一组资料 \((\mathbb{R},+,\cdot,\le)\), 其中 \(\mathbb{R}\) 为集合, \(+,\cdot\) 为二元运算, \(\le\) 为二元关系, 满足如下公理:
+
+\begin{axiom}[域公理]
+    \setlabel {域公理}
+    \label {axiom:real numbers axiom of field}
+    \(\mathbb{R}\) 是一个域, 即满足如下条件:
+    \begin{enumerate}
+        \item 加法交换律: \(\forall a \in \mathbb{R} \forall b \in \mathbb{R} (a + b = b + a)\)
+        \item 加法结合律: \(\forall a \in \mathbb{R} \forall b \in \mathbb{R} \forall c \in \mathbb{R} ((a + b) + c = a + (b + c))\)
+        \item 加法单位元: \(\exists 0 \forall a \in \mathbb{R} (a + 0 = a)\)
+        \item 加法逆元: \(\forall a \in \mathbb{R} \exists (-a) \in \mathbb{R} (a + (-a) = 0)\)
+        \item 乘法交换律: \(\forall a \in \mathbb{R} \forall b \in \mathbb{R} (a \cdot b = b \cdot a)\)
+        \item 乘法结合律: \(\forall a \in \mathbb{R} \forall b \in \mathbb{R} \forall c \in \mathbb{R} ((a \cdot b) \cdot c = a \cdot (b \cdot c))\)
+        \item 乘法单位元: \(\exists 1 \forall a \in \mathbb{R} (a \cdot 1 = a)\)
+        \item 乘法逆元: \(\forall a \in \mathbb{R} \forall a \neq 0 \exists (1/a) \in \mathbb{R} (a \cdot (1/a) = 1)\)
+        \item 分配律: \(\forall a \in \mathbb{R} \forall b \in \mathbb{R} \forall c \in \mathbb{R} (a \cdot (b + c) = a \cdot b + a \cdot c)\)
+    \end{enumerate}
+\end{axiom}
+
+上述有理数的加法乘法运算满足域公理, 此后常省略无必要的括号, 运算规则为先乘除后加减.
+
+\begin{axiom}[序公理]
+    \setlabel {序公理}
+    \label {axiom:real numbers axiom of order}
+    \(\le\) 构成序, 满足以下条件:
+    \begin{enumerate}
+        \item \(\le\) 具有传递性 (transitivity): \(\forall a \in \mathbb{R} \forall b \in \mathbb{R} \forall c \in \mathbb{R} (a \le b \land b \le c \implies a \le c)\)
+        \item \(\le\) 具有反对称性 (antisymmetry): \(\forall a \in \mathbb{R} \forall b \in \mathbb{R} (a \le b \land b \le a \implies a = b)\)
+        \item \(\le\) 是线序 (linear): \(\forall a \in \mathbb{R} \forall b \in \mathbb{R} (a \le b \lor b \le a)\)
+        \item \(\le\) 与加法相容: \(\forall a \in \mathbb{R} \forall b \in \mathbb{R} \forall c \in \mathbb{R} (a \le b \implies a + c \le b + c)\)
+        \item \(\le\) 与乘法相容: \(\forall a \ge 0 \forall b \ge 0(ab \ge 0)\)
+    \end{enumerate}
+\end{axiom}
+
+上述有理数亦满足序公理, 有关序与加减乘除相容的讨论略去.
+
+\begin{axiom}[Achimedes 公理]
+    \setlabel {Achimedes 公理}
+    \label {axiom:real numbers axiom of Archimedes}
+    \(\mathbb{R}\) 满足 Archimedes 公理, 即 \(\forall x \in \mathbb{R} \forall y \in \mathbb{R} (x > 0 \implies \exists n \in \mathbb{N} (nx > y))\).
+    其中 \(nx := \underbrace{x + x + \cdots + x}_{n \text{ 项}}\).
+\end{axiom}
+
+\begin{lemma}
+    存在单射 \(\mathbb{Q} \to \mathbb{R}\), 由于我们只关心结构, 亦认作 \(\mathbb{Q} \subseteq \mathbb{R}\).
+
+    \begin{proof}
+        有自然数的嵌入 \(n \mapsto \underbrace{1 + 1 + \cdots + 1}_{n \text{ 项}}\),
+        构造整数的嵌入 \((a,b) \mapsto a + (-b)\), 构造有理数的嵌入 \((a,b) \mapsto a (1 / b)\).
+    \end{proof}
+\end{lemma}
+
+\begin{definition}
+    称 \(\mathbb{R} \setminus \mathbb{Q}\) 为无理数集.
+\end{definition}
+
+\begin{axiom}[区间套公理]
+    \setlabel {区间套公理}
+    \label {axiom:real numbers axiom of nest of intervals}
+    给定闭区间 \(I_n = [a_n, b_n] := \{x \in \mathbb{R} : a_n \le x \le b_n\}\), 其中 \(n \in \mathbb{N}\), 满足
+    \(I_{n + 1} \subseteq I_n\), 则 \(\bigcap_{n \in \mathbb{N}} I_n \neq \varnothing\).
+\end{axiom}
+
+称满足 \ref{axiom:real numbers axiom of field} \ref{axiom:real numbers axiom of order} \ref{axiom:real numbers axiom of Archimedes} \ref{axiom:real numbers axiom of nest of intervals} 的资料 \((\mathbb{R},+,\cdot,\le)\) 为实数 (real number).
+
+\begin{definition}
+    称 \(a > 0\) 的 \(a\) 为正数, \(a < 0\) 的 \(a\) 为负数, 定义绝对值 \(|a| := \mathbf{max} (a, -a)\).
+\end{definition}
+
+\begin{definition}
+    定义正整数次幂 \(a^n := \underbrace{a \cdot a \cdots a}_{n \text{ 项}}\), 其中 \(n \in \mathbb{Z}_{>0}\).
+    \(0\) 次幂 \(a^0 := 1\), 负整数次幂 \(a^{-n} := 1 / a^n\), 其中 \(n \in \mathbb{Z}_{>0}\).
+\end{definition}
+
+\begin{lemma}
+    对于任意正数 \(M\), 存在正数 \(N\) 使得 \(N > M\).
+    对于任意正数 \(a\), 存在正数 \(\varepsilon\) 使得 \(a > \varepsilon\).
+
+    \begin{proof}
+        取 \(N := M + 1\), 取 \(\varepsilon := a / 2\).
+    \end{proof}
+\end{lemma}
+
+\begin{definition}
+    定义取整函数 \(\lfloor \cdot \rfloor : \mathbb{R} \to \mathbb{Z}\), 使得 \(\lfloor x \rfloor \le x < \lfloor x \rfloor + 1\).
+
+    \begin{proof}
+        对正数 \(x\) 只需运用 \ref{axiom:real numbers axiom of Archimedes} 寻求极小 \(n\) 使得 \(n > x\),
+        对负数 \(x\) 只需运用 \ref{axiom:real numbers axiom of Archimedes} 寻求极小 \(n\) 使得 \(n \ge -x\) 即可.
+
+        唯一性源于在 \(\mathbb{Z}\) 上是线序, 并且 \(\forall n \in \mathbb{Z}(\{x \in \mathbb{Z} : n < x < n + 1\} = \varnothing)\).
+    \end{proof}
+\end{definition}
+
+\begin{lemma}
+    归纳易于证明 \(\forall n \in \mathbb{N} (2^n \ge n)\).
+\end{lemma}
+
+\begin{theorem}[确界原理]
+    \setlabel {确界原理}
+    \label {theorem:real numbers supremum}
+    任取非空 \(X \subseteq \mathbb{R}\), 若 \(X\) 有上界, 则存在最小上界 \(s := \mathbf{sup} X\) 称上确界.
+
+    \begin{proof}
+        先取 \(x \in X\) 与 \(X\) 一上界 \(a\), 只需讨论 \(x \neq \mathbf{sup} X\) 的情况.
+
+        依 \ref{axiom:real numbers axiom of Archimedes} 对任意 \(n\) 存在 \(k\) 有 \(x + k 2^{-n} > a\),
+        令 \(k_n\) 为使得 \(x + k 2^{-n}\) 为 \(X\) 上界之极小 \(k\), 有区间 \(I_n = [x + (k_n - 1) 2^{-n}, x + k_n 2^{-n}]\),
+        经验证, 这些区间是一个区间套, 取 \(J = \bigcap_{n \in \mathbb{N}} I_n\), 有 \(J \neq \varnothing\), 我们来说明 \(J\) 只含一个元素.
+
+        假定 \(a,b \in J\), 不妨 \(a < b\), 则有 \(b - a \le 2^{-n} = 2^{\frac{1}{\lfloor b - a \rfloor}}\) 矛盾, 同理验证知 \(J\) 中唯一元素为 \(X\) 上确界.
+    \end{proof}
+\end{theorem}
+
+\begin{corollary}
+    循上述定理证明的思路, 如果区间套 \(I_n = [a_n, b_n]\) 满足 \(\forall \epsilon > 0 \exists n (b_n - a_n < \epsilon)\),
+    则 \(\bigcap_{n \in \mathbb{N}} I_n\) 只含一个元素.
+\end{corollary}
+
+\begin{lemma}
+    \ref{theorem:real numbers supremum} 与 \ref{axiom:real numbers axiom of nest of intervals} 等价.
+
+    \begin{proof}
+        取 \(a_n\) 上确界在区间套里.
+    \end{proof}
+\end{lemma}
+
+\begin{definition}
+    定义区间:
+    \begin{enumerate}
+        \item \([a,b] := \{x \in \mathbb{R} : a \le x \le b\}\)
+        \item \((a,b) := \{x \in \mathbb{R} : a < x < b\}\)
+        \item \([a,b) := \{x \in \mathbb{R} : a \le x < b\}\)
+        \item \((a,b] := \{x \in \mathbb{R} : a < x \le b\}\)
+        \item \((a,+\infty) := \{x \in \mathbb{R} : x > a\}\)
+        \item \([a,+\infty) := \{x \in \mathbb{R} : x \ge a\}\)
+        \item \((-\infty,b) := \{x \in \mathbb{R} : x < b\}\)
+        \item \((-\infty,b] := \{x \in \mathbb{R} : x \le b\}\)
+    \end{enumerate}
+\end{definition}
+
+\subsubsection{Dedekind 分割}
+
+\begin{definition}[Dedekind 分割]
+    对有理数的子集 \(X \subseteq \mathbb{Q}\), 若满足如下条件:
+    \begin{enumerate}
+        \item \(X \neq \varnothing\)
+        \item \(X \neq \mathbb{Q}\)
+        \item \(X\) 无最大元
+        \item \(\forall x \in X \forall y \in (\mathbb{Q} \setminus X) (x < y)\)
+    \end{enumerate}
+    则称 \(X\) 为一个 Dedekind 分割 (Dedekind cut).
+\end{definition}
+
+\begin{definition}
+    定义 Dedekind 分割上的加法为 \(X + Y := \{x + y : x \in X \land y \in Y\}\).
+\end{definition}
+
+\begin{lemma}
+    存在显见的 \(\mathbb{Q}\) 嵌入 \(q \mapsto \{x \in \mathbb{Q} : x < q\}\).
+\end{lemma}
+
+\begin{lemma}
+    \label {lemma:real numbers Dedekind cut closeness}
+    \(\forall n \in \mathbb{Z}_{>0}\) 总有 \(x \in X\), \(x^\prime \in \mathbb{Q} \setminus X\) 使得 \(0 < x^\prime - x < 1 / n\).
+
+    \begin{proof}
+        择定 \(x_0 \in X\), \(x_0^\prime \in \mathbb{Q} \setminus X\), 归纳的定义 \(x_k \in X\), \(x_k^\prime \in \mathbb{Q} \setminus X\),
+        使得 \(x_{k+1}, x_{k+1}^\prime \in \{x_k,x_k^\prime, \frac{1}{2} (x_k + x_k^\prime)\}\).
+
+        注意到每个正有理数 \((p,q)\) 均有 \((p,q) > (1,q) > 2^{-q}\), 故链 \(x_k\), \(x_k^\prime\) 必然有满足条件之 \(x\), \(x^\prime\).
+    \end{proof}
+\end{lemma}
+
+\begin{lemma}
+    对于任意 Dedekind 分割 \(X\), \(Y\), 有 Dedekind 分割 \(Z\) 使得 \(X + Z = Y\).
+
+    \begin{proof}
+        定义 \(Z := \{y - x^\prime : x \in \mathbb{Q} \setminus X \land y \in Y\}\) 即可.
+    \end{proof}
+\end{lemma}
+
+\begin{definition}
+    定义 Dedekind 分割上的序为 \(X < Y \iff X \subseteq Y\), 此序为线序, 亦给出正负之分别.
+\end{definition}
+
+\begin{definition}
+    分类定义 Dedekind 分割上的乘法:
+    \begin{enumerate}
+        \item \(X = 0 \lor Y = 0 \implies X \cdot Y = 0\)
+        \item \(X > 0 \land Y > 0 \implies X \cdot Y := \{x \cdot y : x \in X \land y \in Y\}\)
+        \item \(X < 0 \land Y < 0 \implies X \cdot Y := (-X) \cdot (-Y)\)
+        \item \(X < 0 \land Y > 0 \implies X \cdot Y := -(X \cdot (-Y))\)
+        \item \(X > 0 \land Y < 0 \implies X \cdot Y := -((-X) \cdot Y)\)
+    \end{enumerate}
+\end{definition}
+
+\begin{corollary}
+    易证 Dedekind 分割满足 \ref{axiom:real numbers axiom of field} \ref{axiom:real numbers axiom of order} \ref{axiom:real numbers axiom of Archimedes} \ref{axiom:real numbers axiom of nest of intervals},
+    故存在实数集 \(\mathbb{R}\).
+\end{corollary}
+
+\subsubsection{实数的唯一性}
+
+我们采用自然的嵌入 \(\mathbb{Q} \to \mathbb{R}\) 以视 \(\mathbb{Q} \subseteq \mathbb{R}\),
+对每个实数 \(r\) 分配 Dedekind 分割 \(\{x \in \mathbb{Q} : x < r\}\), 称之为 \(r\) 的截断 (cut).
+
+此映射单源自于若有 \(r_1 < r_2\) 使得其分配到同一个 Dedekind 分割,
+利用 \ref{axiom:real numbers axiom of Archimedes} 给出 \(n (r_2 - r_1) > 1\),
+寻求 \ref{lemma:real numbers Dedekind cut closeness} 中的 \(x\), \(x^\prime\) 使得 \(0 < x^\prime - x < 1 / n\) 即得矛盾.
+
+此映射满源自于任取 Dedekind 分割 \(x\), \ref{lemma:real numbers Dedekind cut closeness} 
+给出 \(x_k\) 与 \(x_k^\prime\) 使得 \(0 < x^\prime - x < 1 / n\), 运用 \ref{axiom:real numbers axiom of nest of intervals} 即可.
+
+此章语言简短, 读者应自行补充证明细节.

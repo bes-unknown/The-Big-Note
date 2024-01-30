@@ -1,0 +1,121 @@
+\section{点集拓扑}
+
+\subsection{基础定义}
+
+拓扑是用来度量连续性的.
+
+\begin{definition}[拓扑空间]
+    拓扑空间 (topological space) 指资料 \((X,\mathcal{T})\) 使得 \(X\) 是集合且 \(\mathcal{T} \subseteq \mathcal{P}(X)\), 并满足:
+    \begin{enumerate}
+        \item \(\emptyset, X \in \mathcal{T}\)
+        \item 有限交 (finite intersection) \(\forall A_1, \dots, A_n \in \mathcal{T} (\bigcap_{i=1}^n A_i \in \mathcal{T})\)
+        \item 任意并 (arbitrary union) \(\forall \mathcal{A} \subseteq \mathcal{T} (\bigcup_{A \in \mathcal{A}} A \in \mathcal{T})\)
+    \end{enumerate}
+    称 \(\mathcal{T}\) 中的元素为开集.
+\end{definition}
+
+\begin{definition}
+    对于任何集合 \(X\), 分别取 \(\mathcal{T} = \mathcal{P} (X)\) 与 \(\mathcal{T} = \{\varnothing,X\}\) 可得到两个拓扑
+    分别称离散拓扑 (discrete topology) 与凝聚拓扑 (indiscrete topology).
+\end{definition}
+
+\begin{definition}
+    假定 \(X\) 上有两个拓扑 \(\mathcal{T}\) 与 \(\mathcal{T}^\prime\), 如果 \(\mathcal{T} \subseteq \mathcal{T}^\prime\), 则称 \(\mathcal{T}^\prime\) 比 \(\mathcal{T}\) 细 (finer),
+    反之如果 \(\mathcal{T}^\prime \subseteq \mathcal{T}\), 则称 \(\mathcal{T}^\prime\) 比 \(\mathcal{T}\) 粗 (coarser).
+\end{definition}
+
+\begin{lemma}
+    对 \(X\) 上拓扑 \({(\mathcal{T}_i)}_{i \in I}\) 的交 \(\bigcap_{i \in I} \mathcal{T}_i\) 是拓扑.
+\end{lemma}
+
+\begin{definition}[拓扑基]
+    给定 \(X\) 与 \(\mathcal{B} \subseteq \mathcal{P}(X)\), 如果 \(\mathcal{B}\) 满足:
+    \begin{enumerate}
+        \item \(\forall x \in X \exists B \in \mathcal{B} (x \in B)\)
+        \item 对任意 \(x,A,B\) 假使 \(x \in A \cap B\) 且 \(A,B \in \mathcal{B}\), 则存在 \(C \in \mathcal{B}\) 使得 \(x \in C \subseteq A \cap B\)
+    \end{enumerate}
+    则称 \(\mathcal{B}\) 为 \(X\) 上的拓扑基 (topological base).
+\end{definition}
+
+\begin{definition}
+    如果 \(\mathcal{T}\) 是包含 \(\mathcal{B}\) 的最粗拓扑, 则称 \(\mathcal{B}\) 为 \(\mathcal{T}\) 的拓扑基.
+\end{definition}
+
+\begin{lemma}
+    一个集合 \(U \subseteq X\) 在 \(\mathcal{B}\) 生成的拓扑中开当且仅当 \(\forall x \in U : \exists B_x \in \mathcal{B} (x \in B_x \subseteq U)\).
+
+    \begin{proof}
+        这些集合 \(U\) 总是开, 因为 \(U = \bigcup_{x \in U} B_x\).
+
+        这些集合构成拓扑, 只需逐条验证:
+        \begin{enumerate}
+            \item \(\neg (\exists x \in \varnothing)\) 且 \(\forall x \exists B \in \mathcal{B} (x \in B)\), 故 \(\varnothing, X\) 开.
+            \item 任意给出集合 \(U,V\) 开, 则只需注意到 \(x \in B_x \subseteq B_x^U \cap B_x^V \subseteq U \cap V\), 故 \(U \cap V\) 仍开, 有限交无非是二元情况下的延伸.
+            \item 任意给出 \({(U_i)}_{i \in I}\), 只需取 \(B_x\) 为某个 \(U_i\) 中 \(x\) 对应的 \(B_x\) 即可.
+        \end{enumerate}
+    \end{proof}
+\end{lemma}
+
+\begin{definition}
+    对 \(x \in X\), 称 \(x \in B_x \in \mathcal{B}\) 为基本邻域, 称 \(x \in U \in \mathcal{T}\) 为邻域,
+    全体 \(x\) 邻域记作 \(\mathcal{T}_x\).
+\end{definition}
+
+\begin{definition}
+    \label {definition:topological space's category}
+    对于拓扑空间 \((X,\mathcal{T})\), 定义其对应的范畴 \(\mathrm{Cat} (\mathcal{T})\) 如下:
+
+    \begin{enumerate}
+        \item 对象是 \(\mathcal{T}\) 中的元素.
+        \item \(X \subseteq Y\) 时有唯一态射 \(X \to Y\).
+        \item \(X \nsubseteq Y\) 时没有态射.
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    对于拓扑空间 \((X,\mathcal{T}_x), (Y,\mathcal{T}_y)\) 与映射 \(f : X \to Y\),
+    如果 \(\forall U \in \mathcal{T}_Y (f^{-1} (U) \in \mathcal{T}_X)\), 则称 \(f\) 连续 (continuous).
+\end{definition}
+
+\begin{lemma}
+    连续映射的复合仍然连续.
+
+    \begin{proof}
+        对于连续映射 \(f : X \to Y, g : Y \to Z\), 有 \(\forall U \in \mathcal{T}_Z (g^{-1} (U) \in \mathcal{T}_Y)\) 且 \(\forall V \in \mathcal{T}_Y (f^{-1} (V) \in \mathcal{T}_X)\),
+    \end{proof}
+\end{lemma}
+
+\begin{corollary}
+    连续映射 \(f : X \to Y\) 诱导出函子 \(\mathrm{Cat} (\mathcal{T}_y) \to \mathrm{Cat} (\mathcal{T}_x)\).
+\end{corollary}
+
+\begin{definition}
+    定义拓扑空间范畴 \(\mathbf{Top}\) 如下:
+    \begin{enumerate}
+        \item 对象是拓扑空间.
+        \item \(\mathbf{Hom}_{\mathbf{Top}} (X,Y)\) 是所有连续映射 \(f : X \to Y\).
+    \end{enumerate}
+\end{definition}
+
+\begin{corollary}
+    上述定义的 \(\mathrm{Cat}\) 给出 \(\mathbf{Top} \to \mathbf{Cat}\) 的一个反变函子.
+\end{corollary}
+
+\begin{definition}
+    一个度量空间是包含资料 \((X,d)\) 使得 \(X\) 是集合且 \(d : X \times X \to \mathbb{R}\) 满足:
+    \begin{enumerate}
+        \item \(d(x,y) \geq 0\)
+        \item \(d(x,y) = 0 \iff x = y\)
+        \item \(d(x,y) = d(y,x)\)
+        \item \(d(x,z) \leq d(x,y) + d(y,z)\)
+    \end{enumerate}
+\end{definition}
+
+\begin{example}
+    取 \(\mathbb{R}\) 上 \(d(x,y) = \abs{x - y}\) 可得到度量空间.
+\end{example}
+
+\begin{example}
+    取 \(\mathbb{R}^n\) 上 \(d(x,y) = \max \{\abs{x_i - y_i}\}\) 可得到度量空间.
+\end{example}
+

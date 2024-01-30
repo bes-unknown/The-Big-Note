@@ -68,7 +68,6 @@
 
 % Bibliography
 \renewcommand{\contentsname}{目录}
-% \renewcommand{\refname}{参考文献}
 \renewcommand{\bibname}{参考文献}
 \DefineBibliographyStrings{english}{%
     in = {刊于},

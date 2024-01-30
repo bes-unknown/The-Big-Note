@@ -1,6 +1,6 @@
 \section{逻辑}
 
-断言 (Statement) 是一类有明确真值 (T/F) 的语句, 我们定义如下运算:
+断言 (statement) 是一类有明确真值 (T/F) 的语句, 我们定义如下运算:
 
 \begin{definition}
     对于断言 \(A\) 定义其否定 (negation) 为 \(\neg A\), 满足如下真值表.
@@ -65,18 +65,18 @@
 \end{theorem}
 
 \begin{definition}
-    对于断言 \(A, B\), 我们记断言 \(A\) 能推出 \(B\) 为 \(A \Rightarrow B\), 代表
+    对于断言 \(A, B\), 我们记断言 \(A\) 能推出 \(B\) 为 \(A \implies B\), 代表
     \begin{equation}
-        A \Rightarrow B := (\neg A) \lor B
+        A \implies B := (\neg A) \lor B
     \end{equation}
 
-    而断言 \(A, B\) 等价 (\(A \Leftrightarrow B\)) 意味着 \((A \Rightarrow B) \land (B \Rightarrow A)\).
+    而断言 \(A, B\) 等价 (\(A \iff B\)) 意味着 \((A \implies B) \land (B \implies A)\).
 \end{definition}
 
 \begin{theorem}
     我们可以验证下述断言:
     \begin{align}
-        (A \Rightarrow B) &\Leftrightarrow (\neg B \Rightarrow \neg A) \\
-        (A \Rightarrow B) \land (B \Rightarrow C) &\Rightarrow (A \Rightarrow C)
+        (A \implies B) &\iff (\neg B \implies \neg A) \\
+        (A \implies B) \land (B \implies C) &\implies (A \implies C)
     \end{align}
 \end{theorem}
