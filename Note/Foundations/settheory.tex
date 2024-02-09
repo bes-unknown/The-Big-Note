@@ -38,7 +38,7 @@ von Neumann-Bernays-Gödel 公理系统的核心是类 (class) 与元素 (elemen
         (X \subseteq Y) := \forall Z (Z \in X \implies Z \in Y)
     \]
 
-    我们用 \(A \subset B\) 表示 \(A \subseteq B \land A \neq B\).
+    我们用 \(A \subset B\) 表示 \(A \subseteq B \land A \neq B\), 称非空 \(A \subset B\) 为真子类.
 \end{definition}
 
 \begin{corollary}
@@ -96,7 +96,7 @@ von Neumann-Bernays-Gödel 公理系统的核心是类 (class) 与元素 (elemen
     有序对的有序体现在其性质 \((x,y) = (u,v) \iff (x = u \land y = v)\).
 
     \begin{proof}
-        \((\therefore)\) 显然.
+        \((\impliedby)\) 显然.
 
         \((\implies)\) 若 \(x \neq u\), 则 \(\{x\} \neq \{u\}\), 依赖 \ref{axiom:NBG Axiom of Pair}
         \(\{x\} \in (x,y) = (u,v)\), 从而 \(u \in \{u, v\} = \{x\}\), 矛盾.
@@ -298,7 +298,7 @@ von Neumann-Bernays-Gödel 公理系统的核心是类 (class) 与元素 (elemen
     \label {definition:function (set)}
     映射 (function) \(f\) 定义为满足 \((x,y) \in f \land (x,y^\prime) \in f \implies y = y^\prime\) 的二元关系, 记作 \(\mathbf{isfunc} (f)\).
 
-    在存在 \(y\) 的情况下我们记 \(f(x)\) 为唯一的 \(y\) 使得 \((x,y) \in f\), 称为 \(f\) 在 \(x\) 处的值 (value).
+    在存在 \(y\) 的情况下我们记 \(f(x)\) 为唯一的 \(y\) 使得 \((x,y) \in f\), 称为 \(f\) 在 \(x\) 处的值 (value), 映射有时也称函数.
 \end{definition}
 
 \begin{definition}
@@ -1158,7 +1158,7 @@ ZF 公理 \cite{ThomasJech:SetTheory} 代指以下 8 条公理:
 \end{lemma}
 
 \begin{theorem}
-    [Zermelo 良序定理] \label{theorem:well-ordering theorem} \setlabel {Zermelo 良序定理}
+    [Zermelo 良序定理] \setlabel {Zermelo 良序定理} \label{theorem:well-ordering theorem} 
     任意集合都能被赋予良序, 此命题与 \ref{axiom:NBG Axiom of Choice} 等价.
 
     \begin{proof}
@@ -1186,7 +1186,7 @@ ZF 公理 \cite{ThomasJech:SetTheory} 代指以下 8 条公理:
 \end{theorem}
 
 \begin{theorem}
-    [Zorn 引理] \label{theorem:zorn's lemma} \setlabel {Zorn 引理}
+    [Zorn 引理] \setlabel {Zorn 引理} \label{theorem:zorn's lemma} 
     若 \(P\) 是一个非空偏序集, 且任意非空线序子集都有上界, 则 \(P\) 有极大元.
 
     \begin{proof}
