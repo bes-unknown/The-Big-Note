@@ -2,6 +2,7 @@
 
 \usetikzlibrary{arrows.meta}
 \usetikzlibrary{calc}
+\usetikzlibrary{braids}
 
 \title{大笔记}
 \author{我}
@@ -25,14 +26,33 @@
     \include{Foundations/settheory.tex}
     \include{Foundations/numbers.tex}
     \include{Foundations/category.tex}
+    \include{Foundations/tensorcategory.tex}
+    \include{Foundations/combinatorics.tex}
     \include{Foundations/pointsettopology.tex}
-    \include{Foundations/monoidalcategory.tex}
+
+    \chapter{分析基础}
+    \include{Analysis/basis.tex}
+    \include{Analysis/measuretheory.tex}
+    \include{Analysis/complexanalysis.tex}
 
     \chapter{代数基础}
-    \chapter{分析基础}
-    \chapter{代数拓扑}
-    \input{Algebraic Topology/fundamentalgroup.tex}
-    \chapter{代数数论}
+    \include{Basic Algebra/otherthings.tex}
+    \include{Basic Algebra/homologicalalgebra.tex}
+    \include{Basic Algebra/commutativering.tex}
+    
+    \chapter{\(\infty\) 范畴}
+    \include{Infinite Categories/foundations.tex}
+
+    \chapter{高阶数理逻辑}
+    \include{Logic/HoTT.tex}
+
+    \chapter{杂笔}
+    \include{Articles/quantifiers are adjoints.tex}
+
+    % \chapter{代数基础}
+    % \chapter{代数拓扑}
+    % \input{Algebraic Topology/fundamentalgroup.tex}
+    % \chapter{代数数论}
 
 
 

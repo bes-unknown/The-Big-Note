@@ -1,0 +1,152 @@
+\section{同伦类型论}
+
+本节是同伦类型论 (Homotopy Type Theory, HoTT) 的介绍.
+
+\subsection{自然演绎, \(\lambda\) 演算}
+
+\begin{quotation}
+    What follows from what?
+\end{quotation}
+
+\begin{remark}
+    给出假设 \(A_1, \ldots, A_n\), 和一个 \(A\), 我们将 \(A\) 可由 \(A_1, \ldots, A_n\) 得到记为 \(A_1, \ldots, A_n \vdash A\).
+\end{remark}
+
+\begin{remark}
+    我们常常用大写希腊字母表示有限长的某个公式如 \(\Gamma,\Delta\).
+\end{remark}
+
+我们用长横线标记证明的过程, 以 \(\land,\supseteq\) 自然演绎为例, 其包含以下公式:
+
+\begin{axiom}
+    \setlabel {自然演绎}
+    \label {axiom:natural deduction}
+    自然演绎包含如下公式:
+
+    Identity:
+
+    \[
+        \frac{}{\Gamma,A \vdash A} \mathrm{Id}
+    \]
+
+    Conjunction:
+
+    \[
+        \begin{aligned}
+            \frac{\Gamma \vdash A \quad \Gamma \vdash B}{\Gamma \vdash A \land B} \land \mathrm{Intro} \\
+            \frac{\Gamma \vdash A \land B}{\Gamma \vdash A} \land \mathrm{elim}_1 \\
+            \frac{\Gamma \vdash A \land B}{\Gamma \vdash B} \land \mathrm{elim}_2
+        \end{aligned}
+    \]
+
+    Implication:
+
+    \[
+        \begin{aligned}
+            \frac{\Gamma,A \vdash B}{\Gamma \vdash A \supseteq B} \supseteq \mathrm{Intro}\\
+            \frac{\Gamma \vdash A \supseteq B \quad \Gamma \vdash A}{\Gamma \vdash B} \supseteq \mathrm{elim}
+        \end{aligned}
+    \]
+\end{axiom}
+
+\begin{example}
+    假使我们需要写出一个证明 \(A \supseteq B \supseteq C\) 则 \(A \supseteq C\), 我们可以给出如下的表达式:
+
+    \[
+        \frac{\frac{}{A,A \supseteq B,B \supseteq C \vdash B \supseteq C} \quad \frac{\frac{}{A,A \supseteq B,B \supseteq C \vdash A \supseteq B} \quad \frac{}{A,A \supseteq B,B \supseteq C \vdash A}}
+        {A,A \supseteq B,B \supseteq C \vdash B}}{\frac{A,A \supseteq B,B \supseteq C \vdash C}{A \supseteq B,B \supseteq C \vdash A \supseteq C}}
+    \]
+\end{example}
+
+\begin{definition}
+    一下证明规则称为是容许 (addmissible) 的, 若给出 \(\Gamma_1 \vdash A_1, \Gamma_2 \vdash A_2, \cdots, \Gamma_n \vdash A_n\),
+    的证明亦给出 \(\Delta \vdash B\) 的证明.
+    
+    \[
+        \frac{\Gamma_1 \vdash A_1 \quad \Gamma_2 \vdash A_2 \cdots \Gamma_n \vdash A_n}{\Delta \vdash B}
+    \]
+\end{definition}
+
+\begin{lemma}
+    \ref{axiom:natural deduction} 蕴涵弱化规则 (weakening rule):
+    
+    \[
+        \frac{\Gamma \vdash B}{\Gamma,A \vdash B}
+    \]
+
+    \begin{proof}
+        给出一个 \(\Gamma\) 的证明, 在其中每一步添上 \(A\) 即可.
+    \end{proof}
+\end{lemma}
+
+\(\lambda\) 表达式是用来标记变换的, 譬如我们定义了 \(f : A \to B\),
+为 \(f(x) := \Phi\), 计算 \(f(t)\) 时我们需替换 \(\Phi\) 中的 \(x\) 为 \(t\),
+且我们需验证 \(A\) 中任意一个 \(x\) 诱导出的 \(\Phi\) 均在 \(B\) 中.
+
+\begin{definition}[\(\lambda\) 表达式]
+    如果我们不想赋给 \(\Phi\) 一个名字 \(f\) 的话, 我们可以采用 \(\lambda\) 表达式,
+    写作 \(\lambda x.\Phi : A \to B\), 特别的, 我们显示的写出 \(\lambda (x:A). \Phi\) 来标记
+    \(x\) 应在 \(A\) 中选取.
+
+    我们要计算 \(\lambda x.\Phi\) 在 \(t\) 处的值时, 我们只需替换 \(\Phi\) 中的 \(x\) 为 \(t\) 即可.
+\end{definition}
+
+\begin{definition}
+    将 \(\Phi\) 中的 \(x\) 在不至引起符号重复的情况下替换成 \(y\) 得到 \(\Phi^\prime\),
+    其应用的关系是相同的, 我们认为 \(\lambda x.\Phi = \lambda y.\Phi^\prime\).
+\end{definition}
+
+\begin{remark}
+    运算规则总是从左到右, 特别的, 对于一个 \(\lambda\) 表达式而言, 括号应该尽可能向右打,
+    譬如如下表达式, 其中假定所有对象可以作用于别的对象:
+
+    \[
+        \lambda f.(\lambda x.f(xx)) \lambda x.f(xx) = \lambda f.((\lambda x.f(x(x))) (\lambda x.f(x(x))))
+    \]
+\end{remark}
+
+\begin{example}[Russell 悖论]
+    考察以下 \(\lambda\) 表达式:
+
+    \[
+        (\lambda x.xx) \lambda x.xx
+    \]
+
+    我们运用上述所说规则对第一个 \(\lambda\) 中的 \(x\) 替换为 \(\lambda x.xx\), 得到:
+
+    \[
+        (\lambda x.xx) \lambda x.xx = ((\lambda x.xx) \lambda x.xx)
+    \]
+
+    此计算无穷无尽.
+\end{example}
+
+\begin{example}
+    考察以下 \(\lambda\) 表达式作用于 \(t\) 上:
+
+    \[
+        \lambda f.(\lambda x.f(xx)) \lambda x.f(xx)
+    \]
+
+    运用上述规则进行替换:
+
+    \[
+        \begin{aligned}
+            (\lambda f.(\lambda x.f(xx)) \lambda x.f(xx)) t &= (\lambda x.t(xx)) \lambda x.t(xx) \\
+            &= t ((\lambda x.t(xx)) \lambda x.t(xx)) \\
+            &= t ((\lambda f.(\lambda x.f(xx)) \lambda x.f(xx)) t)
+        \end{aligned}
+    \]
+
+    此计算一直进行下去, 表达式不断变长.
+\end{example}
+
+为了避免上述这种坏的计算, 我们引入类型论来规范我们的构造.
+
+我们令 \(f(x) := x^2\), 我们有等式 \(f(3) = 3^2\), \(f(3) = 9\),
+前者基于 \(f\) 的定义, 后者基于数的运算, 我们称 \(f(3) = 3^2\) 是定义性相等,
+而 \(f(3) = 9\) 是判断性相等.
+
+\subsection{类型论}
+
+

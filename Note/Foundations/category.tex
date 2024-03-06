@@ -832,6 +832,7 @@
 \end{lemma}
 
 \begin{lemma}
+    \label {lemma:adjoint functor's composition is adjoint}
     给出范畴 \(\mathcal{C}_1, \mathcal{C}_2, \mathcal{C}_3\), 与函子 \(F : \mathcal{C}_1 \to \mathcal{C}_2\), \(G : \mathcal{C}_2 \to \mathcal{C}_1\),
     \(F^\prime : \mathcal{C}_2 \to \mathcal{C}_3\), \(G^\prime : \mathcal{C}_3 \to \mathcal{C}_2\), 使得 \(F \dashv G\), \(F^\prime \dashv G^\prime\),
     则 \(F^\prime \circ F \dashv G \circ G^\prime\).
@@ -887,7 +888,7 @@
 \end{lemma}
 
 \begin{definition}
-    我们定义 \(2\) - 范畴为满足如下条件的范畴:
+    我们定义严格的 \(2\) - 范畴为满足如下条件的范畴:
 
     \begin{enumerate}
         \item 一个范畴 \(\mathcal{C}\).
@@ -902,13 +903,13 @@
 记原范畴的元素为 \(\mathrm{Mor}_0\), 原范畴的态射为 \(\mathrm{Mor}_1\), 称 \(1\) - 态射, \(2\) - 态射记为 \(\mathrm{Mor}_2\).
 
 \begin{example}
-    \(\mathbf{Cat}\) 是 \(2\) - 范畴, 对象是全体范畴, 态射是范畴间的函子, \(2\) - 态射是自然变换.
+    \(\mathbf{Cat}\) 是严格的 \(2\) - 范畴, 对象是全体小范畴, 态射是范畴间的函子, \(2\) - 态射是自然变换.
 \end{example}
 
 我们可以绘制 \(2\) - 范畴对应的图表, 用 \(\Rightarrow\) 表示 \(2\) - 态射, 依旧用 \(\mathrm{Hom}\) 表示两点间态射对应的范畴.
 
 \begin{definition}[Kan 延拓]
-    在 \(2\) - 范畴 \(\Theta\) 中给出对象 \(\mathcal{C},\mathcal{D},\mathcal{E} \in \mathrm{Mor}_0 (\Theta)\),
+    在严格 \(2\) - 范畴 \(\Theta\) 中给出对象 \(\mathcal{C},\mathcal{D},\mathcal{E} \in \mathrm{Mor}_0 (\Theta)\),
     给出 \(1\) - 态射 \(F : \mathcal{C} \to \mathcal{E}, K : \mathcal{C} \to \mathcal{D}\).
 
     定义左 Kan 延拓 \(\mathrm{Lan}_K F : \mathcal{D} \to \mathcal{E}\) 与其对应的 \(2\) - 态射 \(\eta : F \to \mathrm{Lan}_K F \circ K\),
@@ -1250,6 +1251,10 @@ Kan 延拓的性质也就被解为, 对于任意给出的 \(L \in \mathcal{C}\),
     则 \(\mathcal{C}\) 是完备的, 对称的 \(\varinjlim\) 存在则 \(\mathcal{C}\) 是余完备的.
 \end{definition}
 
+\begin{lemma}
+    对于完备的范畴 \(\mathcal{C}\), \(\varinjlim\) 与 \(\varprojlim\) 给出了 \(\mathbf{Fun} (I,\mathcal{C})\) 到 \(\mathcal{C}\) 的函子.
+\end{lemma}
+
 \begin{definition}
     定义拟序集 \(P\) 的范畴, 其对象为 \(P\) 中的元素, 在 \(X \leq Y\) 时 \(\abs{\mathrm{Hom} (X,Y)} = 1\) 的范畴.
 \end{definition}
@@ -1305,6 +1310,7 @@ Kan 延拓的性质也就被解为, 对于任意给出的 \(L \in \mathcal{C}\),
 这里要注意到嵌入的过程, 假若嵌入 \(\mathbf{Set}^\mathrm{op}\), 而在 \(\mathbf{Set}\) 中考虑对应极限, 需转换 \(\lim\) 方向.
 
 \begin{lemma}
+    \label {lemma:existence of limit iff representable}
     函子 \(\alpha : I \to \mathcal{C}\) 余极限存在当且仅当米田嵌入之后的余极限可表, 极限亦然.
 
     \begin{proof}

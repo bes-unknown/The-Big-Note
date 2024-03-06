@@ -1,0 +1,53 @@
+\section{复分析}
+
+\subsection{解析函数}
+
+\begin{definition}[区域]
+    命一个 \(\mathbb{C}\) 上的区域 \(\Omega\) 为一个开的, 连通的 \(\mathbb{C}\) 子集.
+\end{definition}
+
+\begin{definition}[解析]
+    一个 \(\Omega\) 上的复值函数 \(f\) 称在 \(z_0\) 处解析, 若存在一个 \(f^\prime(z_0)\) 使得
+
+    \[
+        f(z) - f(z_0) - f^\prime(z_0)(z - z_0) = o(z - z_0)
+    \]
+\end{definition}
+
+\begin{lemma}
+    \(f\) 在 \(z_0\) 解析, 则在 \(z_0\) 处连续.
+
+    \begin{proof}
+        给出序列 \(\zeta_n \to z_0\), 有 \(f(\zeta_n) - f(z_0) = f^\prime(z_0)(z - z_0) + o(z - z_0)\), 
+        依赖 \(o\) 定义两边取极限得 \(f(\zeta_n) \to f(z_0)\).
+    \end{proof}
+\end{lemma}
+
+\begin{definition}[Riemann 球面]
+    \setlabel {Riemann 球面}
+    \label {definition:riemann sphere}
+\end{definition}
+
+\subsection{案例分析}
+
+\subsubsection{Riemann 球面}
+
+\begin{lemma}
+    \ref{definition:riemann sphere} 上亚纯函数均为有理函数.
+
+    \begin{proof}
+        \ref{definition:riemann sphere} 上有分式线性变换, 其保持有理函数, 故不妨设 \(f(\infty) \neq \infty\),
+        列出其极点, 分别为 \(z_1,\ldots,z_n\), 在 \(z_i\) 处的 Laurent 展开为 \(\sum_{k = -m_i}^\infty a_{i,k} (z - z_i)^k\),
+        定义 \(g = f - \sum_{i = 1}^n \sum_{k = -m_i}^{-1} a_{i,k} (z - z_i)^k\), 则 \(g\) 为 \ref{definition:riemann sphere} 上全纯函数,
+        \ref{definition:riemann sphere} 紧故 \(g\) 为常值函数, 故 \(f\) 为有理函数.
+    \end{proof}
+\end{lemma}
+
+\subsubsection{环面}
+
+\begin{definition}[环面]
+    \setlabel {环面}
+    \label {definition:torus}
+    取关于 \(\mathbb{R}\) 线性无关之复数 \(\omega_1,\omega_2\), 令 \(\Gamma = \{m \omega_1 + n \omega_2 : m,n \in \mathbb{Z}\}\),
+    取 \(\Gamma\) 的商 \(\mathbb{C} / \Gamma\), 其自然带有复结构, 称之为环面.
+\end{definition}

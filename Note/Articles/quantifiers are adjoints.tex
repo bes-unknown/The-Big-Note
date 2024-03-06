@@ -1,0 +1,48 @@
+\section{量词是伴随函子}
+
+\begin{definition}
+    对于一个集合 \(X\), 定义 \(\mathcal{P} X\) 上由 \(\subseteq\) 诱导出的偏序结构,
+    亦由偏序诱导出范畴 \(\mathcal{P} X\).
+\end{definition}
+
+\begin{lemma}
+    映射 \(f : X \to Y\) 诱导出 \(f^{-1} : \mathcal{P} Y \to \mathcal{P} X\).
+
+    \begin{proof}
+        需证明函子性, 只需注意到 \(A \subseteq B\) 则 \(f^{-1}(A) \subseteq f^{-1}(B)\).
+    \end{proof}
+\end{lemma}
+
+\begin{lemma}
+    上述函子 \(f^{-1} : \mathcal{P} Y \to \mathcal{P} X\) 有左右伴随 \((\exists f) \dashv f^{-1} \dashv (\forall f)\).
+
+    \begin{proof}
+        我们定义对应的伴随为 \((\exists f) : S \mapsto f(S)\), \((\forall f) : S \mapsto \{y \in Y : \forall x \in X (f(x) = y \implies x \in S)\}\), 为了证明其构成伴随,
+        只需注意到 \((\exists f)(S) = f(S) \subseteq T\) 当且仅当 \(S \subseteq f^{-1} (T)\), 
+        \(T \subseteq (\forall f)(S) = \{y \in Y : \forall x \in X (f(x) = y \implies x \in S)\}\) 当且仅当 \(f^{-1} (T) \subseteq S\).
+    \end{proof}
+\end{lemma}
+
+\begin{definition}
+    对一个二元关系 \(R \subseteq X \times Y\), 可以定义 \(f_R : \mathcal{P} X \to \mathcal{P} Y\), 使得 \(f_R (S) = \{y \in Y : \exists x \in X (x R y \land x \in S)\}\).
+\end{definition}
+
+\begin{lemma}
+    上述 \(f_R\) 具有右伴随 \(f_R \dashv [R]\).
+
+    \begin{proof}
+        给出 \([R] : S \mapsto \{x \in X : \forall y \in Y (x R y \implies y \in S)\}\), 只需注意到 \(f_R (S) \subseteq T\) 当且仅当 \(S \subseteq [R] (T)\).
+    \end{proof}
+\end{lemma}
+
+\begin{definition}
+    考察 \(\pi_1 : X \times Y \to X\), 对于 \(R \subseteq X \times Y\), 有
+
+    \[
+        (\forall \pi_1) (R) = \forall y (x R y), \quad (\exists \pi_1) (R) = \exists y (x R y)
+    \]
+\end{definition}
+
+    \begin{quotation}
+        Quantifiers are Adjoints.
+    \end{quotation}

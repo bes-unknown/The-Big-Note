@@ -1,0 +1,681 @@
+\section{基础}
+
+\subsection{赋范线性空间, 级数}
+
+\begin{definition}[范数]
+    给出 \(\mathbb{C}\) 子域上线性空间 \(E\), 定义 \(E\) 上的函数 \(\left\| x \right\| : E \to \mathbb{R}_{\geq 0}\),
+    称其为范数 (norm) 若满足:
+
+    \begin{enumerate}
+        \item \(\left\|x\right\| = 0 \iff x = 0\).
+        \item \(\left\| \lambda x \right\| = \abs {\lambda} \left\| x \right\|\).
+        \item \(\left\| x + y \right\| \leq \left\| x \right\| + \left\| y \right\|\).
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    赋范线性空间是有范数的线性空间 \(E\), 其上定义度量 \(d(x,y) := \left\| x-y \right\|\).
+\end{definition}
+
+\begin{definition}
+    定义赋范空间 \(l_\infty\), 其元素为全体有界函数, 范数 \(\left\| x \right\| := \sup \abs{x_i}\).
+\end{definition}
+
+\begin{definition}[正定内积]
+    一个 \(\mathbb{C}\) 子域 \(\mathbb{F}\) 上线性空间 \(E\) 的一个 \(\langle - , - \rangle : E \times E \to \mathbb{F}\),
+    称为正定内积, 如果满足以下条件:
+
+    \begin{enumerate}
+        \item \(\langle x,y \rangle = \overline{\langle y,x \rangle}\).
+        \item \(\langle \lambda x + \mu y,z \rangle = \lambda \langle x,z \rangle + \mu \langle y,z \rangle\).
+        \item \(\langle x,x \rangle \geq 0\) 且 \(\langle x,x \rangle = 0 \iff x = 0\).
+    \end{enumerate}
+\end{definition}
+
+\begin{theorem}[Cauchy-Schwarz 不等式]
+    对于正定内积, 总是有:
+
+    \[
+        \langle x,y \rangle \langle y,x \rangle \leq \langle x,x \rangle \langle y,y \rangle
+    \]
+
+    \begin{proof}
+        \(y = 0\) 的情况是平凡的, 不妨设 \(y \neq 0\),
+        注意到二次方程 \(\langle x - \lambda y,x - \lambda y \rangle = \langle x,x \rangle + \lambda^2 \langle y,y \rangle - 2 \lambda (\langle x,y \rangle + \langle y,x \rangle) = 0\),
+        至多有一个解, 故判别式 \(\Delta/4 =  \langle x,x \rangle \langle y,y \rangle - \langle x,y \rangle \langle y,x \rangle \geq 0\).
+    \end{proof}
+\end{theorem}
+
+\begin{definition}[Banach 空间]
+    \setlabel {Banach 空间}
+    \label {definition:Banach space}
+    Banach 空间是 \ref{definition:complete metric space} 赋范向量空间.
+\end{definition}
+
+\begin{example}
+    \(\mathbb{R}\) 是 Banach 空间.
+\end{example}
+
+\begin{definition}[Lipschitz]
+    两个范数称相等, 若存在 \(k\) 满足 \(\forall x \in E (k \left\|x\right\|_1 > \left\|x\right\|_2 > \left\|x\right\|_1/k)\).
+\end{definition}
+
+\begin{corollary}
+    相等的范数诱导相同的拓扑.
+\end{corollary}
+
+\begin{definition}[实数极限]
+    对 \(\mathbb{R}\) 做扩展得到 \(\mathbb{R} \cup \{\infty,-\infty\}\),
+    实数列的极限在 \(\mathbb{R} \cup \{\infty,-\infty\}\) 中选取, 极限为 \(\infty,-\infty\) 时称其发散.
+\end{definition}
+
+\begin{definition}[级数]
+    对 Banach 空间 \(E\), 考察一列 \(x_k \in E\), 定义 \(s_n := \sum_{i=0}^{n} x_i\), 称列 \(s_n\) 为列 \(x_k\) 对应的级数 (series), 记 \(\sum x_k\),
+    某个 \(s_n\) 为部分和, 若存在 \(\lim_n s_n\), 则称其为无穷级数 \(\sum_{i=0}^{\infty} x_i\) 或 \(\sum x_i\).
+\end{definition}
+
+\begin{lemma}
+    假设序列 \(s_i,s_i^\prime \in E\) 收敛于 \(s,s^\prime\), 则 \(s_i + s_i^\prime\) 收敛于 \(s + s^\prime\),
+    \(\alpha s_i\) 收敛于 \(\alpha s\).
+
+    \begin{proof}
+        对于第一个命题, 取充分大 \(n\) 使得 \(d(s,s_i) < \varepsilon/2,d(s^\prime,s_i^\prime) < \varepsilon/2\),
+        对于第二个命题, 取充分大 \(n\) 使得 \(d(s,s_i) < \alpha^{-1} \varepsilon\), 特别的当 \(\alpha = 0\) 显然收敛于 \(0\).
+    \end{proof}
+\end{lemma}
+
+\begin{remark}
+    级数的加法数乘也保极限, 另一方面, 若一个级数每项都大于等于另一个级数, 则其极限也大于等于另一个级数.
+\end{remark}
+
+\begin{definition}[绝对收敛]
+    \setlabel {绝对收敛}
+    \label {definition:absolutely converge}
+    级数 \(\sum x_k\) 称绝对收敛若 \(\sum \abs{x_k}\) 收敛.
+\end{definition}
+
+\begin{lemma}
+    \ref{definition:absolutely converge} 的级数必然收敛.
+
+    \begin{proof}
+        \(\abs {\sum_{i=m}^{n} x_i} \leq \sum_{i=m}^{n} \abs{x_i}\) 故为 Cauchy 列, 依赖 \ref{definition:complete metric space} 收敛.
+    \end{proof}
+\end{lemma}
+
+\begin{corollary}
+    \label {corollary:upper bound converge then converge}
+    同理, 若放出 \(\abs{x_k}\) 的上界 \(a_k\) 使得 \(\sum a_k\) 收敛, 则 \(\sum x_k\) 收敛.
+\end{corollary}
+
+\begin{lemma}
+    若 \(\sum x_k\) 收敛则 \(x_k\) 收敛于 \(0\)
+
+    \begin{proof}
+        \(\abs {\sum x_k - \sum_{i=0}^{k} x_i} + \abs {\sum x_k - \sum_{i=0}^{k-1} x_i} \geq \abs {x_k}\).
+    \end{proof}
+\end{lemma}
+
+\begin{lemma}[根判据]
+    \setlabel {根判据}
+    \label {lemma:converge root test}
+    如果 \(\alpha := \limsup \sqrt[k]{x_k}\) 存在, 若 \(\alpha > 1\) 则 \(x_k\) 发散,
+    \(\alpha < 1\) 则 \(x_k\) 收敛.
+
+    \begin{proof}
+        当 \(\alpha < 1\) 时, 存在 \(n\) 使得 \(x > n\) 时 \(\sqrt[k]{x_k} < \frac{\alpha + 1}{2}\),
+        而 \(\sum_{i=0}^{\infty} \beta^i = \lim_{k \to \infty} \frac{\beta^k - 1}{\beta - 1} = \frac{1}{1 - \beta}\),
+        于是可以给出 \(x_k\) 的一个上界, 其在 \(k \leq n\) 时为 \(x_k\), 在 \(k > n\) 时为 \({(\frac{\alpha + 1}{2})}^n\),
+        应用 \ref{corollary:upper bound converge then converge} 即可.
+
+        当 \(\alpha > 1\) 时,  \(x_k\) 不收敛于 \(0\).
+    \end{proof}
+\end{lemma}
+
+\begin{lemma}[商判据]
+    \setlabel {商判据}
+    \label {lemma:converge quotient test}
+    假设 \(x_k \neq 0\), 若存在 \(K\) 使得对 \(k > K\) 时均有:
+
+    \begin{enumerate}
+        \item \(\frac{\abs{x_{k-1}}}{\abs{x_k}} \geq 1\), 则 \(x_k\) 发散.
+        \item \(\frac{\abs{x_{k-1}}}{\abs{x_k}} \leq q\), 则 \(x_k\) 收敛.
+    \end{enumerate}
+
+    \begin{proof}
+        依旧做指数函数的上界.
+    \end{proof}
+\end{lemma}
+
+\begin{lemma}
+    非负级数收敛当且仅当其有界.
+\end{lemma}
+
+\begin{theorem}[重排定理]
+    \setlabel {重排定理}
+    \label {theorem:rearrangement theorem}
+    一个绝对收敛级数 \(\sum x_k\) 的任何重排得到同样的结果.
+
+    \begin{proof}
+        定义 \(o_m = \sum_{k=m}^{\infty} x_k\), 其收敛于 \(0\), 给出换序后的部分和 \(s_n\),
+        假设其包含 \(k < m\) 的全体 \(k\), 则 \(\abs {s_n - \sum_{k=0}^{\infty} x_k} \leq \abs {s_n - \sum_{k=0}^{m} x_k} + \abs {\sum_{k=0}^{m} x_k - \sum_{k=0}^{\infty} x_k} < 2 o_{m+1}\).
+    \end{proof}
+\end{theorem}
+
+于是可以给出可数个非负数的求和, 其值域为 \([0,+\infty]\).
+
+\begin{definition}
+    定义双向级数是 \(x_{m,n}\) 对应的求和, 其绝对收敛是说 \(\abs{x_{m,n}}\) 逐行求和收敛且此和逐列求和收敛.
+\end{definition}
+
+\begin{lemma}
+    绝对收敛的双向级数逐行求和和逐列求和给出一样的结果, 且以任意顺序求和均给出一样的结果.
+
+    \begin{proof}
+        后者无非是 \ref{theorem:rearrangement theorem}.
+
+        前者只需对给定的 \(\varepsilon\) 与给定的某个求和顺序, 找出绝对值余项之和小于 \(\varepsilon/2\) 的有限子列 \(a\),
+        并找出绝对值余项小于 \(\varepsilon/4\) 的有限行使其覆盖该有限子列 \(a\), 再对每行分别选取绝对值余项分别小于 \(\varepsilon/8,\varepsilon/16 \cdots\) 的有限子列,
+        仍然使其覆盖 \(a\), 命其有限和为 \(b\), 则逐行和与 \(b\) 的距离小于 \(\varepsilon/2\), \(b\) 与与顺序和的距离小于 \(\varepsilon/2\), 故诱导出同样的结果.
+    \end{proof}
+\end{lemma}
+
+\begin{definition}[Cauchy 积]
+    对于两个绝对收敛的级数 \(x_k,y_k\), 定义其 Cauchy 积为双向级数 \(z_{m,n} = x_m y_n\),
+    其绝对收敛.
+
+    \begin{proof}
+        逐行求和给出常数倍, 故依旧绝对收敛.
+    \end{proof}
+\end{definition}
+
+\begin{definition}[指数]
+    定义 \(\exp (z) = \sum_{k=0}^{\infty} \frac{z^k}{k!}\), 该级数在任何有界 \(\mathbb{C}\) 子空间上一致绝对收敛.
+
+    \begin{proof}
+        利用 \ref{lemma:converge quotient test} 知其处处绝对收敛, 设其界为 \(r\), 令 \(n = \lfloor r \rfloor + 2\), 对于 \(m > n\), 其余项 \(\sum_{k=m}^{\infty} \frac{z^k}{k!}\),
+        满足 \(\sum_{k=m+1}^{\infty} \frac{\abs{z}^k}{k!} \leq \frac{r}{n} \sum_{k=m}^{\infty} \frac{\abs{z}^k}{k!}\), 其收敛于 \(0\) 知其一致性.
+    \end{proof}
+\end{definition}
+
+\begin{lemma}
+    有 \(\exp (x) \times \exp (y) = \exp (x+y)\).
+
+    \begin{proof}
+        基于一致绝对收敛, 只需逐项比对系数即可.
+    \end{proof}
+\end{lemma}
+
+\subsection{单变量微分}
+
+\begin{definition}
+    对于 \(\mathbb{R}\) 上任意一点 \(x\) 可以定义由其邻域去除 \(x\) 生成的滤子,
+    其诱导出的极限称为在该点的极限, \(f\) 在 \(x\) 处的极限记作 \(\lim_{y \to x} f(y)\).
+\end{definition}
+
+\begin{definition}
+    只考察大于 \(x\) 或小于 \(x\) 的部分也可以得到极限 \(\lim_{y \to x^\pm} f(y)\).
+\end{definition}
+
+\begin{definition}
+    函数 \(f\) 在 \(x\) 处连续定义为其在 \(x\) 处极限存在且 \(f(x) = \lim_{y \to x} f(y)\).
+\end{definition}
+
+\begin{corollary}
+    函数 \(f\) 在某个区间上处处连续当且仅当其连续.
+\end{corollary}
+
+\begin{definition}[导数]
+    我们称 \(f\) 在 \(x\) 处可导当且仅当 \(f^\prime (x) := \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}\) 存在,
+    \(f^\prime\) 称其导数, 或记作 \(\frac{\dd}{\dd x} f\).
+\end{definition}
+
+\begin{remark}
+    假设我们所论的 \(x\) 只考虑区间 \([x,b)\) 则亦可定义右导数, 右连续, 左导数, 左连续也仿照此进行定义.
+\end{remark}
+
+\begin{corollary}
+    \(f\) 在 \(x\) 处可导则在 \(x\) 处连续.
+\end{corollary}
+
+\begin{corollary}
+    导数是线性的, 即 \({(f+g)}^\prime = f^\prime + g^\prime\).
+\end{corollary}
+
+\begin{corollary}[Leibniz]
+    导数满足莱布尼茨律, 即 \({(fg)}^\prime = f^\prime g + g^\prime f\).
+\end{corollary}
+
+\begin{corollary}[链式法则]
+    \(\frac{\dd}{\dd x} {f(g(x))} = \left. \frac{\dd}{\dd g} f \right|_{g(x)} \times \frac{\dd}{\dd x} g\).
+\end{corollary}
+
+\begin{definition}
+    定义区间 \(X\) 上的全体可导且导函数连续的函数记作 \(C^1 (X)\), \(n\) 次导数记作 \(\frac{\dd}{\dd x}^n\) 或 \(f^{(n)}\), \(n\) 次可导且 \(n\) 阶导数连续的函数记作 \(C^n (X)\),
+    令 \(C^\infty (X) = \bigcap_n C^n (X)\) 称光滑函数, 特别的, 零次导数就是本身.
+\end{definition}
+
+\begin{theorem}[中值定理]
+    如果 \([a,b]\) 上连续函数 \(f\) 使得 \(f(a)f(b) < 0\), 则存在 \(m \in (a,b)\) 使得 \(f(m) = 0\).
+
+    \begin{proof}
+        连续函数映连通为连通, 而 \(\mathbb{R} \setminus \{0\}\) 不联通.
+    \end{proof}
+\end{theorem}
+
+\begin{corollary}
+    可导函数的局部极值导函数为 \(0\).
+
+    \begin{proof}
+        对称, 仅证明极大且 \(f^\prime > 0\), 设在 \(x\) 邻域 \(U\) 内 \((f(x+h) - f(x))/h > f^\prime/2\), 则 \(\forall \delta > 0 \land x + \delta \in U(f(x + \delta) > f(x))\).
+    \end{proof}
+\end{corollary}
+
+\begin{theorem}[中值定理]
+    如果 \([a,b]\) 上的连续可导函数 \(f\) 使得 \(f(a) = f(b)\), 则存在 \(p \in (a,b)\) 使得 \(f^\prime (p) = 0\).
+
+    \begin{proof}
+        \(f([a,b])\) \ref{definition:compact topological space}, 假设 \(f\) 非常值, 取极大值或极小值, 该点导数为 \(0\).
+    \end{proof}
+\end{theorem}
+
+\begin{lemma}
+    在区间 \([a,b]\) 上的可导函数 \(f\), 若 \(f^\prime > 0\), 则 \(\forall x,y \in [a,b] (x > y \rightarrow f(x) > f(y))\).
+
+    \begin{proof}
+        若 \(f(x) - f(y) > 0 \land x < y\), 构造 \(g(z) := f(z) - \frac{f(x) - f(y)}{x-y} z\), 则 \(g(x) = g(y)\),
+        于是存在 \(g^\prime (p) = 0\), 与 \(f^\prime > 0\) 矛盾.
+    \end{proof}
+\end{lemma}
+
+\begin{theorem}[Taylor 级数]
+    设 \(f\) 在 \(t\) 处 \(n\) 次可导, 构造级数称为其在 \(t\) 处的 Taylor 展开如下.
+
+    \[
+        T_{n,t} (f) := \sum_{j=0}^{n} \frac{{(x - t)}^j}{j!} (\frac{\dd}{\dd x}^j f) (t)
+    \]
+\end{theorem}
+
+\begin{lemma}
+    设 \(f\) 在 \([a,b]\) 上 \(n\) 次可导, 对任意 \(x,y \in [a,b]\), 有
+
+    \[
+        \abs {f(y) - T_{n,x} (f) (y)} \leq \frac{\abs{x - y}^n}{(n+1)!} \sup_{0 < t < 1} \abs {\frac{\dd}{\dd x}^{n} f(x) - \frac{\dd}{\dd x}^n f(x + t (y-x))}
+    \]
+
+    \begin{proof}
+        归纳.
+    \end{proof}
+\end{lemma}
+
+\begin{theorem}[第二中值定理]
+    \setlabel {第二中值定理}
+    \label {theorem:the second mean value theorem}
+    给定 \(f,g\) 在 \([a,b]\) 上可导, 且 \(\forall x \in (a,b) (g^\prime(x) \neq 0)\),
+    则存在一点 \(\xi \in (a,b)\) 使得 \(\frac{f(b) - f(a)}{g(b) - g(a)} = \frac{f^\prime (\xi)}{g^\prime (\xi)}\).
+
+    \begin{proof}
+        以下 \(h\) 满足 \(h(a) = h(b)\), 故存在 \(\xi\) 使得 \(h^\prime (\xi)= 0\).
+
+        \[
+            h(x) := f(x) - \frac{f(a) - f(b)}{g(a) - g(b)} g(x)
+        \]
+    \end{proof}
+\end{theorem}
+
+\begin{lemma}[Schlömilch 余项引理]
+    假设所展开的函数是 \(n+1\) 次可导的, 任取 \(p > 0\) 有 \(\xi \in [\min (x,y),\max (x,y)]\) 使得:
+
+    \[
+        f(y) - T_{n,x} (f) (y) = \frac{\frac{\dd}{\dd x}^{n+1} f (\xi)}{p n!} {(\frac{y-\xi}{y-a})}^{n-p-1} {(y-x)}^{n+1}
+    \]
+
+    \begin{proof}
+        给出 \(g,h\) 并运用 \ref{theorem:the second mean value theorem}.
+
+        \[
+            \begin{aligned}
+                g(t) :&= \sum_{k=0}^{n} \frac{\frac{\dd}{\dd x}^{k} f(t)}{k!} {(x-t)}^k \\
+                h(t) :&= {(x-t)}^p
+            \end{aligned}
+        \]
+    \end{proof}
+\end{lemma}
+
+\begin{theorem}[L'Hospital 法则]
+    给出 \((a,b)\) 上可导的 \(f,g\) 假设以下二者满足其一, 且 \(\lim_{x \to a} f^\prime (x)/g^\prime (x)\) 存在, 则 \(\lim_{x \to a} f(x)/g(x) = \lim_{x \to a} f^\prime (x)/g^\prime (x)\).
+
+    \begin{enumerate}
+        \item \(\lim_{x \to a} f(x) = \lim_{x \to a} g(x) = 0\).
+        \item \(\lim_{x \to a} g(x) = \pm \infty\).
+    \end{enumerate}
+
+    \begin{proof}
+        注意到对于任意 \(x,y\) 有 \(\xi \in (x,y)\) 满足
+
+        \[
+            \frac{f(x) - f(y)}{g(x) - g(y)} = \frac{f^\prime (\xi)}{g^\prime (\xi)}
+        \]
+
+        对于第一种情况, 令 \(x \to a\) 可以放出界, 第二种情况, 先变形再使得 \(x \to a\):
+
+        \[
+            \frac{f(x)}{g(x)} = \frac{f^\prime (\xi)}{g^\prime (\xi)} - \frac{f^\prime (\xi)}{g^\prime (\xi)} \frac{g(y)}{g(x)} - \frac{f(y)}{g(x)}
+        \]
+    \end{proof}
+\end{theorem}
+
+\begin{definition}[Landau 符号]
+    我们符号用 \(f(x) = o(g)\) 表示在某个特别的点上 \(\lim f/g = 0\),
+    如我们称 \(f\) 在 \(t\) 处有 \(\alpha\) 阶零点若 \(\lim_{x \to t} f/\abs{x-t}^\alpha = 0\),
+    记作 \(f (x) = o(\abs{x-t}^\alpha)\).
+\end{definition}
+
+\subsection{凸性, 函数列, 实解析函数}
+
+\begin{definition}[凸]
+    一个 \(\mathbb{R}\) 上向量空间的子集 \(S\) 称凸 (convex) 的, 当且仅当 \(\forall x,y \in S (\{tx + (1-t)y : t \in [0,1]\} \subseteq S)\).
+\end{definition}
+
+\begin{lemma}
+    一个函数称凸的, 若 \(\{(x,y) : y > f(x)\} \subseteq \mathbb{R}^2\) 是凸的.
+\end{lemma}
+
+\begin{lemma}
+    一个一阶可导函数 \(f\), \(f^\prime\) 不减当且仅当 \(f\) 凸.
+
+    \begin{proof}
+        假设 \(f\) 凸, 对于任意 \(a < x < y < b\) 均有:
+
+        \[
+            \frac{f(x) - f(a)}{x - a} \leq \frac{f(a) - f(b)}{a - b} \leq \frac{f(y) - f(b)}{y - b}
+        \]
+
+        依赖导数定义可知 \(f^\prime (a) \leq f^\prime (b)\), 反之, 若 \(f^\prime\) 不减, 任意 \(a < x < b\) 都有 \(\xi < \eta\) 使得:
+
+        \[
+            \begin{aligned}
+                \frac{f(x) - f(a)}{x - a} = f^\prime (\xi) \\
+                \frac{f(b) - f(x)}{b - x} = f^\prime (\eta) > f^\prime (\xi)
+            \end{aligned}
+        \]
+    \end{proof}
+\end{lemma}
+
+\begin{corollary}[Jensen]
+    假使 \(f^{\prime \prime} \geq 0\) 在 \([a,b]\) 上成立, 则 \(f(ta + (1-t)b) \leq tf(a) + (1-t)f(b)\).
+\end{corollary}
+
+\begin{corollary}[Young]
+    任取 \(p,p^\prime > 0\) 满足 \(\frac{1}{p} + \frac{1}{p^\prime} = 1\) 有:
+    
+    \[
+        \xi \eta \leq \frac{1}{p} \xi^p + \frac{1}{p^\prime} \eta^{p^\prime}
+    \]
+\end{corollary}
+
+\begin{corollary}[Hölder]
+    令 \(\left\|x\right\|_p := {(\sum_{i=1}^{n} x_i^p)}^{1/p}\), 对 \(p,p^\prime > 0\) 满足 \(\frac{1}{p} + \frac{1}{p^\prime} = 1\) 有:
+
+    \[
+        \sum_{i=1}^{n} \abs {x_i y_i} \leq \left\|x\right\|_p \times \left\|y\right\|_{p^\prime}
+    \]
+
+    \begin{proof}
+        将下列不等式对 \(i\) 求和:
+
+        \[
+            \frac{\abs{x_i}}{\left\|x\right\|_p} \times \frac{\abs{y_i}}{\left\|y\right\|_{p^\prime}} \leq \frac{1}{p} \frac{\abs{x_i}^p}{\left\|x\right\|_p^p} + \frac{1}{p^\prime} \frac{\abs{y_i}^{p^\prime}}{\left\|y\right\|_{p^\prime}^{p^\prime}}
+        \]
+    \end{proof}
+\end{corollary}
+
+\begin{lemma}
+    若函数列 \(f_n\) 一致收敛于 \(f\), 且 \(f_n\) 均在 \(a\) 处连续, 则 \(f\) 在 \(a\) 处连续.
+
+    \begin{proof}
+        取充分大 \(N\) 使得 \(\left\|f - f_N\right\|_\infty < \varepsilon/3\), 与 \(U := f_N^{-1} ((f_N(a) - \varepsilon/3,f_N(a) + \varepsilon/3))\). 
+        此为 \(a\) 邻域且 \(f(U) \subseteq (f(a) - \varepsilon, f(a) + \varepsilon)\).
+    \end{proof}
+\end{lemma}
+
+\begin{lemma}
+    给出一列 \(f_n \in C^1([a,b])\) 逐点收敛于 \(f\), 满足 \(f_n^\prime\) 一致收敛于 \(g\),
+    则 \(f\) 可导且 \(f^\prime = g\), \(f_n\) 亦一致收敛.
+
+    \begin{proof}
+        直接计算 \(f^\prime = \lim_{h \to 0} \frac{f(x+h)-f(x)}{h} = \lim_{h \to 0} \lim_{n \to \infty} \frac{f_n(x+h) - f_n(x)}{h}\),
+        依赖 \(g\) 连续, 取 \(x\) 邻域 \(U\) 使得 \(g(U) \subseteq (g(x)-\varepsilon/3,g(x)+\varepsilon/3)\), 取 \(h \in U\), 然后依赖一致连续取充分大 \(N\) 使得 \(n > N\) 时有 \(\left\|f_n^\prime - g\right\| \leq \varepsilon/3\),
+        根据 \ref{theorem:the second mean value theorem} 知道存在 \(\xi \in U\) 使得 \(f_n (x+h) - f_n(x) = h f_n^\prime (\xi_n)\), 于是 \(f^\prime = \lim_{h \to 0} \lim_{n \to \infty} f_n^\prime (\xi_n)\),
+        而 \(\abs {f^\prime_n (\xi_n) - g^\prime} < \varepsilon\), 从而 \(f^\prime = g\).
+
+        一致收敛使用 \ref{theorem:the second mean value theorem} 寻求 \(f_n(x) - f(x)= (f_n^\prime (\xi_{n,x,y}) - f^\prime (\xi_{n,x,y})) (x - y) + f_n(y) - f(y)\) 而约化到 \(y\) 处 \(f\) 的收敛性与 \(f^\prime_n\) 的一致收敛性.
+    \end{proof}
+\end{lemma}
+
+\begin{definition}[实解析]
+    \setlabel {实解析}
+    \label {definition:real analytic function}
+    一个 \(f \in C^\infty (X)\) 称实解析若每个点 \(k \in X\) 都存在幂级数 \(\sum_{i=0}^{\infty} a_i (x - k)^i\),
+    存在一个 \(k\) 邻域上幂级数一致收敛于 \(f\), 则称 \(f\) 实解析.
+\end{definition}
+
+\begin{remark}
+    记 \(X\) 上 \ref{definition:real analytic function} 的全体为 \(C^\omega (X)\).
+\end{remark}
+
+\begin{definition}[收敛半径]
+    对于幂级数 \(\sum_{i=0}^{\infty} c_i (x - t)^i\) 定义幂级数在 \(t\) 点的收敛半径为 \(\rho = 1/\limsup \sqrt[i]{\abs{c_i}}\),
+    特别的, 若 \(\limsup \sqrt[i]{\abs{c_i}} = 0\) 则 \(\rho = \infty\), 若 \(\limsup \sqrt[i]{\abs{c_i}} = \infty\) 则 \(\rho = 0\).
+\end{definition}
+
+\begin{lemma}
+    幂级数在收敛半径内绝对收敛, 在收敛半径外发散, 且在收敛半径内的 \ref{definition:compact topological space} 集上一致收敛.
+
+    \begin{proof}
+        利用 \ref{lemma:converge root test}.
+    \end{proof}
+\end{lemma}
+
+\begin{lemma}
+    \ref{definition:real analytic function} 函数导数存在且仍然 \ref{definition:real analytic function}.
+
+    \begin{proof}
+        逐项求导, 保持收敛半径.
+    \end{proof}
+\end{lemma}
+
+\begin{corollary}
+    \(C^\omega (X) \subseteq C^\infty (X)\).
+\end{corollary}
+
+\begin{corollary}
+    \ref{definition:real analytic function} 的级数展开等价于 Taylor 展开.
+\end{corollary}
+
+\begin{lemma}
+    \ref{definition:real analytic function} 的乘积, 和仍然 \ref{definition:real analytic function}.
+
+    \begin{proof}
+        和的情况是显然的, 对于两个实解析函数的乘积利用 Cauchy 积.
+    \end{proof}
+\end{lemma}
+
+\begin{example}
+    \(\exp (x) = \sum_{i=0}^{\infty} \frac{x^i}{i!}\) 是 \ref{definition:real analytic function} 的.
+\end{example}
+
+\begin{example}
+    \(\exp (-1/x^2)\) 不是 \ref{definition:real analytic function} 的, 
+    此函数引导出流形的单位分解.
+\end{example}
+
+\subsection{Riemann-Stieltjes 积分}
+
+\begin{definition}
+    对于 \(f \in \mathrm{Hom}_{\mathbf{Top}} (X,\mathbb{R})\), 定义 \(R_n (f) := \sum_{j=0}^{n-1} f(\frac{j}{n}) \frac{1}{n}\),
+    则对于任意 \(n < m\), 有:
+
+    \[
+        \abs {R_n (f) - R_m (f)} \leq 2 \sup_{\abs{x - y} \leq \frac{1}{n}} \abs {f(x) - f(y)}
+    \]
+
+    定义 \(\int_{[0,1]} f(x) \dd x = \int_{0}^{1} f(x) \dd x := \lim_{n \to \infty} R_n (f)\).
+
+    \begin{proof}
+        注意到显见的不等式 \(\abs {R_n (f) - R_{mn} (f)} \leq \sup_{\abs{x - y} \leq \frac{1}{n}} \abs {f(x) - f(y)}\).
+    \end{proof}
+\end{definition}
+
+\begin{definition}[Riemann-Stieltjes 积分]
+    \setlabel {Riemann-Stieltjes 积分}
+    \label {definition:Riemann-Stieltjes integral}
+    \(\dd x\) 可以被替换为不减函数 \(\dd \alpha\), 此时定义对应的 \(R_n^\sharp (f;\alpha) = \sum_{j=0}^{n-1} f(\frac{j}{n}) (\alpha(\frac{j+1}{n}) - \alpha(\frac{j}{n}))\),
+    上述不等式被替换为:
+    
+    \[
+        \abs {R_n^\sharp (f;\alpha) - R_m^\sharp (f;\alpha)} \leq 2 (\alpha(1) - \alpha(0)) \sup_{\abs{x - y} \leq \frac{1}{n}} \abs {f(x) - f(y)}
+    \]
+
+    于是可定义 \(\int_{0}^{1} f(x) \dd \alpha := \lim_{n \to \infty} R_n^\sharp (f;\alpha)\).
+\end{definition}
+
+\begin{definition}
+    一个 \([0,1]\) 的划分是 \(\{p_j\}_{j=0}^n\), 满足 \(0 < p_0 \land p_n = 1 \land p_i < p_{i+1}\),
+    定义 \(\Delta(p) = \max (p_j - p_{j-1})\), 定义 \(R_n (f;p) := \sum_{j=0}^{n-1} (p_{j+1} - p_j) f(p_j)\).
+\end{definition}
+
+\begin{lemma}
+    有不等式 \(\abs {R_n (f;p) - \int_{0}^{1} f(x) \dd x} \leq \sup_{\abs{x-y} \leq \Delta(p)} \abs{f(x) - f(y)}\),
+    于是随着 \(\Delta(p)\) 减小至 \(0\), 一列 \(p\) 的 \(R_n (f,p)\) 趋于 \(\int_{0}^{1} f(x) \dd x\).
+
+    \begin{proof}
+        任取 \(m > 1/\Delta(p)\), 有
+        \[
+            \abs{f(p_j) - \sum_{k=0}^{m-1} f(\frac{k}{m}) (\max (\frac{k+1}{m},p_{j+1}) - \min (\frac{k}{m},p_j))} \leq \sup_{\abs{x-y} \leq \Delta(p)} \abs{f(x) - f(y)}
+        \]
+        
+        从而对于任意 \(m > 1/\Delta(p)\), 均有
+
+        \[
+            \abs {R_n (f;p) - R_m(f)} \leq \sup_{\abs{x-y} \leq \Delta(p)} \abs{f(x) - f(y)}
+        \]
+        
+        依赖定义, 对 \(m\) 取极限后仍有此不等式.
+    \end{proof}
+\end{lemma}
+
+\begin{remark}
+    Riemann-Stieltjes 积分可以延拓到任意的分段连续函数的闭区间上.
+
+    \[
+        \int_{a}^{b} f(x) \dd x = \int_{0}^{1} f(ta + (1-t)b) \dd (ta + (1-t)b)
+    \]
+
+    \begin{proof}
+        唯一性用划分的任意性说明.
+    \end{proof}
+\end{remark}
+
+\begin{definition}[反常积分]
+    定义 \(\int_{a}^{\infty} f(x) \dd x := \lim_{b \to \infty} \int_{a}^{b} f(x) \dd x\), 若该极限存在,
+    类似的定义 \(\int_{-\infty}^{b} f(x) \dd x\).
+
+    同样, 若 \(f\) 在某点发散, 亦可取极限 \(\int_{a}^{b} f(x) \dd x := \lim_{t \to b} \int_{a}^{t} f(x) \dd x\), 
+    以定义反常积分.
+\end{definition}
+
+\begin{definition}
+    假设 \(x\)  使得 \(f(x)\) 发散, 称 \(\lim_{\varepsilon \to 0^{+}} \int_{[a,b] \setminus (x-\varepsilon,x+\varepsilon)} f(x) \dd x\) 为积分 \(\int_{a}^{b} f(x) \dd x\) 的 Cauchy 主值.
+\end{definition}
+
+\begin{lemma}
+    若 \(\forall x \in [0,1] (f(x) \geq g(x))\), 则 \(\int_{0}^{1} f(x) \dd x \geq \int_{0}^{1} g(x) \dd x\).
+\end{lemma}
+
+\begin{theorem}[微积分基本定理]
+    给出 \(f \in C([0,1])\), 令 \(F(x) := \int_{0}^{x} f(t) \dd t\), 则 \(F \in C^1([0,1])\) 且 \(F^\prime = f\).
+
+    \begin{proof}
+        任取 \(x,y \in [0,1] \land x > y\), 有
+
+        \[
+            \abs {F(x) - F(y)} = \abs {\int_{y}^{x} f(t) \dd t} \in [\inf_{a \in [x,y]} f(a) (x-y),\sup_{a \in [x,y]} f(a) (x-y)]
+        \]
+
+        因为 \(f\) 一致连续, 于是 \(F^\prime = f\).
+    \end{proof}
+\end{theorem}
+
+\begin{theorem}[常微分方程基本定理]
+    \(f^\prime\) 在 \((0,1)\) 上为 \(0\), 则 \(f\) 在 \((0,1)\) 上为常值函数.
+
+    \begin{proof}
+        若否, 假设 \(f(a) > f(b)\) 则存在 \(f^\prime (\xi) = \frac{f(a)-f(b)}{a-b} \neq 0\).
+    \end{proof}
+\end{theorem}
+
+\begin{definition}[对数]
+    对正数 \(x\) 定义 \(\ln (x) = \int_{1}^{x} 1/t \dd t\), 其满足 \(\ln (x) + \ln (y) = \ln (xy)\).
+
+    \begin{proof}
+        有易于验证的恒等式 \(\int_{1}^{x} 1/t \dd t = \int_{\lambda}^{\lambda x} 1/t \dd t\).
+    \end{proof}
+\end{definition}
+
+\subsection{常微分方程}
+
+\begin{definition}[常微分方程]
+    对 \(f(x)\) 列出方程 \(\Gamma(\frac{\dd}{\dd x}^{n} f(x), \cdots, \frac{\dd}{\dd x} f(x), f(x),x) = 0\), 称其为 \(n\) 阶常微分方程,
+    其典范形式为 \(\frac{\dd}{\dd x}^{n} f(x) = g(f(x),\cdots,f^{(n-1)}(x),x)\).
+\end{definition}
+
+\begin{remark}
+    我们常常考虑 \ref{definition:Banach space} 上的常微分方程 \(\frac{\dd}{\dd x} r(x) = g(r(x),x)\), 对一般常微分方程, 只需令 \(r(x) = (f(x),f^\prime(x),\cdots,f^{(n-1)}(x))\).
+\end{remark}
+
+\begin{definition}[Lipschitz 条件]
+    \setlabel {Lipschitz 条件}
+    \label {definition:Lipschitz condition}
+    如果 \(f(t,x)\) 满足对任意 \(x,y\), 对于给定度量 \(\left\|-\right\|\), 有 \(\abs{f(t,x) - f(t,y)} \leq L \left\|x - y\right\|\), 则称 \(f\) 对 \(x\) 参量满足 Lipschitz 条件, 其中 \(L\) 称为 Lipschitz 常数,
+    受到度量的选取影响.
+\end{definition}
+
+\begin{theorem}
+    在 \(\mathbb{R}^\nu\) 上, 假定 \(g(r(x),x)\) 对 \(r\) 在 \([a-1/2L,a+1/2L]\) 上满足 \ref{definition:Lipschitz condition}, 其 Lipschitz 系数为 \(L\), 则对于任意初值 \(r(a) = b\), 存在唯一的解 \(r \in {(C^{1} ([a-1/2L,a+1/2L]))}^{\nu}\) 满足 \(r(a) = b\).
+
+    \begin{proof}
+        定义 \(T : {(C^{1} ([a-1/2L,a+1/2L]))}^{\nu} \to {(C^{1} ([a-1/2L,a+1/2L]))}^{\nu}\), 使得 \(T(f)(x) = b + \int_{a}^{x} g(f(t),t) \dd t\), 其诱导的 \(f^\prime \mapsto T(f)^\prime\) 在一致度量下是压缩映射, 
+        由 \ref{theorem:contraction mapping principle} 知其有唯一不动点, 诱导出唯一的解.
+    \end{proof}
+\end{theorem}
+
+\begin{remark}
+    上述证明对某个在 \([a-1/2L,a+1/2L]\) 内的 \(a\) 邻域内依然成立.
+\end{remark}
+
+\begin{lemma}
+    给定初值的满足局部 \ref{definition:Lipschitz condition} 条件的常微分方程的解在某个区间上存在则唯一.
+
+    \begin{proof}
+        若给出两个不同的解 \(r_1,r_2\), 则 \(\{x:r_1(x) = r_2(x)\}\) 闭, 依赖局部 \ref{definition:Lipschitz condition},
+        知其开, 而区间总是连通的.
+    \end{proof}
+\end{lemma}
+
+\begin{example}[常系数线性微分方程]
+    对于线性方程 \(\frac{\dd}{\dd x} r(x) = A r(x) + b(x)\), 其中 \(A\) 为矩阵, \(b(x)\) 为向量, 则有解 
+    
+    \[
+        r(x) = \exp (A(x-a)) r(a) + \int_{a}^{x} \exp (A(x-t)) b(t) \dd t
+    \]
+
+    其中 \(\exp (M)\) 为矩阵的指数, 定义为级数 \(\sum_{i=0}^{\infty} \frac{M^i}{i!}\).
+\end{example}
+
+\begin{example}[一次线性微分方程]
+    给出 \(\frac{\dd}{\dd x} f = a(x) f + b(x)\), 则有解 
+    
+    \[
+        f(x) = \exp (\int_{a}^{x} a(t) \dd t) (f(a) + \int_{a}^{x} \exp (\int_{t}^{x} -a(s) \dd s) b(t) \dd t)
+    \]
+\end{example}

@@ -1,0 +1,292 @@
+\section{\(\infty\) 范畴语言}
+
+\subsection{单纯形}
+
+\subsubsection{单纯对象}
+
+\begin{remark}
+    记 \([n]\) 为线序集 \(\{0 < 1 < \ldots < n\}\).
+\end{remark}
+
+\begin{definition}[单纯范畴]
+    定义单纯范畴 \(\Delta\) 其对象为 \(\{[n] : n \in \mathbb{N}\}\), 态射为不降映射.
+
+    定义半单纯范畴 \(\Delta_{inj}\) 若只允许单射, 定义范畴 \(\Delta_{surj}\) 若只允许满射.
+\end{definition}
+
+\begin{definition}
+    \(\mathcal{C}\) 中单纯对象 (simplical object) 为嵌入 \(S : \Delta^\mathrm{op} \to \mathcal{C}\), 定义余单纯对象为投影 \(S : \Delta \to \mathcal{C}\),
+    用 \(S_n\) 表示 \(S([n])\).
+\end{definition}
+
+\begin{definition}
+    单纯集为 \(\Delta^\mathrm{op} \to \mathbf{Set}\), 记单纯集范畴 \(\mathbf{Set}_\Delta := \mathbf{Set}^{\Delta^\mathrm{op}}\), 子单纯集定义为对应元素为子集的单纯集.
+\end{definition}
+
+\begin{definition}
+    依赖米田嵌入定义标准单纯形 \(\Delta^n\) 为 \(\Delta_m^n = \mathrm{Hom}_{\Delta}([m], [n])\), 有同构 \(\mathrm{Hom}_{\mathbf{Set}_\Delta} (\Delta^n \to S) \cong S_n\),
+    特别的定义 \(\Delta^{-1}_m = \varnothing\).
+\end{definition}
+
+\begin{lemma}
+    假设 \(\mathcal{C}\) 完备与余完备, 则 \(\varinjlim,\varprojlim\) 给出了函子 \(\mathbf{Fun}(I,\mathcal{C}) \to \mathcal{C}\).
+\end{lemma}
+
+\begin{lemma}
+    给出伴随对 \(F \dashv G\), 则 \(F^\ast \dashv G^\ast\), 其中 \(F^\ast : \mathbf{Fun} (I,\mathcal{C}) \to \mathbf{Fun} (I,\mathcal{D})\),
+    \(G^\ast : \mathbf{Fun} (I,\mathcal{D}) \to \mathbf{Fun} (I,\mathcal{C})\).
+
+    \begin{proof}
+        由伴随对的泛性质, 有自然变换 \(\eta : \mathrm{id}_{\mathcal{C}} \to G F\), \(\epsilon : F G \to \mathrm{id}_{\mathcal{D}}\), 于是逐点给出自然变换
+        自然诱导出 \(\eta^\ast : \mathrm{id}_{\mathbf{Fun} (I,\mathcal{C})} \to G^\ast F^\ast\), \(\epsilon^\ast : F^\ast G^\ast \to \mathrm{id}_{\mathbf{Fun} (I,\mathcal{D})}\).
+
+        其自然性保证诱导出变换的存在与自然性.
+    \end{proof}
+\end{lemma}
+
+\begin{lemma}
+    \(\mathbf{Set}_{\Delta}\) 完备与余完备.
+\end{lemma}
+
+\begin{definition}
+    对于 \(x \in \mathrm{Ob} (\mathcal{D})\), 定义 \(x\) 处的切片范畴 (slice category),
+    其对象为元素对 \((d,\alpha)\) 其中 \(d \in \mathrm{Ob} (\mathcal{D}) \land \alpha : d \to x\),
+    一个 \(x\) 处的切片范畴的态射 \((d,\alpha) \to (d^\prime,\alpha^\prime)\) 为态射 \(\beta : d \to d^\prime\) 使得 \(\alpha^\prime \circ \beta = \alpha\).
+\end{definition}
+
+\begin{remark}
+    有典范 \(\mathcal{D}_{/x} \to \mathcal{D}\) 使得 \((d,\alpha) \mapsto d\).
+\end{remark}
+
+\begin{definition}
+    对于函子 \(F : \mathcal{C} \to \mathcal{D}\), 可以定义其切片 \(F_{/x}\) 为下述拉回:
+
+    \begin{center}
+        \begin{tikzpicture}
+            \node (Fx) at (-2,1) {\(F_{/x}\)};
+            \node (Dx) at (2,1) {\(\mathcal{D}_{/x}\)};
+            \node (C) at (-2,-1) {\(\mathcal{C}\)};
+            \node (D) at (2,-1) {\(\mathcal{D}\)};
+
+            \draw [->] (Fx) to (Dx); \draw [->] (C) to node[above] {\(F\)} (D); \draw [->] (Fx) to (C); \draw [->] (Dx) to (D);
+        \end{tikzpicture}
+    \end{center}
+\end{definition}
+
+\begin{remark}
+    切片范畴的对象形如 \((c,\alpha)\), 其中 \(c \in \mathrm{Ob} (\mathcal{C})\) 且 \(\alpha : F(c) \to x\).
+\end{remark}
+
+\begin{remark}
+    有时 \(F_{/x}\) 也记作 \(\mathcal{C}_{/x}\).
+\end{remark}
+
+\begin{lemma}
+    任取预层 \(F : \mathcal{C}^\mathrm{op} \to \mathbf{Set}\), 有自然同构 \(\varinjlim_{X \in \mathcal{C}_{/ F}} \mathrm{Hom}_{\mathcal{C}} (-, X) \to F\).
+
+    \begin{proof}
+        \ref{lemma:Yoneda lemma}.
+    \end{proof}
+\end{lemma}
+
+\begin{lemma}
+    假设 \(\mathcal{D}\) 完备且余完备, 给出 \(i : \mathcal{A} \to \mathcal{B}\),
+    则 \(i^\ast : \mathbf{Fun} (\mathcal{B},\mathcal{D}) \to \mathbf{Fun} (\mathcal{A},\mathcal{D})\) 有左伴随 \(i_!\) 与右伴随 \(i_\ast\).
+
+    \begin{proof}
+        直接给出 \(i_! (F) (x) = \varinjlim_{(a,\alpha) \in \mathcal{A}_{/x}} F(a)\), \(i_\ast (F) (x) = \varprojlim_{(a,\alpha) \in \mathcal{A}_{/x}} F(a)\).
+
+        给定 \(\eta_X \in \mathrm{Hom}_{\mathbf{Fun} (\mathcal{A},\mathcal{D})} (F,i^\ast G)\), 有 \(\theta_Y : \varinjlim_{a \in \mathcal{A}_{/Y}} Fa \to \varinjlim_{a \in \mathcal{A}_{/Y}} Gi (a) \to GY\),
+        注意到 \(X \in \mathcal{A}_{/iX}\) 故必然有 \(FX \to \varinjlim_{a \in \mathcal{A}_{/iX}} Fa\), 于是给出 \(\theta_Y\) 亦给出 \(\eta_X : FX \to \varinjlim_{a \in \mathcal{A}_{/iX}} Fa \to GiX\).
+
+        易于验证其互为逆, \(\varprojlim\) 只需倒转箭头.
+    \end{proof}
+\end{lemma}
+
+\begin{corollary}
+    完备且余完备的范畴总是具有 Kan 延拓.
+\end{corollary}
+
+\begin{lemma}
+    对于任意 \(A \in \mathbf{Fun} (\mathcal{C},\mathbf{Set})\) 有 \(\varinjlim_{X \in \mathcal{C}_{/A}} h_{\mathcal{C}} (X) \cong A\).
+
+    \begin{proof}
+        剖析 \(\mathcal{C}_{/A}\) 的结构, 其对象为 \((X,\alpha)\), 其中 \(X \in \mathrm{Ob} (\mathcal{C})\) 且 \(\alpha \in A(X)\),
+        \((X,\alpha) \to (Y,\beta)\) 的一个态射为 \(f : X \to Y\) 使得 \(Af (\beta) = \alpha\).
+
+        既然预层范畴中的余极限逐点给出, 我们考察 \(\varinjlim h_{\mathcal{C}} (X) (S) = \mathrm{Hom}_{\mathcal{C}} (S,X)\),
+        注意到所有 \(g \in \mathrm{Hom}_{\mathcal{C}} (S,X)\), \(\alpha \in A (X)\) 都可给出态射 \(\gamma : (S,g(\alpha)) \to (X,\alpha)\) 映 \(\mathrm{id}_S\) 为 \(g\),
+        依赖 \(\mathbf{Set}\) 中余极限的构造, 有 \(\varinjlim h_{\mathcal{C}} (X) (S) = A (S)\).
+    \end{proof}
+\end{lemma}
+
+\begin{corollary}
+    给出单纯集 \(X\) 有 \(X \cong \varinjlim_{[n] \in \Delta_{/X}} \Delta^n\).
+\end{corollary}
+
+\begin{lemma}
+    对单纯集 \(X \in \mathbf{Set}_{\Delta}\) 有函子 \(X \times - : \mathbf{Set}_{\Delta} \to \mathbf{Set}_{\Delta}, Y \mapsto X \times Y\),
+    其具有右伴随函子 \(\underline{\mathrm{Hom}} (X, -)\), 也记 \(-^X\).
+
+    \begin{proof}
+        我们对单纯形 \(Z\) 构造出对应的 \(Z^X\):
+
+        \[
+            {(Z^X)}_n = \mathrm{Hom}_{\mathbf{Set}_{\Delta}} (\Delta^n, Z^X) = \mathrm{Hom}_{\mathbf{Set}_{\Delta}} (\Delta^n \times X, Z)
+        \]
+
+        证明其为伴随只需注意到 \(\varinjlim\) 与 \(X \times -\) 交换并以 \(\varinjlim_{[n] \in \Delta_{/Y}} \Delta^n\) 代 \(Y\).
+    \end{proof}
+\end{lemma}
+
+\begin{definition}
+    定义拓扑单纯形 \(\Delta^n_{top}\) 为 \(\{(t_0,\ldots,t_n) \in \mathbb{R}^{n+1} : \sum t_i = 1 \land \forall i (t_i \geq 0)\}\),
+    其上带有自然的拓扑结构, 任意 \(\alpha : [m] \to [n]\) 给出连续映射 \(\Delta^m_{top} \to \Delta^n_{top}\) 使得 \((t_0,\ldots,t_n) \mapsto (\sum_{t \in \alpha^{-1} (\{0\})} t,\sum_{t \in \alpha^{-1} (\{1\})} t,\cdots,\sum_{t \in \alpha^{-1} (\{m\})} t)\).
+\end{definition}
+
+\begin{definition}
+    一个拓扑空间 \(X\) 的单纯复形为 \(\mathcal{S} (X) : [n] \mapsto \mathrm{Hom}_{\mathbf{Top}} (\Delta^n_{top}, X)\).
+\end{definition}
+
+\begin{lemma}
+    \(\mathcal{S}\) 有自然的左伴随函子称几何实现函子 \(\mathcal{G} : \mathbf{Set}_{\Delta} \to \mathbf{Top}\).
+
+    \begin{proof}
+        直接定义其几何实现为
+
+        \[
+            \mathcal{G} (X) = \varinjlim_{[n] \in \Delta_{/X}} \Delta^n_{top} = (\coprod_{n \in \mathbb{N}} (\Delta^n_{top} \times X_n)) / \sim
+        \]
+
+        其中 \(\sim\) 定义出的等价关系由 \(\exists \alpha : [m] \to [n] (\alpha(t) = t^\prime \land \alpha(\sigma^\prime) = \sigma)\) 生成, 需证明伴随带来的等式
+
+        \[
+            \mathrm{Hom}_{\mathbf{Top}} (\mathcal{G} (X),Y) \cong \mathrm{Hom}_{\mathbf{Top}} (\varinjlim_{[n] \in \Delta_{/X}} \Delta^n_{top},Y) \cong \mathrm{Hom}_{\mathbf{Set}_{\Delta}} (X,\mathcal{S} (Y))
+        \]
+    \end{proof}
+\end{lemma}
+
+\begin{remark}
+    \(\mathcal{G} (\Delta^n)\) 是一个 \(CW\) - 复形.
+\end{remark}
+
+\begin{definition}[边界]
+    对单纯形 \(\Delta^n\) 定义其边界为单纯形 \({(\partial \Delta^n)}_k := \{\alpha : [k] \to [n] : \alpha ([k]) \neq [n]\}\).
+\end{definition}
+
+\begin{definition}[角]
+    对 \(S \subseteq [n]\) 定义其诱导出的角 \(\Lambda_S^n \subseteq \Delta^n\) 为 \({(\Lambda_S^n)}_k := \{\alpha : [k] \to [n] : [n] \setminus S \nsubseteq f([k])\}\).
+
+    内角定义为 \(0 < j < n\) 的 \(\Lambda^n_j\), 外角则为 \(j = 0\) 或 \(j = n\) 的 \(\Lambda^n_j\).
+\end{definition}
+
+\begin{definition}
+    定义脊 \(I^n \subseteq \Delta^n\) 为 \({(I^n)}_k := \{\alpha : [k] \to [n] : \abs{\alpha ([k])} \leq 2\}\).
+\end{definition}
+
+\begin{definition}[骨架]
+    令 \(i\) 为 \(\Delta_{\leq n} \to \Delta\) 的嵌入, 其中 \(\mathrm{Ob} (\Delta_{\leq n}) = \{[k] : k \leq n\}\) 的全子范畴, 定义单纯形 \(X\) 的 \(n\) 阶骨架为 \(\mathrm{sk}_n (X) = i_{!} i^\ast (X)\).
+\end{definition}
+
+\begin{corollary}
+    有 \(\mathrm{sk}_n (X) = \varinjlim_{k \leq n,[k] \in \Delta_{/X}} \Delta^k\).
+\end{corollary}
+
+\begin{definition}
+    对偶的, 给出余骨架为 \(\mathrm{cosk}_n (X) = i_\ast i^\ast (X)\).
+\end{definition}
+
+\begin{lemma}
+    \(\mathrm{sk}_n \dashv \mathrm{cosk}_n\).
+
+    \begin{proof}
+        依 \ref{lemma:adjoint functor's composition is adjoint} 并注意到 \(i_{!} \dashv i^\ast \dashv i_\ast\).
+    \end{proof}
+\end{lemma}
+
+\begin{lemma}
+    有等式:
+
+    \[
+        {(\mathrm{cosk}_n (X))}_k = \mathrm{Hom}_{\mathbf{Set}_{\Delta}} (\mathrm{sk}_n (\Delta^k),X)
+    \]
+
+    \begin{proof}
+        依赖上述伴随.
+    \end{proof}
+\end{lemma}
+
+\begin{definition}[神经]
+    \setlabel {神经}
+    \label {definition:nerve of a category}
+    给定范畴 \(\mathcal{C}\) 定义其神经为单纯形 \({(\mathbf{N} (\mathcal{C}))}_k = \mathbf{Fun} ([k],\mathcal{C})\),
+    其中 \([k]\) 为来自偏序集 \([k]\) 的范畴.
+\end{definition}
+
+\begin{remark}
+    我们来解释单纯形 \(\mathbf{N} (\mathcal{C})\), 可以发现 \({(\mathbf{N} (\mathcal{C}))}_k\) 中的元素为首尾相接的 \(k\) 个态射:
+
+    \[
+        X_0 \xrightarrow{f_0} X_1 \xrightarrow{f_1} \cdots \xrightarrow{f_{k-1}} X_k
+    \]
+
+    假定 \([1]\) 对应 \(A \xrightarrow{f} B\), 我们考虑全体 \([2] \to [1]\), 给出对应关系:
+
+    \[
+        \begin{aligned}
+            \{(0,0),(1,0),(2,0)\} &: A \xrightarrow{\mathrm{id}_A} A \xrightarrow{\mathrm{id}_A} A \\
+            \{(0,0),(1,0),(2,1)\} &: A \xrightarrow{\mathrm{id}_A} A \xrightarrow{f} B \\
+            \{(0,0),(1,1),(2,1)\} &: A \xrightarrow{f} B \xrightarrow{\mathrm{id}_B} B \\
+            \{(0,1),(1,1),(2,1)\} &: B \xrightarrow{\mathrm{id}_B} B \xrightarrow{\mathrm{id}_B} B
+        \end{aligned}
+    \]
+
+    假定 \([2]\) 对应 \(A \xrightarrow{f} B \xrightarrow{g} C\), 我们考虑全体 \([2] \to [1]\), 给出对应关系:
+
+    \[
+        \begin{aligned}
+            \{(0,0),(1,0)\} &: A \xrightarrow{\mathrm{id}_A} A \\
+            \{(0,0),(1,1)\} &: A \xrightarrow{f} B \\
+            \{(0,0),(1,2)\} &: A \xrightarrow{gf} C \\
+            \{(0,1),(1,1)\} &: B \xrightarrow{\mathrm{id}_B} B \\
+            \{(0,1),(1,2)\} &: B \xrightarrow{g} C \\
+            \{(0,2),(1,2)\} &: C \xrightarrow{\mathrm{id}_C} C
+        \end{aligned}
+    \]
+
+    范畴中态射的结合律寓于范畴 \(\Delta\) 合成的结合律中.
+\end{remark}
+
+\begin{lemma}
+    范畴 \([n]\) 的 \ref{definition:nerve of a category} 为 \(\Delta^n\).
+\end{lemma}
+
+\begin{definition}
+    一个群的分类空间 \(B(G)\) 定义为 \(\mathbf{N} (G)\), 其中 \(G\) 视为只有一个对象的范畴.
+\end{definition}
+
+\begin{definition}[弱 Kan 复形]
+    一个弱 Kan 复形 (或称拟范畴) 定义为单纯集 \(X\) 使得任意内角均可延拓至 \(\Delta^n\).
+
+    \begin{center}
+        \begin{tikzpicture}
+            \node (Lambda) at (-2,.75) {\(\Lambda^n_k\)};
+            \node (X) at (2,.75) {\(X\)};
+            \node (Delta) at (-1,-.75) {\(\Delta^n\)};
+
+            \draw [->] (Lambda) to (X); \draw [>->] (Lambda) to (Delta); \draw [->,dashed] (X) to (Delta);
+        \end{tikzpicture}
+    \end{center}
+\end{definition}
+
+\begin{definition}[Kan 复形]
+    一个 Kan 复形定义为单纯集 \(X\) 使得任意角均可延拓至 \(\Delta^n\).
+\end{definition}
+
+\begin{lemma}
+    对范畴 \(\mathcal{C}\) 的 \ref{definition:nerve of a category} \(\mathrm{cosk}_2 (\mathbf{N} (\mathcal{C})) = \mathbf{N} (\mathcal{C})\).
+\end{lemma}
+
+\begin{lemma}
+    一个范畴 \(\mathcal{C}\) 的 \ref{definition:nerve of a category} \(\mathbf{N} (\mathcal{C})\) 是一个弱 Kan 复形.
+\end{lemma}

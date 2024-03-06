@@ -2,6 +2,8 @@
 
 \subsection{基础定义}
 
+\subsubsection{开集}
+
 拓扑是用来度量连续性的.
 
 \begin{definition}[拓扑空间]
@@ -79,13 +81,17 @@
 闭包是包含 \(A\) 的最小闭集.
 
 \begin{definition}[内部]
-    对 \(A \subseteq X\), \(A\) 的内部 (interior) 是指 \(\bigcup_{\substack{U \subseteq A \\ U \in \mathcal{T}}} U\), 记作 \(A^\circ\).
+    对 \(A \subseteq X\), \(A\) 的内部 (interior) 是指 \(\bigcup_{\substack{U \subseteq A \\ U \in \mathcal{T}}} U\), 记作 \(\mathring{A}\).
 \end{definition}
 
 内部是被 \(A\) 包含的最大开集.
 
+\begin{corollary}
+    \(X \setminus \mathring{A} = \overline{X \setminus A}\).
+\end{corollary}
+
 \begin{definition}[边界]
-    对 \(A \subseteq X\), \(A\) 的边界 (boundary) 是指 \(\overline{A} \setminus A^\circ\), 记作 \(\partial A\).
+    对 \(A \subseteq X\), \(A\) 的边界 (boundary) 是指 \(\overline{A} \setminus \mathring{A}\), 记作 \(\partial A\).
 \end{definition}
 
 \begin{definition}
@@ -219,14 +225,214 @@
     \(\mathbf{Top}\) 中有任意极限与余极限, 因为其有积与余积, 核与余核.
 \end{lemma}
 
-\begin{definition}
-    一个度量空间 (metric space) 是包含资料 \((X,d)\) 使得 \(X\) 是集合且 \(d : X \times X \to \mathbb{R}\) 满足:
+\begin{axiom}[Kuratowski 闭包公理]
+    \setlabel {Kuratowski 闭包公理}
+    \label {axiom:kuratowski closure}
+    闭包运算满足以下性质, 且任意给出闭包映射 \(\mathcal{P} (A) \to \mathcal{P} (A)\) 满足以下性质, 亦给出 \(X\) 上的唯一拓扑:
+
     \begin{enumerate}
-        \item \(d(x,y) \ge 0\)
-        \item \(d(x,y) = 0 \iff x = y\)
-        \item \(d(x,y) = d(y,x)\)
-        \item 三角不等式 \(d(x,z) \le d(x,y) + d(y,z)\)
+        \item \(\overline{\varnothing} = \varnothing\)
+        \item \(A \subseteq \overline{A}\)
+        \item \(\overline{\overline{A}} = \overline{A}\)
+        \item \(\overline{A \cup B} = \overline{A} \cup \overline{B}\)
     \end{enumerate}
+
+    \begin{proof}
+        定义 \(\overline{C} = C\) 时 \(C\) 闭, 乃需验证闭集的公理
+
+        \begin{enumerate}
+            \item \(\overline{\varnothing} = \varnothing\), \(\overline{X} \subseteq X\) 从而 \(\overline{X} = X\).
+            \item 有限并对 \(A,B\) 闭, \(\overline{A \cup B} = \overline{A} \cup \overline{B} = A \cup B\).
+            \item 任意交对 \(A_i\) 闭, 给出 \({(A_i)}_{i \in I}\) 闭, \(\overline{\bigcap_{i \in I} A_i} \cup \overline{A_i} = \overline{\bigcap_{i \in I} A_i \cup A_i} = A_i\),
+                    从而有 \(\overline{\bigcap_{i \in I} A_i} \subseteq \bigcap_{i \in I} A_i \subseteq \overline{\bigcap_{i \in I} A_i}\), 于是任意交闭.
+        \end{enumerate}
+
+        唯一性源自于给出拓扑结构, 此时 \(\overline{C} = C\) 当且仅当 \(C\) 闭.
+    \end{proof}
+\end{axiom}
+
+\subsubsection{滤子}
+
+滤子是用来定义极限的.
+
+\begin{definition}[滤子]
+    集合 \(X\) 上的一个滤子 (filter) 是一个满足:
+
+    \begin{enumerate}
+        \item \(\varnothing \notin \mathcal{F}\)
+        \item \(\forall A,B \in \mathcal{F} (A \cap B \in \mathcal{F})\)
+        \item \(\forall A \in \mathcal{F} \forall B \subseteq X (A \subseteq B \implies B \in \mathcal{F})\)
+    \end{enumerate}
+
+    的 \(\mathcal{F} \subseteq \mathcal{P} (X)\).
+\end{definition}
+
+\begin{definition}[滤子基]
+    集合 \(X\) 上的一个滤子基 (filter base) 是一个满足:
+
+    \begin{enumerate}
+        \item \(\varnothing \notin \mathcal{B}\)
+        \item \(\forall A,B \in \mathcal{B} \exists C \in \mathcal{B} (C \subseteq A \cap B)\)
+    \end{enumerate}
+
+    的 \(\mathcal{B} \subseteq \mathcal{P} (X)\).
+
+    称 \(\mathcal{B}\) 生成的滤子包含 \(\mathcal{B}\) 的最小的滤子, 也即 \(\mathcal{F} = \{A \subseteq X : \exists B \in \mathcal{B} (B \subseteq A)\}\).
+\end{definition}
+
+\begin{definition}[加细]
+    假定 \(X\) 上有滤子 \(\mathcal{F},\mathcal{F}^\prime\) 满足 \(\mathcal{F} \subseteq \mathcal{F}^\prime\), 则称 \(\mathcal{F}^\prime\) 是 \(\mathcal{F}\) 的加细. 
+\end{definition}
+
+\begin{definition}[超滤]
+    不能真加细的滤子称为超滤 (ultrafilter).
+\end{definition}
+
+\begin{definition}
+    给出滤子 \(\mathcal{F},\mathcal{F}^\prime\), 假设 \(\neg (\exists A \in \mathcal{F} \exists B \in \mathcal{F}^\prime (A \cap B = \varnothing))\),
+    则可以定义滤子 \(\mathcal{F} + \mathcal{F}^\prime := \{A \subseteq X : \exists B \in \mathcal{F} \exists C \in \mathcal{F}^\prime (B \cap C \subseteq A)\}\),
+    为包含 \(\mathcal{F},\mathcal{F}^\prime\) 的最小滤子.
+\end{definition}
+
+\begin{definition}
+    对于集合 \(X\) 的子集 \(Y\) 可以定义对应的滤子为 \(\{A \subseteq X : Y \supseteq A\}\).
+\end{definition}
+
+\begin{definition}[主滤子]
+    对于集合 \(X\) 的元素 \(x\) 可以定义对应的滤子为 \(\{A \subseteq X : x \in A\}\),
+    称为 \(x\) 生成的主滤子, 记作 \(\mathcal{F}_x\).
+\end{definition}
+
+\begin{corollary}
+    一个滤子 \(\mathcal{F}\) 是超滤当且仅当对于任意集合 \(A \subseteq X\), \(X \setminus A \in \mathcal{F} \lor A \in \mathcal{F}\).
+\end{corollary}
+
+\begin{corollary}
+    主滤子是超滤.
+\end{corollary}
+
+\begin{lemma}
+    所有滤子都可以加细为超滤.
+
+    \begin{proof}
+        利用 \ref{theorem:zorn's lemma}, 线序滤子的并仍是滤子.
+    \end{proof}
+\end{lemma}
+
+\begin{definition}
+    定义一个集合 \(S\) 上的全体滤子的集合为 \(\mathcal{F} (S)\).
+\end{definition}
+
+\begin{definition}[收敛空间]
+    对集合 \(S\) 定义一个二元关系 \(R \subseteq \mathcal{F} (S) \times S\), 称 \(S\) 为收敛空间 (convergence space), 当满足:
+
+    \begin{enumerate}
+        \item 中心的, 即 \((\mathcal{F}_x,x) \in R\).
+        \item 同位的, 即对于滤子 \(\mathcal{F} \subseteq \mathcal{F}^\prime\), 如果 \((\mathcal{F},x) \in R\), 则 \((\mathcal{F}^\prime,x) \in R\).
+        \item 直接的, 即对于滤子 \(\mathcal{F}, \mathcal{F}^\prime\), 如果 \((\mathcal{F},x) \in R\) 且 \((\mathcal{F}^\prime,x) \in R\), 则 \((\mathcal{F} \cap \mathcal{F}^\prime,x) \in R\).
+    \end{enumerate}
+
+    \((\mathcal{F}, x) \in R\) 时称 \(\mathcal{F}\) 收敛到 \(x\), 记作 \(\mathcal{F} \to x\).
+\end{definition}
+
+\begin{definition}
+    给出映射 \(f : S_1 \to S_2\), 对 \(S_1\) 上的滤子 \(\mathcal{F}\) 定义 \(f (\mathcal{F}) := \{S \subseteq S_2 : \exists A \in \mathcal{F} \land f(A) \subseteq S\}\).
+\end{definition}
+
+\begin{corollary}
+    如果有 \(f : S_1 \to S_2, g : S_2 \to S_3\), 则有 \(g (f (\mathcal{F})) = (g \circ f) (\mathcal{F})\).
+\end{corollary}
+
+\begin{definition}[连续映射]
+    对于两个收敛空间 \((S_1,R_1), (S_2,R_2)\), 称 \(f : S_1 \to S_2\) 当且仅当对于任意滤子 \(\mathcal{F} \to x\), 有 \(f (\mathcal{F}) \to f (x)\).
+\end{definition}
+
+\begin{definition}[聚点]
+    对于集合 \(S\) 上的滤子 \(\mathcal{F}\) 与 \(x \in S\), 如果存在滤子 \(\mathcal{F}^\prime\) 使得 \(\mathcal{F}^\prime \to x\) 且 \(\mathcal{F} \subseteq \mathcal{F}^\prime\), 
+    则称 \(x\) 是 \(\mathcal{F}\) 的聚点, 记作 \(\mathcal{F} \leadsto x\).
+\end{definition}
+
+\begin{definition}[星性质]
+    一个收敛空间若满足对任意滤子 \(\mathcal{F}\), 如果全体含 \(\mathcal{F}\) 的超滤都收敛于 \(x\),
+    则 \(\mathcal{F} \to x\), 则称其满足星性质 (star property), 满足星性质的收敛空间称为星收敛空间.
+\end{definition}
+
+\begin{corollary}
+    对于任何收敛空间, 可以定义星收敛 (star convergence) 为 \(\mathcal{F} \to^{*} x\) 当且仅当 \((\mathcal{F} \subseteq \mathcal{F}^\prime) \implies (\mathcal{F} \leadsto x)\).
+
+    星收敛给出满足星性质的收敛空间.
+\end{corollary}
+
+\begin{definition}
+    给出拓扑空间 \((X,\mathcal{T})\), 对 \(x \in X\) 定义 \(\mathcal{T}_x\) 为包含 \(x\) 的所有邻域的滤子.
+\end{definition}
+
+\begin{definition}
+    给出拓扑空间 \((X,\mathcal{T})\), 定义 \(X\) 上的星收敛空间如下, 且定义 \(\mathcal{F} \to x\) 当且仅当 \(\mathcal{T}_x \subseteq \mathcal{F}\).
+\end{definition}
+
+\begin{definition}
+    给出星收敛空间 \((X,R)\), \(U\) 称 \(x\) 邻域如果对于任意滤子 \(\mathcal{F} \to x\), 均有 \(U \in \mathcal{F}\),
+    则称 \(U\) 是 \(x\) 的邻域, 记作 \(U \in \mathcal{T}_x\).
+\end{definition}
+
+\begin{definition}
+    给出星收敛空间 \((X,R)\), 对集合 \(S \subseteq X\), 定义内部 \(\mathring{S} := \{x \in X : \exists U \in \mathcal{T}_x (U \subseteq S)\}\),
+    定义闭包为 \(\overline{S} := \{x \in X : \forall U \in \mathcal{T}_x (U \cap S \neq \varnothing)\}\),
+\end{definition}
+
+\begin{definition}
+    依赖 \ref{axiom:kuratowski closure}, 星收敛空间给出拓扑空间.
+
+    \begin{proof}
+        显然有 \(\overline{\varnothing} = \varnothing\), \(\overline{\overline{A}} = \overline{A}\),
+        \(\overline{A \cup B} = \overline{A} \cup \overline{B}\), 利用主滤子可以验证 \(A \subseteq \overline{A}\).
+    \end{proof}
+\end{definition}
+
+\begin{theorem}
+    拓扑空间与星收敛空间是等价的.
+
+    \begin{proof}
+        给出拓扑空间 \((X,\mathcal{T})\), 易于验证其闭包和拓扑空间的闭包等价.
+
+        给出星收敛空间 \((X,R)\), 易于验证其对应的拓扑空间定义的邻域与星收敛空间的邻域等价.
+    \end{proof}
+\end{theorem}
+
+\begin{theorem}
+    一个映射在拓扑空间上连续当且仅当其在星收敛空间上连续.
+
+    \begin{proof}
+        假使 \(f\) 拓扑空间连续, 则 \(f (x)\) 邻域原像是 \(x\) 邻域, 故 \(f (\mathcal{F}) \to f(x)\).
+
+        假使总是有 \(\mathcal{T}_x \to x\), 故 \(f (\mathcal{T}_x) \to f(x)\), 给出 \(Y\) 开集 \(U\),
+        若 \(f (x) \in U\), 则有含 \(f(x)\) 开集 \(f(x) \in V \subseteq U\), 于是 \(f^{-1} (V)\) 含有 \(x\) 的邻域, 
+        即原像可以写成这些邻域的并, 从而原像开.
+    \end{proof}
+\end{theorem}
+
+\begin{definition}
+    对于序列 \(\mathbb{N} \to X\), 可以定义其对应的滤子为 \(\{A \subseteq X : \exists n \in \mathbb{N} (x_n \in A)\}\).
+
+    序列 \(\mathbb{N} \to X\) 收敛到 \(x\) 当且仅当其对应的滤子收敛到 \(x\), 记作 \(\lim x_n = x\).
+\end{definition}
+
+\subsubsection{度量空间}
+
+\begin{definition}
+    给出集合 \(X\), 一个度量 (metric) 是一个映射 \(d : X \times X \to \mathbb{R}\) 满足:
+
+    \begin{enumerate}
+        \item 正定性, 即 \(d(x,y) \geq 0\) 且 \(d(x,y) = 0\) 当且仅当 \(x = y\).
+        \item 对称性, 即 \(d(x,y) = d(y,x)\).
+        \item 三角不等式, 即 \(d(x,y) \leq d(x,z) + d(z,y)\).
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    取幺半范畴 \(\mathbb{R}_{\geq 0}\), 其意味着对象是非负实数, 态射仅在 \(a \geq b\) 时有唯一 \(a \to b\), \(\otimes\) 定义为加法,
+    则度量空间可视作 \(\mathbb{R}_{\geq 0}\) - 充实范畴.
 \end{definition}
 
 \begin{example}
@@ -276,9 +482,17 @@
 \end{definition}
 
 \begin{corollary}
-    验证知 \(+ : \mathbb{R}^{2n} \to \mathbb{R}^n\) 连续, \(- : \mathbb{R}^n \to \mathbb{R}^n\) 连续, \(\cdot : \mathbb{R} \times \mathbb{R}^n \to \mathbb{R}^n\) 连续.
-    \(\div : \mathbb{R} \times \mathbb{R} \setminus \{0\} \to \mathbb{R}\) 连续.
+    验证知 \(+ : \mathbb{R}^{2n} \to \mathbb{R}^n\) 连续, \(- : \mathbb{R}^n \to \mathbb{R}^n\) 连续, \(\times : \mathbb{R} \times \mathbb{R}^n \to \mathbb{R}^n\) 连续,
+    \(\frac{\bullet}{\bullet} : \mathbb{R} \times \mathbb{R} \setminus \{0\} \to \mathbb{R}\) 连续.
 \end{corollary}
+
+\begin{lemma}
+    \([0,1]\) 是联通的.
+
+    \begin{proof}
+        假设其分拆为开集 \(U,V\), 取 \(x := \sup U\), 则其任意开球均包含 \(U,V\) 中的点, 从而 \(x \notin U,V\) 矛盾.
+    \end{proof}
+\end{lemma}
 
 \begin{definition}[有界]
     给出 \(Y\) 向度量空间 \((X,d)\) 的映射 \(f : Y \to X\), 如果存在 \(x \in X,r > 0\) 使得 \(f(Y) \subseteq B_r (x)\), 则称 \(f\) 有界 (bounded).
@@ -288,115 +502,6 @@
     对于度量空间 \((X,d)\), 全体有界映射 \(Y \to X\) 上可以定义度量 \(d^\prime\) 使得 \(d^\prime (f,g) = \sup_{x \in Y} d(f(x),g(x))\),
     在此度量下, 收敛称为一致收敛 (uniformly convergent).
 \end{definition}
-
-滤子是用来定义极限的.
-
-\begin{definition}[滤子]
-    集合 \(X\) 上的一个滤子 (filter) 是一个满足:
-
-    \begin{enumerate}
-        \item \(\varnothing \notin \mathcal{F}\)
-        \item \(\forall A,B \in \mathcal{F} (A \cap B \in \mathcal{F})\)
-        \item \(\forall A \in \mathcal{F} \forall B \subseteq X (A \subseteq B \implies B \in \mathcal{F})\)
-    \end{enumerate}
-
-    的 \(\mathcal{F} \subseteq \mathcal{P} (X)\).
-\end{definition}
-
-\begin{definition}[滤子基]
-    集合 \(X\) 上的一个滤子基 (filter base) 是一个满足:
-
-    \begin{enumerate}
-        \item \(\varnothing \notin \mathcal{B}\)
-        \item \(\forall A,B \in \mathcal{B} \exists C \in \mathcal{B} (C \subseteq A \cap B)\)
-    \end{enumerate}
-
-    的 \(\mathcal{B} \subseteq \mathcal{P} (X)\).
-
-    称 \(\mathcal{B}\) 生成的滤子包含 \(\mathcal{B}\) 的最小的滤子, 也即 \(\mathcal{F} = \{A \subseteq X : \exists B \in \mathcal{B} (B \subseteq A)\}\).
-\end{definition}
-
-\begin{definition}[加细]
-    假定 \(X\) 上有滤子 \(\mathcal{F},\mathcal{F}^\prime\) 满足 \(\mathcal{F} \subseteq \mathcal{F}^\prime\), 则称 \(\mathcal{F}^\prime\) 是 \(\mathcal{F}\) 的加细. 
-\end{definition}
-
-\begin{definition}[超滤]
-    不能真加细的滤子称为超滤 (ultrafilter).
-\end{definition}
-
-\begin{lemma}
-    如果有一族滤子 \(\mathcal{F}_i\), 可以找到包含 \(\mathcal{F}_i\) 的最小滤子 \(\mathcal{F}\)
-    为集合 \(\{\bigcap_{k=1}^n A_k : A_k \in \mathcal{F}_{i_k}\}\), 这样的滤子存在当且仅当其中不含 \(\varnothing\).
-\end{lemma}
-
-\begin{lemma}
-    所有滤子都可以加细为超滤.
-
-    \begin{proof}
-        利用 \ref{theorem:zorn's lemma}, 线序滤子的并仍是滤子.
-    \end{proof}
-\end{lemma}
-
-\begin{example}
-    全体 \(x\) 的邻域构成一滤子.
-\end{example}
-
-\begin{definition}[邻域基]
-    对于拓扑空间 \((X,\mathcal{T})\) 中一点 \(x \in X\), 
-    其邻域基 (neighborhood base) 是一个集族 \(\mathcal{B}_x \subseteq \mathcal{T}_x\), 
-    使得 \(\forall U \in \mathcal{T}_x \exists B \in \mathcal{B}_x (B \subseteq U)\).
-\end{definition}
-
-\begin{example}
-    度量空间 \(x\) 处有邻域基 \(\{B_r (x) : r > 0\}\).
-\end{example}
-
-\begin{corollary}
-    邻域基给出了 \(\mathcal{T}_x\) 的滤子基.
-\end{corollary}
-
-\begin{definition}
-    \(X\) 上滤子基 \(\mathcal{F}\) 收敛于 \(x \in X\) 如若每个 \(x\) 邻域都包含某个 \(F \in \mathcal{F}\),
-    记作 \(\mathcal{F} \to x\), 当 \(\mathcal{F}\) 是滤子时, 等价于 \(\mathcal{F}\) 是 \(\mathcal{T}_x\) 的加细.
-\end{definition}
-
-\begin{lemma}
-    给出 \(f : X \to Y\), 则对于任意 \(x\), 滤子 \(\mathcal{F} \to x\) 蕴含 \(f (\mathcal{F}) \to f(x)\) 当且仅当 \(f\) 连续.
-
-    其中 \(f (\mathcal{F}) = \{F \subseteq Y : \exists E \in \mathcal{F} (f(E) \subseteq F)\}\).
-
-    \begin{proof}
-        \((\impliedby)\): 假使 \(f\) 连续, 则 \(f (x)\) 邻域原像是 \(x\) 邻域, 故 \(f (\mathcal{F}) \to f(x)\).
-
-        \((\implies)\): 总是有 \(\mathcal{T}_x \to x\), 故 \(f (\mathcal{T}_x) \to f(x)\), 给出 \(Y\) 开集 \(U\),
-        若 \(f (x) \in U\), 则有含 \(f(x)\) 开集 \(f(x) \in V \subseteq U\), 于是 \(f^{-1} (V)\) 含有 \(x\) 的邻域, 
-        即原像可以写成这些邻域的并, 从而原像开.
-    \end{proof}
-\end{lemma}
-
-\begin{definition}
-    对一个映射 \(\mathbb{N} \to X\), 定义对应的滤子为 \(\mathcal{F} = \{A \subseteq X : \exists n \in \mathbb{N} (A \supseteq \{x_i : i \ge n\})\}\).
-\end{definition}
-
-\begin{definition}
-    \(\mathbb{N} \to X\) 收敛于某个点是指其对应的滤子收敛于某个点, 列 \(x_n\) 收敛于 \(x\) 记作 \(\lim x_n \to x\).
-\end{definition}
-
-\begin{corollary}
-    拓扑空间中的列 \(x_n\) 收敛于 \(x\) 当且仅当对于任意邻域 \(U\) 存在 \(N\) 使得 \(n \ge N\) 时有 \(x_n \in U\).
-\end{corollary}
-
-\begin{corollary}
-    度量空间中的列 \(x_n\) 收敛于 \(x\) 当且仅当对于任意 \(\varepsilon > 0\), 存在 \(N\) 使得 \(n \ge N\) 时有 \(d(x_n,x) < \varepsilon\).
-\end{corollary}
-
-\begin{lemma}
-    度量空间的极限若存在则唯一.
-
-    \begin{proof}
-        假使存在两个极限 \(x,y\), 令 \(\varepsilon = d(x,y)/2\), 则有充分大 \(N\) 使得 \(n>N\) 时总有 \(d(x_n,x) < \varepsilon\) 与 \(d(x_n,y) < \varepsilon\), 矛盾.
-    \end{proof}
-\end{lemma}
 
 \begin{theorem}[Weierstrass 一致收敛定理]
     \setlabel {Weierstrass 一致收敛定理}
@@ -412,33 +517,9 @@
     \end{proof}
 \end{theorem}
 
-\begin{axiom}[Kuratowski 闭包公理]
-    \setlabel {Kuratowski 闭包公理}
-    \label {axiom:kuratowski closure}
-    闭包运算满足以下性质, 且任意给出闭包映射 \(\mathcal{P} (A) \to \mathcal{P} (A)\) 满足以下性质, 亦给出 \(X\) 上的唯一拓扑:
-
-    \begin{enumerate}
-        \item \(\overline{\varnothing} = \varnothing\)
-        \item \(A \subseteq \overline{A}\)
-        \item \(\overline{\overline{A}} = \overline{A}\)
-        \item \(\overline{A \cup B} = \overline{A} \cup \overline{B}\)
-    \end{enumerate}
-
-    \begin{proof}
-        定义 \(\overline{C} = C\) 时 \(C\) 闭, 乃需验证闭集的公理
-
-        \begin{enumerate}
-            \item \(\overline{\varnothing} = \varnothing\), \(\overline{X} \subseteq X\) 从而 \(\overline{X} = X\).
-            \item 有限并对 \(A,B\) 闭, \(\overline{A \cup B} = \overline{A} \cup \overline{B} = A \cup B\).
-            \item 任意交对 \(A_i\) 闭, 给出 \({(A_i)}_{i \in I}\) 闭, \(\overline{\bigcap_{i \in I} A_i} \cup \overline{A_i} = \overline{\bigcap_{i \in I} A_i \cup A_i} = A_i\),
-                    从而有 \(\overline{\bigcap_{i \in I} A_i} \subseteq \bigcap_{i \in I} A_i \subseteq \overline{\bigcap_{i \in I} A_i}\), 于是任意交闭.
-        \end{enumerate}
-
-        唯一性源自于给出拓扑结构, 此时 \(\overline{C} = C\) 当且仅当 \(C\) 闭.
-    \end{proof}
-\end{axiom}
-
 \subsection{完备性, 可数性, 分离性}
+
+\subsubsection{完备性}
 
 \begin{definition}[Cauchy 列]
     对一个度量空间 \((X,d)\), 称一列 \(x_n\) 是 Cauchy 列当且仅当对于任意 \(\varepsilon > 0\), 存在 \(N\) 使得 \(n,m \ge N\) 时有 \(d(x_n,x_m) < \varepsilon\).
@@ -554,6 +635,8 @@
     其子覆盖 (subcover) 是指 \(\mathcal{V} \subseteq \mathcal{U}\) 且 \(\bigcup \mathcal{V} = X\).
 \end{definition}
 
+\subsubsection{可数性}
+
 \begin{definition}[可数性]
     \setlabel {第一可数}
     \label {definition:first countable topological space}
@@ -619,6 +702,8 @@
         \ref{definition:second countable topological space} 性可以直接继承.
     \end{proof}
 \end{lemma}
+
+\subsubsection{分离性}
 
 \begin{definition}[分离性]
     \setlabel {\(T_0\)}
@@ -763,7 +848,7 @@
 
     \begin{proof}
         任取一 \(x \notin A\), 有 \(U_x,V_x\) 分离 \(x\) 与 \(A\), 给出开覆盖 \(A \cup \bigcup_{x \in X \setminus A} V_x\)
-        依 Lindelöf 性质有可数子覆盖, 记作 \(A \cup \bigcup_{n \in \mathbb{N}} V_n\), 于是 \(A = \bigcap_{n \in \mathbb{N}} U_n\).
+        依 \ref{definition:lindelof topological space} 有可数子覆盖, 记作 \(A \cup \bigcup_{n \in \mathbb{N}} V_n\), 于是 \(A = \bigcap_{n \in \mathbb{N}} U_n\).
     \end{proof}
 \end{lemma}
 
@@ -925,13 +1010,13 @@
 \begin{definition}[弱序列紧]
     \setlabel {弱序列紧}
     \label {definition:weakly sequentially compact topological space}
-    一个拓扑空间称弱序列紧 (sequentially compact) 当且仅当其上任何序列都有极限点.
+    一个拓扑空间称弱序列紧 (weak sequentially compact) 当且仅当其上任何序列都有极限点.
 \end{definition}
 
 \begin{definition}[序列紧]
     \setlabel {序列紧}
     \label {definition:sequentially compact topological space}
-    一个拓扑空间称序列紧 (countably compact) 当且仅当其上任何序列都有收敛子列.
+    一个拓扑空间称序列紧 (sequentially compact) 当且仅当其上任何序列都有收敛子列.
 \end{definition}
 
 \begin{corollary}
@@ -1050,7 +1135,7 @@
 
 \begin{corollary}
     对于度量空间, 条件 \ref{definition:compact topological space}, \ref{definition:weakly sequentially compact topological space}, \ref{definition:sequentially compact topological space}, 
-    \ref{definition:compact topological space} 且 \ref{definition:totally bounded topological space} 等价.
+    \ref{definition:complete metric space} 且 \ref{definition:totally bounded topological space} 等价.
 \end{corollary}
 
 \begin{corollary}
@@ -1064,7 +1149,7 @@
 \begin{theorem}[Tychonoff]
     \setlabel {Tychonoff 定理}
     \label {theorem:tychonoff's theorem}
-    \ref{definition:compact topological space} 空间极限仍 \ref{definition:compact topological space}.
+    \ref{definition:compact topological space} 空间积仍 \ref{definition:compact topological space}.
 
     \begin{proof}
         积给出 \(\pi_i : \prod \alpha(i) \to \alpha(i)\), 对 \(\prod \alpha(i)\) 给出超滤 \(\mathcal{F}\),
@@ -1153,11 +1238,11 @@
 
 \begin{example}
     考察 \((0,1)\) 可以有 \ref{definition:one-point compactification of topological space} 和 \([0,1]\) 作为 \ref{definition:compactification of topological space},
-    考察 \(f : (0,1) \to \mathbb{R}\), 其可以延拓到 \([0,1]\) 上, 但不一定能延拓到 \ref{definition:one-point compactification of topological space} 上.
+    考察 \(f : (0,1) \to \mathbb{R}\), 其满足 \ref{definition:compactification of topological space} 后所谓 \(f(1) = f(0)\) 才一定能延拓到 \ref{definition:one-point compactification of topological space} 上.
 \end{example}
 
 \begin{theorem}[Stone-Čech]
-    \setlabel {Stone-Čech 局部化}
+    \setlabel {Stone-Čech 紧化}
     \label {theorem:stone-cech's compactification}
     对于任意 \ref{definition:T7/2 topological space} \(X\) 有唯一的 \ref{definition:compactification of topological space} \(Y\),
     使得对于任意有界 \(f : X \to \mathbb{R}\) 其可以唯一的延拓到 \(Y\) 上, 且此 \(Y\) 唯一.
@@ -1320,7 +1405,537 @@
     \end{proof}
 \end{theorem}
 
-\subsection{代数几何扩充}
+\subsection{函数空间}
+
+\subsubsection{紧开拓扑}
+
+\begin{definition}[紧开拓扑]
+    \setlabel {紧开拓扑}
+    \label {definition:compact-open topology}
+    给出拓扑空间 \(X,Y\) 对紧集 \(K \subseteq X\), 开集 \(U \subseteq Y\),
+    定义 \(S(K,U) := \{f \in \mathrm{Hom}_{\mathbf{Top}} (X,Y) : f K \subseteq U\}\),
+    定义全体 \(S(K,U)\) 生成的拓扑为 \(\mathrm{Hom}_{\mathbf{Top}} (X,Y)\) 上的紧开拓扑.
+\end{definition}
+
+\begin{corollary}
+    在 \(\mathrm{Hom}_{\mathbf{Top}} (X,Y), \mathrm{Hom}_{\mathbf{Top}} (Y,Z),\mathrm{Hom}_{\mathbf{Top}} (X,Z)\) 上赋予紧开拓扑, 则复合映射连续.
+
+    \begin{proof}
+        注意到态射保紧, 开集原像紧, 故对于紧集 \(K \subseteq X\), \(U \subseteq Z\), 令 \(\mathcal{E}\) 为全体 \(Y\) 中既紧又开的集合,
+        则 \(\circ^{-1} (S(K,U)) = \bigcup_{E \in \mathcal{E}} S(E,U) \times S(K,E)\).
+    \end{proof}
+\end{corollary}
+
+\begin{theorem}[乘积 - 指数伴随]
+    对于 \ref{definition:locally compact topological space} \ref{definition:T2 topological space} 空间 \(Y\),
+    有函子伴随 \(- \times Y \dashv \mathrm{Hom}_{\mathbf{Top}} (Y, -)\).
+
+    \begin{proof}
+        有平凡的自然变换 \(((x,y) \mapsto z) \mapsto (x \mapsto (y \mapsto z))\).
+
+        对连续函数 \(f : X \times Y \to Z, X \to \mathrm{Hom}_{\mathbf{Top}} (Y,Z)\), 连续意味着对于开集 \(U \subseteq Z\), 有 \(\bigcup_\alpha U_{X,\alpha} \times U_{Y,\alpha}\),
+        选定一个紧集 \(K \subseteq Y\), 考察 \(x \in f^{-1}(S(K,U))\), 则 \(\forall i \in I_x (x \in U_{X,\alpha_i})\) 且 \(K \subseteq \bigcup_{i \in I} U_{Y,\alpha_i}\), 也即其有有限子覆盖
+        故包含一 \(x\) 开邻域 \(\bigcap_{i=1}^n U_{X,\alpha_i}\). 于是对于任意 \(Y\) (可忽略 \ref{definition:locally compact topological space} \ref{definition:T2 topological space}) 此态射均存在.
+
+        若引入 \ref{definition:locally compact topological space} \ref{definition:T2 topological space} 的条件, 对连续函数 \(f : X \to \mathrm{Hom}_{\mathbf{Top}} (Y,Z), X \times Y \to Z\), 
+        给出开集 \(U \subseteq Z\), 对每一点 \(f(x,y) \in U\), 有 \(y\) 的邻域 \(U_y\) 使得 \(f(\{x\} \times U_y) \in U\), 于是可找到一紧邻域 \(K \subseteq U_y\) 使得 \(f(\{x\} \times K) \subseteq U\),
+        从而有 \(x\) 的邻域 \(U_x\) 使得 \(f(U_x \times K) \subseteq U\), 寻求开集 \(V \subseteq K\), 于是 \(x \in U_x \times V \subseteq f^{-1} (U)\) 为开集.
+    \end{proof}
+\end{theorem}
+
+\begin{lemma}
+    若 \(X\) \ref{definition:compact topological space} 且 \(Y\) 是度量空间, 则
+    紧开拓扑给出一致度量对应的拓扑.
+
+    \begin{proof}
+        对于紧开拓扑, \(f\) 有邻域为 \(S(K,U)\) 的有限交, 对于每个 \(S(K,U)\) 注意到 \ref{definition:compact topological space}
+        像 \ref{definition:compact topological space} 故其闭, 于是有距离 \(\varepsilon = d (f(K),Y \setminus U)\) 的邻域, 取 \(\varepsilon\) 中极小者, 于是包含一致度量的邻域.
+
+        反之, 考察 \(f\) 处以距离 \(\varepsilon\) 诱导的一致度量的邻域,注意到 \(f(X)\) \ref{definition:compact topological space} 故 \ref{definition:totally bounded topological space},
+        于是有有限个 \(\varepsilon/2\) 开球覆盖, 于是有有限个 \(S(f^{-1} (\overline{B_{\varepsilon/2}}),B_\varepsilon)\) 交处于其中.
+    \end{proof}
+\end{lemma}
+
+\subsubsection{Arzelà-Ascoli 定理}
+
+\begin{definition}[预紧]
+    \setlabel {预紧}
+    \label {definition:precompact topological space}
+    一个度量空间称为预紧 (precompact) 当且仅当其 \ref{definition:completion of metric space} \ref{definition:compact topological space}.
+
+    一个空间 \(X\) 对子集 \(A \subseteq X\) 称为预紧, 当且仅当 \(\overline{A}\) \ref{definition:compact topological space}
+\end{definition}
+
+\begin{lemma}
+    一个度量空间 \ref{definition:precompact topological space} 当且仅当其任意序列有收敛子列.
+
+    \begin{proof}
+        注意到 \ref{definition:completion of metric space} 后 \ref{definition:sequentially compact topological space}, 假使任意序列有收敛子列,
+        则其完备化 \ref{definition:complete metric space} 后 \ref{definition:sequentially compact topological space}, 于是其 \ref{definition:compact topological space}.
+    \end{proof}
+\end{lemma}
+
+\begin{remark}
+    我们业已在有界函数空间上定义了一致度量, 对于无界函数, 亦可选取截断 \(1\) 定义度量 \(\sup (d(f(x),g(x)),1)\).
+\end{remark}
+
+\begin{definition}[等度连续]
+    \setlabel {等度连续}
+    \label {definition:equicontinuous family of topological space}
+    对于度量空间 \(Y\), \(F = \{f : X \to Y\}\), 其称为在 \(x_0\) 处等度连续, 满足 \(\forall \epsilon > 0 \exists U \in \mathcal{T}_{x_0} \forall f (f(\mathcal{T}_x) \subseteq B_\epsilon (f(x_0)))\).
+
+    如果每个点上皆等度连续, 则称其为等度连续.
+\end{definition}
+
+\begin{lemma}
+    假定上述所论的 \(X,Y\) 皆 \ref{definition:compact topological space}, 则 \ref{definition:equicontinuous family of topological space} \(F\) \ref{definition:totally bounded topological space}.
+
+    \begin{proof}
+        任意选取 \(\varepsilon\), 考察 \(\varepsilon/3\) 给出 \(X\) 的一个邻域开覆盖, 其有有限子覆盖 \(\{U_i\}\),
+        选取代表元 \(x_i \in U_i\), 给出 \(Y\) 的一个 \(\varepsilon/6\) 为半径的有限开球覆盖 \(B_{\varepsilon/6} (y_i)\),
+        对于任意 \(p : \{x_i\} \to \{y_i\}\), 若存在 \(a \in F\) 使得 \(a(x_i) \in B_{\varepsilon/6} (y_i)\), 则选取其中一个计入 \(\mathcal{E}\),
+        我们证明有限集 \(\mathcal{E}\) 中元素的 \(\varepsilon\) 半径的开球覆盖 \(F\).
+
+        任意取 \(f \in F\), 给出了 \(p_f : \{x_i\} \to \{y_i\}\), 考察其对应的函数 \(a_f \in F\), 有 \(d (f(x),a_f(x)) < d (f(x),f(x_i)) + d (f(x_i),a_f(x_i)) + d (a_f(x_i),a_f(x)) < \varepsilon\).
+    \end{proof}
+\end{lemma}
+
+\begin{definition}
+    对于两个度量空间间的一族映射 \(F = \{f : X \to Y\}\), 其称为一致等度连续, 若 \(\forall \epsilon > 0 \exists \delta > 0 \forall f \in F \forall x,y \in X (d_X (x,y) < \delta \implies d_Y (f(x),f(y)) < \epsilon)\).
+\end{definition}
+
+\begin{definition}
+    对于度量空间 \(Y\), \(F = \{f : X \to Y\}\), 其称为逐点有界, 若任意 \(x \in X\), 集合 \(\{f(x) : f \in F\}\) 有界.
+\end{definition}
+
+\begin{definition}[点开拓扑]
+    在 \(\mathrm{Hom}_{\mathbf{Top}} (X,Y)\) 上, 定义点开拓扑为包含 \(S(\{x\},U)\) 的最小拓扑, 其中 \(x \in X\), \(U \subseteq Y\) 开.
+\end{definition}
+
+\begin{lemma}
+    点开拓扑诱导逐点收敛.
+\end{lemma}
+
+\begin{definition}[紧收敛拓扑]
+    \setlabel {紧收敛拓扑}
+    \label {definition:compact convergence topology}
+    对于度量空间 \(Y\), 在 \(\mathrm{Hom}_{\mathbf{Top}} (X,Y)\) 上, 定义紧收敛拓扑 \(B_C (f,\varepsilon)\) 生成的拓扑,
+    其中 \(C \subseteq X\) 紧, \(f \in \mathrm{Hom}_{\mathbf{Top}} (X,Y)\), \(\varepsilon > 0\), \(B_C (f,\varepsilon) = \{g \in \mathrm{Hom}_{\mathbf{Top}} (X,Y) : \forall x \in C (d_Y (f(x),g(x)) < \varepsilon)\}\).
+\end{definition}
+
+\begin{lemma}
+    \ref{definition:compact-open topology} 给出 \ref{definition:compact convergence topology}.
+
+    \begin{proof}
+        对于某个 \(B_C (f,\varepsilon)\), 有 \(f(C)\) \ref{definition:compact topological space},
+        给出 \(f(C)\) 的 \(\varepsilon/3\) 开球覆盖, 有有限子覆盖 \(\{B_{\varepsilon/3} (f(x_i))\}\),
+        取 \(S(f^{-1} (\overline{B_{\varepsilon/3} (f(x_i))}),B_{2 \varepsilon/3} (f(x_i)))\), 其交在 \(B_C (f,\varepsilon)\) 中.
+
+        如果给出某个 \(S(K,U)\), \(f(K)\) 为 \(U\) 中闭集, 取 \(\varepsilon = d (f(K),Y \setminus U)\), 于是 \(f \in B_C (f,\varepsilon)\).
+    \end{proof}
+\end{lemma}
+
+\begin{lemma}
+    在 \ref{definition:compact convergence topology} 中收敛当且仅当在任意紧集上一致收敛.
+\end{lemma}
+
+\begin{definition}[紧生成]
+    \setlabel {紧生成}
+    \label {definition:compact generated of topological space}
+    一个空间称紧生成当且仅当对于任意紧集 \(C\), \(A \cap C\) 在 \(C\) 中均开则 \(A\) 开.
+\end{definition}
+
+\begin{lemma}
+    \ref{definition:locally compact topological space} 或 \ref{definition:first countable topological space} 则 \ref{definition:compact generated of topological space}.
+
+    \begin{proof}
+        假设 \ref{definition:locally compact topological space}, 考察 \(x \in A\) 的 \ref{definition:compact topological space} 邻域 \(x \in U \subseteq C\), \(x \in U \cap A\) 为开.
+
+        假设 \ref{definition:first countable topological space}, 我们证明如果对于任何 \ref{definition:compact topological space} 集 \(C\), \(B \cap C\) 在 \(C\) 中均闭则 \(B\) 闭,
+        注意到给出一点 \(x\), 选取收敛于 \(x\) 而不含 \(x\) 的列 \(x_n\), 其 \ref{definition:compact topological space}, 取 \(C\) 为此列即可.
+    \end{proof}
+\end{lemma}
+
+\begin{lemma}
+    \(X\) \ref{definition:compact generated of topological space} 则 \(f : X \to Y\) 连续当且仅当其在任意 \ref{definition:compact topological space} 集上连续.
+\end{lemma}
+
+\begin{lemma}
+    \ref{definition:compact topological space} 度量空间 \(X\) 的保距映射 \(f : X \to X\) 总是双射.
+
+    \begin{proof}
+        考察 \(y \notin f(X)\), 则存在 \(B_{\varepsilon} (y) \cap f(X) = \varnothing\), \ref{definition:sequentially compact topological space} 于是序列 \(\{f^n (y)\}\) 有收敛子列 \(\{f^{n_k} (y)\}\),
+        保距性要求 \(d(f^{n}(x),f^{n+k}(x)) = d(x,f^{k}(x)) \geq \varepsilon\), 矛盾.
+    \end{proof}
+\end{lemma}
+
+\begin{lemma}
+    一致收敛则在 \ref{definition:compact convergence topology} 下收敛, 则逐点收敛.
+\end{lemma}
+
+\begin{theorem}[Ascoli]
+    \(Y\) 是度量空间, 在 \(\mathrm{Hom}_{\mathbf{Top}} (X,Y)\) 上, 给出 \ref{definition:compact convergence topology},
+    给出 \ref{definition:equicontinuous family of topological space} 族 \(F\), 若对每个 \(a\), 集合 \(\{f(a) : f \in F\}\) \ref{definition:precompact topological space},
+    则 \(F\) \ref{definition:precompact topological space}.
+
+    \begin{proof}
+        给 \(Y^X\) 积拓扑, 给出积 \(\prod C_a = \prod \overline{\{f(a):f \in F\}}\), 有 \(F \subseteq \prod C_a\),
+        令 \(G\) 为 \(F\) 在此拓扑下的闭包, 则 \(G \subseteq \prod C_a\) 且 \(G\) 闭, 故 \(G\) \ref{definition:compact topological space}.
+
+        \(G\) \ref{definition:equicontinuous family of topological space}, 对于 \(\varepsilon\) 取 \(x_0\) 邻域 \(U\) 使得 \(\forall x \in U \forall f \in F (d(f(x),f(x_0))) < \varepsilon/3\),
+        取 \(g \in G\), 则全体 \(h\) 使得 \(d (g(x),h(x)) < \varepsilon/3 \land d (g(x_0),h(x_0)) < \varepsilon/3\) 开, 故 \(d (g(x),g(x_0)) < \varepsilon\).
+
+        我们证明 \(G\) 在 \ref{definition:compact convergence topology} 下给出与积拓扑一样的拓扑, 任意择定紧集 \(C\), 函数 \(g\) 与 \(\epsilon > 0\),
+        我们寻求 \(g \in B \cap G \subseteq B_C (g,\varepsilon)\). 依赖 \(C\) \ref{definition:compact topological space}, 故 \(g(C)\) 可以被有限个半径为 \(\epsilon/3\) 的开球覆盖,
+        其球心记作 \(x_i\), 在积拓扑中取 \(\prod_i B_{\epsilon/3} (g(x_i)) \times \prod Y\) 此即所求之 \(B\), 又 \ref{definition:compact convergence topology} 比积拓扑细.
+
+        于是 \(G\) 即所求 \ref{definition:compact topological space} 集.
+    \end{proof}
+\end{theorem}
+
+\begin{theorem}
+    假使 \(X\) \ref{definition:locally compact topological space}, \ref{definition:T2 topological space}, 则 \(F\) \ref{definition:precompact topological space}
+    诱导出 \(\{f(a) : f \in F\}\) \ref{definition:precompact topological space} 且 \(F\) \ref{definition:equicontinuous family of topological space}.
+
+    \begin{proof}
+        显然 \(\mathrm{id}_{\mathrm{Hom}_{\mathbf{Top}} (X,Y)}\) 连续, 依赖 \ref{definition:compact-open topology} 的性质,
+        有 \(f \mapsto f(a)\) 亦连续, 只需证明 \(\overline{F}\) \ref{definition:equicontinuous family of topological space}.
+
+        选取一点 \(a\), 考察含 \(a\) 的 \ref{definition:compact topological space} 邻域 \(A\),
+        只需考察其在 \(A\) 上的限制 \(\overline{F_A}\) 即可, 基于 \(A\) \ref{definition:compact topological space},
+        \(\overline{F_A}\) 在一致度量下亦 \ref{definition:compact topological space} 故 \ref{definition:totally bounded topological space},
+        取在一致度量下的 \(\varepsilon/3\) 开球覆盖, 有有限子覆盖 \(\{B_{\varepsilon/3} (f_i)\}\), 给出开集 \({f_i}^{-1} (B_{\varepsilon/3} (a))\),
+        其交仍然是 \(a\) 邻域, 记作 \(U\), 任取 \(g \in \overline{F_A}\), 寻求 \(g \in B_{\varepsilon/3} (f_i)\), 于是任意 \(x \in U\) 有 \(d (g(x),g(a)) < d(g(x),f_i(x)) + d(f_i(x),f_i(a)) + d(f_i(a),g(a)) < \varepsilon\).
+    \end{proof}
+\end{theorem}
+
+\subsubsection{Weierstrass 近似定理, Bernstein 多项式}
+
+\begin{lemma}[Dirichlet-Heine]
+    \setlabel {Dirichlet-Heine 引理}
+    \label {lemma:Dirichlet-Heine lemma}
+    给出 \ref{definition:compact topological space} 度量空间 \(X\) 与度量空间 \(Y\),
+    则连续函数 \(f:X \to Y\) 一致连续.
+
+    \begin{proof}
+        对每个点 \(x\) 均有 \(\delta_x\) 使得 \(\forall w \in B_{\delta_x} (x) (d_Y (f(w),f(x)) < \varepsilon/2)\),
+        寻求 \(B_{\delta_x/2} (x)\) 的有限子覆盖 \(B_{\delta_{x_i}/2} (x_i)\), 令 \(\delta = \min \delta_{x_i}/2\),
+        则对于任意 \(d (x,y) < \delta\), 则有 \(d (x_i,x) < \delta_{x_i}/2\), 从而 \(x,y \in B_{\delta_{x_i}} (x_i)\),
+        故 \(d (f(x),f(y)) < d(f(x_i),f(x)) + d(f(x_i),f(y)) < \varepsilon\).
+    \end{proof}
+\end{lemma}
+
+\begin{definition}[Bernstein 多项式]
+    \setlabel {Bernstein 多项式}
+    \label {definition:Bernstein polynomials}
+    对 \([0,1]\)  上连续函数 \(f\), 定义 \(f\) 的 Bernstein 多项式 
+    
+    \[
+        B_n (f) (x) = \sum_{j = 0}^{n} f (\frac{j}{n}) (\binom{n}{j} x^j {(1-x)}^{n-j})
+    \]
+\end{definition}
+
+\begin{remark}
+    对一个像是 \(\mathbb{R}\) 的连续函数, 记 \(\left\| f \right\|_{\infty}\) 为 \(\sup \abs {f}\).
+\end{remark}
+
+\begin{theorem}[Bernstein 近似定理]
+    \setlabel {Bernstein 近似定理}
+    \label {theorem:Bernstein approximation theorem}
+    取 \(\varepsilon > 0\), 则 Bernstein 多项式满足不等式:
+
+    \[
+        \left\| f - B_n(f) \right\|_\infty \leq \frac{\left\| f \right\|_\infty}{2 n \varepsilon^2} + \sup_{\left|x-y\right| \leq \varepsilon} \abs {f(x) - f(y)}
+    \]
+
+    \begin{proof}
+        有下列等式和不等式
+
+        \[
+            \begin{aligned}
+                \sum_{j = 0}^n j \binom{n}{j} x^j {(1-x)}^{n-j} &= \left. x \frac{\dd}{\dd a} \sum_{j = 0}^n \binom{n}{j} {(x+a)}^j {(1-x)}^{n-j} \right|_{a=0} \\
+                &= \left. x \frac{\dd}{\dd a} {(1+a)}^n \right|_{a = 0} = nx \\
+                \sum_{j = 0}^n j(j-1) \binom{n}{j} x^j {(1-x)}^{n-j} &= \left. x^2 {\frac{\dd}{\dd a}}^2 \sum_{j = 0}^n \binom{n}{j} {(x+a)}^j {(1-x)}^{n-j} \right|_{a=0} \\
+                &= \left. x^2 {\frac{\dd}{\dd a}}^2 {(1+a)}^n \right|_{a = 0} = n(n-1)x^2 \\
+                \sum_{j = 0}^n {(x - \frac{j}{n})}^2 \binom{n}{j} x^j {(1-x)}^{n-j} 
+                &= x^2 - \frac{2nx}{n} + \frac{n(n-1)x^2 + nx}{n^2} = \frac{x(1-x)}{n} \\
+                &\leq \frac{1}{4n} \\ 
+            \end{aligned}
+        \]
+
+        上述不等式给出 
+        \[
+            \sum_{\abs{x - \frac{j}{n}} > \varepsilon} \binom{n}{j} x^j {(1-x)}^{n-j} \leq \varepsilon^{-2} \sum_{j = 0}^n {(x - \frac{j}{n})}^2 \binom{n}{j} x^j {(1-x)}^{n-j} \leq \frac{1}{4n\varepsilon^2}
+        \]
+
+        于是可以对 \(\abs{x - \frac{j}{n}}\) 与 \(\varepsilon\) 关系进行放缩:
+
+        \[
+            \begin{aligned}
+                \abs{f(x) - B_n(f)(x)} &= \abs {\sum_{j = 0}^{n} (f(x) - f(\frac{j}{n})) \binom{n}{j} x^j {(1-x)}^{n-j}} \\
+                &\leq \sum_{j = 0}^{n} \abs {(f(x) - f(\frac{j}{n})) \binom{n}{j} x^j {(1-x)}^{n-j}} \\
+                &= (\sum_{\abs{x - \frac{j}{n}} \leq \varepsilon} + \sum_{\abs{x - \frac{j}{n}} > \varepsilon}) \abs {(f(x) - f(\frac{j}{n})) \binom{n}{j} x^j {(1-x)}^{n-j}} \\
+                &\leq \sup_{\abs{x-y} \leq \varepsilon} \abs{f(x) - f(y)} + 2 \left\|f\right\|_\infty \frac{1}{4n\varepsilon^2} \\
+            \end{aligned}
+        \]
+
+        于是原不等式成立
+
+        \[
+            \left\| f - B_n(f) \right\|_\infty \leq \frac{\left\| f \right\|_\infty}{2 n \varepsilon^2} + \sup_{\left|x-y\right| \leq \varepsilon} \abs {f(x) - f(y)}
+        \]
+    \end{proof}
+\end{theorem}
+
+\begin{theorem}[Weierstrass 第一定理]
+    \label{theorem:weierstrass' first theorem}
+    全体多项式在 \(C([a,b])\) 上稠密, 也即对于任意连续 \(f : [a,b] \to \mathbb{R}\), 存在多项式序列 \(\{p_n\}\) 一致收敛于 \(f\).
+
+    \begin{proof}
+        \([a,b]\) 可线性变换至 \([0,1]\), 且保持其上多项式.
+
+        取 \ref{definition:Bernstein polynomials}, 依 \ref{theorem:Bernstein approximation theorem} 两边取极限给出仅含 \(\varepsilon\) 的不等式 \({\lim \sup}_{n \to \infty} \left\| f - B_n(f) \right\| \leq \sup_{\left| x-y \right| \leq \varepsilon} \left|f(x) - f(y)\right|\),
+        依赖 \ref{lemma:Dirichlet-Heine lemma} 知 \(f\) 一致连续, 也即 \(B_n(f) \to f\).
+    \end{proof}
+\end{theorem}
+
+\begin{theorem}[Weierstrass 第二定理]
+    \label {theorem:weierstrass' second theorem another}
+    全体 \(\exp {\pm i \theta}\) 构成的多项式在赋予一致度量下的 \(\mathrm{Hom}_{\mathbf{Top}} ([0,2\pi]/\{0,2\pi\},\mathbb{C})\) 上稠密, 其中 \(\mathbb{C}\) 上的度量取为 \(\abs {x - y}\).
+
+    \begin{proof}
+        见分析基础, Hilbert 空间.
+    \end{proof}
+\end{theorem}
+
+\begin{theorem}[J.Pál]
+    对于 \([0,1]\) 上的连续函数, 上述结果可以优化, \(f\) 可以用整系数多项式逼近当且仅当 \(f(0),f(1) \in \mathbb{Z}\).
+    \begin{proof}
+        仍然仿照上述证明, 系数改为为取整, 需估算余项大小
+
+        \[
+            B_n^\prime (f) (x) = \sum_{j = 0}^{n} \left[{f (\frac{j}{n}) \binom{n}{j}}\right] x^j {(1-x)}^{n-j}
+        \]
+
+        \[
+            (\delta B_n) (f) (x) = \sum_{j = 0}^{n} \left\{{f (\frac{j}{n}) \binom{n}{j}}\right\} x^j {(1-x)}^{n-j}
+        \]
+
+        记其系数如下, 易见不等式:
+
+        \[
+            \delta b (f)_{n,j} := {f (\frac{j}{n}) \binom{n}{j}}
+        \]
+
+        \[
+            \delta b(f)_{n,j} < 1 \leq \begin{cases}
+                \frac{1}{n} \binom{n}{j} & j=1,n-1 \\
+                \frac{4}{n^2} \binom{n}{j} & 0 < j < n-2
+            \end{cases}
+        \]
+
+        假使 \(f(0),f(1) \in \mathbb{Z}\), 易知 \(\delta b (f)_{n,0} = \delta b (f)_{n,n} = 0\),
+        于是 \(\delta B_n (f) < \frac{6}{n}\) 故一致收敛.
+    \end{proof}
+\end{theorem}
+
+\begin{theorem}[Weierstrass 近似定理]
+    \setlabel {Weierstrass 近似定理}
+    \label {theorem:Weierstrass's approximation theorem}
+    \(\mathbb{R}^{\nu}\) 中紧集上的 \(\mathbb{R}\) 值函数可以用多项式逼近.
+
+    \begin{proof}
+        依旧可以压缩平移到 \({[0,1]}^\nu\) 紧子集, 然后依赖 \ref{theorem:tietze's extension} 给出 \({[0,1]}^\nu\) 上连续函数, 仿照 \ref{definition:Bernstein polynomials} 定义:
+
+        \[
+            (B_{n,\nu} f) (x) = \sum_{j_1,\cdots,j_\nu = 0}^{n} f(\frac{j_1}{n},\frac{j_2}{n},\cdots,\frac{j_\nu}{n}) \prod_{k=1}^{\nu} \binom{n}{j_k} {x_k}^{j_k} {(1-x_k)}^{n - j_k}
+        \]
+
+        寻相似的方法, 赋予 \(\abs{x} = \sqrt{\sum_{i=1}^{\nu} {x_i}^2}\) 度量, 仍然有:
+
+        \[
+            \left\| B_{n,\nu} (f) - f \right\|_\infty \leq \frac{\nu \left\|f\right\|_\infty}{2n\varepsilon^2} + \sup_{\abs{x-y} \leq \varepsilon} \abs{f(x) - f(y)}
+        \]
+    \end{proof}
+\end{theorem}
+
+\begin{definition}[Korovkin 集]
+    对于 \ref{definition:compact topological space} \ref{definition:T2 topological space} 空间 \(X\), 称其上有限个 \(\mathbb{R}\) 值连续函数构成的集合 \(\{f_1,f_2,\cdots,f_m\}\) 是 Korovkin 集,
+    若存在 \(\mathbb{R}\) 值连续函数 \(a_i (t)\), 使得 \(P(x,t) = \sum_{j=1}^{m} a_j(t) f_j(x)\), 满足 \((P(x,t) \geq 0) \land (P(x,t) = 0 \iff x = t)\).
+\end{definition}
+
+\begin{example}
+    \(\{1,x,x^2\}\) 是 \([0,1]\) 上的 Korovkin 集, 只需注意到 \((x-t)^2 = 0\) 即可.
+\end{example}
+
+\begin{definition}[保正]
+    \setlabel {保正}
+    \label {definition:positivity-preserving operator}
+    一个线性算子 \(B\) 称为保正的, 若对于任意一个处处非负非负的 \(f\), \(B(f)\) 依然处处非负.
+\end{definition}
+
+\begin{theorem}[Korovkin]
+    \setlabel {Korovkin 定理}
+    \label {theorem:Korovkin's theorem}
+    对于一个有 Korovkin 集 \(\{f_i\}\) 的 \ref{definition:compact topological space} \ref{definition:T2 topological space} 空间 \(X\), 
+    给出 \(\mathrm{Hom}_{\mathbf{Top}} (X,\mathbb{R})\) 一列保正的线性算子 \(\{T_n\}_{n \in \mathbb{N}}\), 如果对每个 \(\{f_i\}\),
+    均有 \(\lim_n \left\| T_n f_i - f_i \right\|_\infty = 0\), 则对于任意 \(f\), 均有 \(\lim_n \left\| T_n f - f \right\|_\infty = 0\)
+\end{theorem}
+
+\subsubsection{Stone-Weierstrass 定理}
+
+\begin{definition}[分离点]
+    一个 \(S \subseteq \mathrm{Hom}_{\mathbf{Top}} (X,\mathbb{R})\), 其分离 \(X\) 上的点,
+    使得 \(\forall x,y \in X (x \neq y \implies (\exists f \in S (f(x) \neq f(y))))\), 
+    其称为强分离如果 \(\forall x,y \in X (x \neq y \implies (\mathbb{R}^2 = \{(f(x),f(y)) : f \in S\}))\).
+\end{definition}
+
+\begin{remark}
+    我们记 \(f,g\) 的上界和下界为 \((f \vee g) (x) = \max (f(x),g(x)),(f \wedge g) (x) = \min (f(x),g(x))\).
+\end{remark}
+
+\begin{definition}
+    一个格是容许上下界的 \(\mathrm{Hom}_{\mathbf{Top}} (X,\mathbb{R})\) 子空间.
+
+    一个线性格是容许上下界的 \(\mathrm{Hom}_{\mathbf{Top}} (X,\mathbb{R})\) 线性子空间.
+\end{definition}
+
+\begin{theorem}[Kakutani-Krein]
+    给出 \ref{definition:compact topological space} \ref{definition:T2 topological space} 空间 \(X\) 以及 \(L \subseteq \mathrm{Hom}_{\mathbf{Top}} (X,\mathbb{R})\),
+    满足 \(L\) 是一个向量格且 \(L\) 强分离 \(X\) 上的点, 则一致度量下 \(L\) 的闭包是 \(\mathrm{Hom}_{\mathbf{Top}} (X,\mathbb{R})\).
+
+    \begin{proof}
+        任给 \(f \in \mathrm{Hom}_{\mathbf{Top}} (X,\mathbb{R})\), 对每队 \(x,y \in X\), 均可构造 \(h_{x,y} \in L\) 使得
+        \(h_{x,y} (x) = f(x),h_{x,y} (y) = f(y)\), 定义开集 \(U_{x,y} := \{z : f(z) - h_{x,y} (z) < \varepsilon\}\), 固定 \(x\), \(\{U_{x,y} : y \in X \setminus \{x\}\}\) 有有限子覆盖
+        \(U_{x,y_i}\), 在此覆盖上取最大值, 得到 \(g_x (z) := \max_i h_{x,y_i} (z)\), 于是 \(\forall z \in X (g_x(z) > f(z) - \varepsilon)\),
+        对称的, 对每个 \(x\) 定义开集 \(V_x := \{z : f(z) - g_x (z) > -\varepsilon\}\), 其有有限子覆盖 \(V_{x_i}\), 取 \(l(z) := \min_i g_{x_i} (z)\),
+        满足 \(\forall x \in X (f(x) - \varepsilon < l(x) < f(x) + \varepsilon)\).
+    \end{proof}
+\end{theorem}
+
+\begin{theorem}[Stone-Weierstrass]
+    给出 \ref{definition:compact topological space}, \ref{definition:T2 topological space} \(X\), 令 \(S \subseteq \mathrm{Hom}_{\mathbf{Top}} (X,\mathbb{R})\),
+    如果 \(S\) 在加法乘法数乘下封闭, 且 \(S\) 分离点, 且 \(1 \in S\), 则一致度量下 \(S\) 的闭包是 \(\mathrm{Hom}_{\mathbf{Top}} (X,\mathbb{R})\).
+
+    \begin{proof}
+        蕴涵关于一个函数 \(f\) 的多项式, 于是可以一致逼近 \(\abs{f}\), 从而 \(\overline{S}\) 是向量格,
+        依赖 \(1 \in S\) 与分离 \(X\) 中的点, 知道 \(\overline{S}\) 强分离 \(X\) 中的点,
+        故 \(\overline{S} = \overline{\overline{S}} = \mathrm{Hom}_{\mathbf{Top}} (X,\mathbb{R})\).
+    \end{proof}
+\end{theorem}
+
+\subsection{Baire 纲, 拓扑维数}
+
+\subsubsection{Baire 纲}
+
+\begin{definition}[Baire 空间]
+    \setlabel {Baire}
+    \label {definition:Baire space}
+    一个拓扑空间称 Baire 空间 (Baire space) 当且仅当可数个有空内部的闭集的并仍有空内部.
+\end{definition}
+
+\begin{corollary}
+    一个拓扑空间 \(X\) 是 \ref{definition:Baire space} 空间当且仅当可数个稠密的开集的交的闭包仍稠密.
+\end{corollary}
+
+\begin{theorem}[Baire 纲]
+    \ref{definition:compact topological space} \ref{definition:T2 topological space} 空间与
+    \ref{definition:complete metric space} 度量空间均为 \ref{definition:Baire space} 空间.
+
+    \begin{proof}
+        当空间 \ref{definition:compact topological space} \ref{definition:T2 topological space} 时, 任取开集 \(U_0\), 给出可数个闭 \(F_n\) 有空内部, 归纳定义非空开集 \(U_{n+1} = U_n \setminus F_n\),
+        得到区间套 \(\{F_n\}\), 定义滤子 \(\mathcal{F} = \{F \subseteq X : \exists n (F_n \subseteq F)\}\),
+        依赖 \ref{definition:compact topological space} \ref{definition:T2 topological space}, 其被加细为超滤后有极限 \(x\),
+        依赖 \ref{definition:T2 topological space} (\ref{definition:T4 topological space}) 知 \(x \in \bigcap F_n\), 依赖 \(U_0\) 任意性知 \(\bigcap F_n\) 有空内部.
+
+        当空间 \ref{definition:complete metric space} 且有度量时, 非空开集均包含某个开球, 寻上述思路构造开球套 \(\{U_n = B_{r_n} (x_n)\}\), 满足 \(r_n < 1/n\),
+        考察数列 \(\{x_n\}\), 依赖完备性知其有极限 \(x\), 而 \(x \in \bigcap U_n\), 依赖 \(U_0\) 任意性知 \(\bigcap F_n\) 有空内部.
+    \end{proof}
+\end{theorem}
+
+\begin{theorem}
+    \ref{definition:locally compact topological space} \ref{definition:T2 topological space} 空间及其 \(G_\delta\) 均为 \ref{definition:Baire space} 空间.
+
+    \begin{proof}
+        仿照上述证明, 此处略.
+    \end{proof}
+\end{theorem}
+
+\begin{lemma}
+    \ref{definition:Baire space} 空间的开子空间仍为 \ref{definition:Baire space} 空间.
+
+    \begin{proof}
+        需证明一个在子空间 \(Y\) 中有空内部的闭集 \(F\), 其闭包 \(\overline{F}\) 在全空间 \(X\) 中有空内部,
+        只需注意到, 若某一点有开集 \(Y \subseteq \overline{F}\), 则有 \(Y \cap U \subseteq F\).
+    \end{proof}
+\end{lemma}
+
+\begin{example}
+    对于连续函数 \(f : \mathbb{R}_{>0} \to \mathbb{R}\), 若对于任意 \(\delta \in \mathbb{R}_{> 0}\), 有 
+    \(\lim_{m} f (m \delta) = 0\), 则 \(\lim_{x \to +\infty} f (x) = 0\).
+
+    其中 \(\lim_{x \to +\infty} f (x) = 0\) 表示滤子 \(\mathcal{F} = \{A : \exists x (f((x,+\infty)) \subseteq A)\}\) 有极限 \(0\).
+
+    \begin{proof}
+        若否, 则存在 \(\varepsilon > 0\) 使得对任意 \(N \in \mathbb{R}_{>0}\), 存在 \(x > N\) 使得 \(\abs{f(x)} > \varepsilon\),
+        考察 \([1,2]\) 作为 \ref{definition:Baire space} 空间, 包含开集族 \(U_N := \{r \in [1,2] : \exists m > N (f(m r) > \varepsilon)\}\),
+        稠密源于对任意开集 \((a,b)\), 有 \(N \ge \frac{1}{a - b}\), 于是 \((N a, \infty) \subseteq \bigcup_{n \in \mathbb{Z}_{> 0}} (n a, n b)\),
+        其并仍稠密故非空, 于是存在 \(x \in \bigcap_{N \in \mathbb{N}} U_N\), 使得 \(f(m x) > \varepsilon\), 矛盾.
+    \end{proof}
+\end{example}
+
+\subsubsection{拓扑维度}
+
+\begin{definition}[阶数]
+    一个 \(X\) 上的集合有阶数 \(m\) 若其每个点最多被 \(m\) 个集合包含.
+\end{definition}
+
+\begin{definition}[拓扑维度]
+    \setlabel {拓扑维度}
+    \label {definition:dimension of topological space}
+    一个拓扑空间 \(X\) 的拓扑维度 (topological dimension) 为 \(\underline{\dim} X\) 当且仅当任意 \(X\) 开覆盖 \(\mathcal{A}\) 都有 \(\underline{\dim} X+1\) 阶数的加细 \(\mathcal{B}\) 
+    使得 \(\mathcal{B}\) 也为开覆盖, 且 \(\underline{\dim} X\) 极小.
+
+    若一个空间存在拓扑维数, 则称其为有限维空间 (finite-dimensional space).
+\end{definition}
+
+\begin{lemma}
+    给出 \(\underline{\dim} X = n\), 则任意 \(X\) 的闭子空间 \(\underline{\dim} Y \leq n\).
+
+    \begin{proof}
+        考察含 \(X \setminus Y\) 的 \(X\) 开覆盖即可.
+    \end{proof}
+\end{lemma}
+
+\begin{lemma}
+    如果闭集 \(Y,Z\) 满足 \(X = Y \cup Z\), 则有 \(\underline{\dim} X = \max \{\underline{\dim} Y, \underline{\dim} Z\}\).
+
+    \begin{proof}
+        对于开覆盖 \(\mathcal{A}\), 给出加细 \(\mathcal{B}\) 作为 \(X\) 的开覆盖, 使得其在 \(Y\) 上有 \(\underline{\dim} Y+1\) 阶,
+        再给出 \(\mathcal{B}\) 的加细 \(\mathcal{C}\) 作为 \(X\) 的开覆盖, 使得其在 \(Z\) 上有 \(\underline{\dim} Z+1\) 阶, 有典范的 \(f : \mathcal{C} \to \mathcal{B}\),
+        使得 \(C \subseteq f(C)\), 将 \(f(C)\) 相同的元素合并, 得到 \(\mathcal{D}\) 作为 \(X\) 的开覆盖, \(\mathcal{D}\) 即为 \(X\) 上阶数为 \(\max \{\underline{\dim} Y, \underline{\dim} Z\}\) 的加细.
+    \end{proof}
+\end{lemma}
+
+以下内容证明略去, 留于流形的理论之中.
+
+\begin{example}
+    \(\mathbb{R}^n\) 上的方格覆盖, 考察将 \(\mathbb{R}^n\) 分拆为不带边界的 \({(0,1)}^n\),
+    不带边界但是有一定厚度的 \({(0,1)}^{n-1} \times (-\varepsilon,\varepsilon)\) 等, 
+    其开覆盖加细总是 \(n+1\) 阶的.
+\end{example}
+
+\begin{lemma}
+    \(\mathbb{R}^n\) 的紧子空间维数小于等于 \(n\).
+\end{lemma}
+
+\begin{theorem}[嵌入定理]
+    任何维度有限 \ref{definition:compact topological space} 可度量化的空间 \(X\) 都可以嵌入到 \(\mathbb{R}^{2 \underline{\dim} X + 1}\) 中.
+\end{theorem}
+
+\subsection{代数几何扩充 (Unfinished)}
+
+\subsubsection{不可约}
 
 \begin{definition}[分离]
     \setlabel {分离}
@@ -1351,7 +1966,7 @@
 \end{lemma}
 
 \begin{corollary}
-    \ref{definition:T2 topological space} 等价于 \(\Delta (X) := \mathrm{id}_X \times \mathrm{id}_X : X \to X \times X\) 为 \ref{definition:closed map} 映射.
+    \ref{definition:T2 topological space} 等价于 \(\Delta (X) := \mathrm{id}_X \times_{\{\bullet\}} \mathrm{id}_X : X \to X \times X\) 为 \ref{definition:closed map} 映射.
 \end{corollary}
 
 \begin{definition}[不可约]
@@ -1468,7 +2083,7 @@
 \begin{definition}[Krull 维度]
     \setlabel {Krull 维度}
     \label {definition:Krull dimension}
-    对拓扑空间 \(X\), 定义其 Krull 维度为使得下由 \ref{definition:irreducible topological space} 闭集链 \(Z_i\) 存在的最大 \(\mathrm{dim} (X) := n \in \mathbb{Z}_{\geq 0} \cup \{\infty, - \infty\}\).
+    对拓扑空间 \(X\), 定义其 Krull 维度为使得下由 \ref{definition:irreducible topological space} 闭集链 \(Z_i\) 存在的最大 \(\dim (X) := n \in \mathbb{Z}_{\geq 0} \cup \{\infty, - \infty\}\), 可见 \ref{definition:length of a module lattice}.
 
     \[
         Z_0 \subsetneq Z_1 \subsetneq \cdots \subsetneq Z_n \subseteq X
@@ -1477,11 +2092,11 @@
 
 \begin{definition}
     一个点 \(x\) 的 Krull 维度为包含该点的开集的 \ref{definition:Krull dimension} 的极小值,
-    记作 \(\mathrm{dim}_X (x)\).
+    记作 \(\dim_X (x)\).
 \end{definition}
 
 \begin{example}
-    \(\mathrm{dim} (\mathbb{R}^n) = 0\).
+    \(\dim (\mathbb{R}^n) = 0\).
 \end{example}
 
 \begin{example}
@@ -1544,4 +2159,65 @@
     \begin{proof}
         相邻两项 \(\mathrm{codim}\) 为 \(1\).
     \end{proof}
+\end{lemma}
+
+\subsubsection{可构造性}
+
+\begin{definition}[保紧]
+    \setlabel {保紧}
+    \label {definition:compact function}
+    一个连续函数 \(f : X \to Y\) 称保紧 (compact) 当且仅当对于任意紧集 \(K \subseteq Y\), \(f^{-1} (K)\) 紧.
+\end{definition}
+
+\begin{definition}[退紧]
+    \setlabel {退紧}
+    \label {definition:retrocompact}
+    一个子集 \(A \subseteq X\) 称退紧 (retrocompact) 当且仅当嵌入 \(A \to X\) \ref{definition:compact function}.
+\end{definition}
+
+\begin{definition}[可构造]
+    \setlabel {可构造}
+    \label {definition:constructible topology space}
+    一个子集 \(A \subseteq X\) 称可构造 (constructible) 当且仅当 \(A = \bigcup U_\alpha \cap (X \setminus V_\alpha)\),
+    其中 \(U_\alpha,V_\alpha\) 为开, \ref{definition:retrocompact} 子集.
+\end{definition}
+
+\begin{definition}[局部可构造]
+    \setlabel {局部可构造}
+    \label {definition:locally constructible}
+    子集 \(A \subseteq X\) 称局部可构造 (locally constructible) 当且仅当存在 \(X\) 的开覆盖 \(\{U_\alpha\}\),
+    使得 \(A \cap U_\alpha\) 可构造.
+\end{definition}
+
+\subsubsection{Jacobson 空间}
+
+\begin{definition}[Jacobson 空间]
+    \setlabel {Jacobson}
+    \label {definition:Jacobson space}
+    若空间 \(X\) 有闭点集合 \(X_0\), 若任意闭集 \(Z \subseteq X\), 都有 \(Z = \overline{Z \cap X_0}\), 则称 \(X\) 为 Jacobson 空间 (Jacobson space).
+\end{definition}
+
+\begin{lemma}
+    如果对一点 \(x\) 有 \(X_0 \cap \overline{\{x\}}\) 闭, 则 \(X\) 为 \ref{definition:Jacobson space}.
+\end{lemma}
+
+\begin{lemma}
+    \(X\) 有开覆盖 \(\bigcup U_\alpha\), 则 \(X\) 为 \ref{definition:Jacobson space} 当且仅当每个 \(U_\alpha\) 为 \ref{definition:Jacobson space}.
+
+    另外的 \(X_0 = \bigcup U_{\alpha,0}\).
+\end{lemma}
+
+\begin{lemma}
+    \ref{definition:Jacobson space} 空间的开子空间仍为 \ref{definition:Jacobson space},
+    闭子空间仍为 \ref{definition:Jacobson space}, \ref{definition:constructible topology space} 子集仍为 \ref{definition:Jacobson space}.
+\end{lemma}
+
+\ref{definition:Jacobson space} 空间 \(X\) 的性质完全被 \(X_0\) 决定.
+
+\begin{lemma}
+    \ref{definition:Jacobson space} 空间 \(X\) 的闭子空间 \(Y\) 与 \(X_0\) 的闭子空间 \(X_0 \cap Y\) 一一对应.
+\end{lemma}
+
+\begin{lemma}
+    \ref{definition:Jacobson space} 空间 \(X\) 的 \ref{definition:constructible topology space} 子集 \(A\) 与 \(X_0\) 的 \ref{definition:constructible topology space} 子集 \(A \cap X_0\) 一一对应.
 \end{lemma}
